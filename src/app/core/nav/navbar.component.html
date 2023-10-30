@@ -1,0 +1,25 @@
+<div class="bg-blue-500 text-white p-5">
+    <!-- Logo and profile section -->
+    <div class="flex justify-between items-center">
+        <div class="text-3xl font-semibold">StudAdvice</div>
+        <div class="flex items-center">
+            <button class="relative" mat-button [matMenuTriggerFor]="menu">
+                <div class="absolute top-0 right-0 bg-white text-red-800 rounded-full w-5 h-5 flex items-center justify-center">47</div>
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path fill="#fff" d="M12 14l9-5-9-5-9 5 9 5z" />
+                    <path fill="#fff" d="M12 14l9-5-9-5-9 5 9 5z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z" />
+                </svg>
+            </button>
+            <div class="ml-5">
+                <p>Admin</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navbar links -->
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item>Administration portail &darr;</button>
+        <button mat-menu-item class="ml-5">Utilisateurs</button>
+    </mat-menu>
+</div>
