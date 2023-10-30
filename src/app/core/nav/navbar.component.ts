@@ -6,5 +6,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
-
+  menus = [
+    {
+      title: 'Administration portail pro',
+      subitems: ['Sous-menu 1', 'Sous-menu 2']
+    },
+    {
+      title: 'Organisation physique',
+      subitems: []
+    },
+  ];
 }
