@@ -1,0 +1,135 @@
+.studadvice .btn {
+    -webkit-transition: color 300ms;
+    -moz-transform-origin: color 300ms;
+    transition: color 300ms;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    min-height: 36px;
+    padding: 0 1.25rem;
+    border-radius: 18px;
+    border: none;
+    height: fit-content;
+    cursor: pointer;
+}
+
+.studadvice .btn > span {
+    font-size: 16px;
+}
+
+.studadvice .btn > span::before {
+    font-size: 33px;
+}
+
+.studadvice .btn:hover {
+    border: none;
+}
+
+.studadvice .btn.btn-success,
+.studadvice .btn.btn-primary {
+    -webkit-transition: background-color 300ms;
+    -moz-transform-origin: background-color 300ms;
+    transition: background-color 300ms;
+    border: 1px solid;
+}
+
+.studadvice .btn.btn-success:focus,
+.studadvice .btn.btn-primary:focus,
+.studadvice .btn.btn-success:hover,
+.studadvice .btn.btn-primary:hover {
+    border: 1px solid;
+    border-radius: 18px;
+}
+
+.studadvice .btn.btn-cancel,
+.studadvice .btn.btn-secondary {
+    -webkit-transition: color 300ms;
+    -moz-transform-origin: color 300ms;
+    transition: color 300ms;
+    border: 1px solid;
+}
+
+.studadvice .btn.btn-cancel:hover,
+.studadvice .btn.btn-secondary:hover {
+    border: 1px solid;
+}
+
+.studadvice .btn:focus,
+.studadvice .btn:active:focus,
+.studadvice .btn.active:focus {
+    outline: none;
+}
+
+.studadvice .btn:active {
+    box-shadow: none;
+}
+
+.studadvice {
+    background-color: #ffffff;
+    --main-font: "DDIN";
+    --secondary-font: "DDIN";
+    /** Colors */
+    --main-color: #000000;
+    --secondary-color: #00ae9f;
+    --tertiary-color: #49aad6;
+    --main-color-hover: #333333;
+    --secondary-color-hover: #66cec5;
+    --rub-active-color: #fafafa;
+    --rub-color: #ffffff;
+    --warning-color: #ff9768;
+    --success-color: #c6ca2e;
+    --shadow-color: #eef1f2;
+    --white: #ffffff;
+    --black: #000000;
+    --yellow: #f7b900;
+    --light-blue: #14aff0;
+    --blue: #5fa2db;
+    --red: #e6372d;
+    --grey-lighten-1: #f2f3f5;
+    --grey-lighten-2: #e9ebef;
+    --grey-lighten-3: #d4d6df;
+    --grey-darken-1: #9ea4b7;
+    --grey-darken-2: #444243;
+}
+
+.studadvice .btn {
+    font-family: "DDIN", sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 1.2;
+    color: #00ae9f;
+}
+
+.studadvice .btn:hover {
+    background-color: #ffffff;
+    color: #66cec5;
+}
+
+.studadvice .btn.btn-success,
+.studadvice .btn.btn-primary {
+    background-color: #00ae9f;
+    border-color: #00ae9f;
+    color: #ffffff;
+}
+
+.studadvice .btn.btn-success:focus,
+.studadvice .btn.btn-primary:focus,
+.studadvice .btn.btn-success:hover,
+.studadvice .btn.btn-primary:hover {
+    border-color: #66cec5;
+    background-color: #66cec5;
+}
+
+.studadvice .btn.btn-cancel,
+.studadvice .btn.btn-secondary {
+    background-color: transparent;
+    border-color: transparent;
+    color: #00ae9f;
+}
+
+.studadvice .btn.btn-cancel:hover,
+.studadvice .btn.btn-secondary:hover {
+    color: #66cec5;
+    border-color: transparent;
+}

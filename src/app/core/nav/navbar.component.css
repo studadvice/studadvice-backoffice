@@ -1,3 +1,8 @@
 nav {
-    background-color: #1a202c;
+    background-color: cornflowerblue;
+}
+
+.rotate-90 {
+    transform: rotate(90deg);
+    transition: transform 0.3s ease;
 }
