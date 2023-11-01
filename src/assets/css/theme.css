@@ -91,6 +91,31 @@
     --grey-lighten-3: #d4d6df;
     --grey-darken-1: #9ea4b7;
     --grey-darken-2: #444243;
+    --input-background-color: #f3f3f3;
+    --c-primary: #1359a4;
+    --c-primary-dark: #0c2556;
+    --c-primary-light: #b7c1cd;
+    --c-secondary: #5896d9;
+    --c-secondary-dark: #1e5898;
+    --c-important: #b93349;
+    --c-important-dark: #a12d40;
+    --c-protected: #d87A58;
+    --c-protected-dark: #8d3c0d;
+    --c-reset: #242d3c;
+    --c-reset-dark: #161b25;
+    --c-disabled: #afafaf;
+    --c-disabled-dark: #888888;
+    --c-warning: #fe742b;
+    --c-success: #00c6ad;
+    --c-text: #404040;
+    --c-info: #000091;
+
+    --p-button: .875rem;
+    --p-input-label: 0.9rem;
+    --p-input-value: 0.9rem;
+    --p-champlecture-label: .85em;
+    --p-champlecture-value: 0.813rem;
+    --p-text: 0.813rem;
 }
 
 .studadvice .btn {
@@ -132,4 +157,195 @@
 .studadvice .btn.btn-secondary:hover {
     color: #66cec5;
     border-color: transparent;
+}
+
+/* ****** INPUT COMPONENT ( AVEC GESTION DES ERREURS ) ******** */
+
+.inputComponent p {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    font-size: 0.85em;
+}
+
+.inputComponent span {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    display: block;
+    position: relative;
+}
+
+.inputComponent p.input-invalid > span, .inputComponent p.input-warning > span {
+    margin-bottom: 3em;
+}
+
+.inputComponent p > span:not(.unite):not(.clear)::before {
+    position: absolute;
+    display: block;
+    content: " ";
+    top: 4px;
+    left: 0.3rem;
+    width: 3px;
+    height: calc(100% - 7px);
+    background-color: var(--c-secondary);
+    z-index: 2;
+}
+
+.inputComponent label {
+    width: 100%;
+}
+
+.inputComponent label span:not(.warning):not(.error):not(.help) {
+    display: inline-block;
+    width: auto;
+}
+
+.inputComponent span.unite {
+    -webkit-box-flex: initial;
+    -ms-flex: initial;
+    flex: initial;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.inputComponent input[type="text"], .inputComponent input[type="number"], .inputComponent input[type="file"], .inputComponent input[type="password"] {
+    width: 100%;
+    background-color: #f3f3f3;
+    border: 1px solid #e3e3e3;
+    padding: 0.5rem;
+    color: #686868;
+    border-radius: 2px;
+    position: relative;
+    padding-left: 10px;
+}
+
+.inputComponent input[type="text"]:focus, .inputComponent input[type="number"]:focus, .inputComponent input[type="file"]:focus {
+    border: 1px solid var(--c-secondary);
+    outline: none;
+}
+
+.inputComponent p button {
+    border: 1px solid #e3e3e3;
+    border-radius: 3px;
+    width: 2.2em;
+    height: 2.2em;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+}
+
+.inputComponent p .noBorder button {
+    border: none;
+}
+
+.inputComponent span p {
+    display: none;
+}
+
+/* DISABLED */
+
+.inputComponent p.input-disabled > span::before {
+    background-color: var(--c-disabled-dark);
+}
+
+.inputComponent .input-disabled input {
+    background-color: var(--c-disabled);
+}
+
+/* SELECTED COMPONENTS */
+.selectComponent span:not(.required) {
+    display: block;
+    position: relative;
+}
+
+.selectComponent p > span::before, .selectComponent > p > span:not(.required)::before {
+    position: absolute;
+    display: block;
+    content: "";
+    top: 4px;
+    left: 0.3rem;
+    width: 3px;
+    height: calc(100% - 7px);
+    background-color: #5796d9;
+    z-index: 2;
+}
+
+.selectComponent select {
+    width: 100%;
+    padding-left: .75em;
+    background-position: calc(100% - 10px), calc(100%);
+    background-repeat: no-repeat;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 2.3rem;
+}
+
+.selectComponent select option {
+    width: 100%;
+}
+
+.selectComponent select:focus {
+    background-position: calc(100% - 10px), calc(100%);
+    background-repeat: no-repeat;
+    outline: 0;
+}
+
+.selectComponent > p > span {
+    position: relative;
+    /*overflow: hidden;*/
+}
+
+.selectComponent span.pointer {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 2em;
+    border-right: 1px solid #e3e3e3;
+}
+
+.selectComponent span.pointer:before {
+    width: 0;
+    height: 0;
+    content: " ";
+    position: absolute;
+    right: 10px;
+    top: 14px;
+    left: auto;
+    background-color: transparent;
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+}
+
+.selectComponent select:focus ~ span.pointer {
+    border-right: 1px solid #5896d9;
+}
+
+.selectComponent select:focus ~ span.pointer:before {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+}
+
+/* Disabled */
+.selectComponent .input-disabled > span:before {
+    background-color: #b9b9b9;
+}
+
+.selectComponent .input-disabled select {
+    background-color: #e3e3e3;
 }

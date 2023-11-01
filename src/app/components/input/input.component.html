@@ -1,0 +1,68 @@
+<p [ngClass]="{'input-disabled':isDisabled(),'input-invalid':showErrors(), 'input-warning':warning && displayWarning, 'no-txt-info': !aideSaisie && !showAideSaisieObligatoire}"
+   aria-live="polite">
+    <label [ngClass]="{'hidden': hideLabel}" for="{{idInput}}">
+        <ng-content select="app-input-label"></ng-content>
+        <span *ngIf="required" class="required">*</span>
+        <span *ngIf="showAideSaisieObligatoire" class="help requiredHelp">{{aideSaisieObligatoire}}</span>
+        <span *ngIf="aideSaisie" class="help">{{aideSaisie}}</span>
+    </label>
+    <span class="unite prefix">
+      <ng-content select="app-input-prefix-stick"></ng-content>
+    </span>
+    <span class="unite-over">
+        <span *ngIf="showErrors()" class="error"><ng-content select="app-input-error"></ng-content>
+            {{errorMessage}}</span>
+        <span *ngIf="warning && displayWarning" class="warning">{{warningMessage}}</span>
+        <input #inputElement (blur)="blur.emit($event)"
+               (focusout)="showTooltipError()"
+               (input)="applyTransformationAndSetCaretPosition(inputElement)"
+               (keydown)="keydown.emit($event)"
+               (keypress)="keypress.emit($event)"
+               *ngIf="!isTextarea()"
+               [attr.accept]="accept"
+               [attr.aria-invalid]="error ? 'true' : false"
+               [attr.aria-required]="required ? 'true' : false"
+               [attr.maxLength]="maxLength"
+               [attr.max]="max"
+               [attr.minLength]="minLength"
+               [attr.min]="min"
+               [attr.placeholder]="placeholder"
+               [attr.step]="step"
+               [formControl]="inputFormControl"
+               id="{{idInput}}"
+               mat-raised-button
+               matTooltip="{{textTooltip}}"
+               matTooltipClass="tooltipMaterialDivText"
+               matTooltipDisabled="{{!textTooltip}}"
+               matTooltipHideDelay="1000"
+               name="{{nameInput}}"
+               type="{{type}}"
+        >
+        <span *ngIf="clearable && isText() && inputFormControl.value" class="clear noBorder">
+          <button (click)="clearInput()"
+                  class="icon-clear"></button>
+        </span>
+        <textarea #textareaElement (focusout)="showTooltipError()"
+                  (input)="applyTransformationAndSetCaretPosition(textareaElement)"
+                  *ngIf="isTextarea()"
+                  [attr.aria-invalid]="error ? 'true' : false"
+                  [attr.aria-required]="required ? 'true' : false"
+                  [attr.maxLength]="maxLength"
+                  [attr.minLength]="minLength"
+                  [attr.placeholder]="placeholder"
+                  [formControl]="inputFormControl"
+                  id="{{idInput}}"
+                  mat-raised-button
+                  matTooltip="{{textTooltip}}"
+                  matTooltipClass="tooltipMaterialDivText"
+                  matTooltipDisabled="{{!textTooltip}}"
+                  matTooltipHideDelay="1000"
+                  name="{{nameInput}}"
+        >
+        </textarea>
+  </span>
+    <span class="unite">
+    <ng-content select="app-input-suffix-stick"></ng-content>
+    <ng-content select="app-input-suffix"></ng-content>
+  </span>
+</p>

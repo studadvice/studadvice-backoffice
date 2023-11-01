@@ -1,0 +1,72 @@
+<div [ngClass]="{
+     'input-disabled': isDisabled(),
+     'input-invalid': error && displayError,
+     'no-txt-info': !aideSaisie && !required,
+     }">
+    <label *ngIf="hasLabel" for="{{id}}">
+        <ng-content select="label"></ng-content>
+        <span *ngIf="required" class="required">*</span>
+        <span *ngIf="showAideSaisie" class="help requiredHelp">{{aideSaisie}}</span>
+    </label>
+    <span>
+        <ng-select (change)="onChange($event)"
+                   (focusout)="showTooltipError()" *ngIf="compareWith"
+                   [bindLabel]="bindLabel"
+                   [bindValue]="bindValue"
+                   [clearable]="clearable"
+                   [compareWith]="compareWith"
+                   [disabled]="isDisabled()"
+                   [formControl]="inputFormControl"
+                   [items]="options"
+                   [multiple]="multiple"
+                   [placeholder]="placeholder"
+                   [searchFn]="searchFn"
+                   appendTo="#ng-select-{{id}}"
+                   attr.aria-label="{{labelForAria}}"
+                   id="ng-select-{{id}}"
+                   labelForId="{{id}}"
+                   mat-raised-button
+                   matTooltip="{{textTooltip}}"
+                   matTooltipClass="tooltipMaterialDiv"
+                   matTooltipDisabled="{{!textTooltip}}"
+                   matTooltipHideDelay="1000"
+        >
+            <ng-template let-item="item" ng-label-tmp>
+                <span [ngClass]="{'option-missing': item.data?.valueMissing}">{{item.value}}</span>
+            </ng-template>
+            <ng-template let-item="item" let-search="searchTerm" ng-option-tmp>
+                <span [ngClass]="{'option-missing': item.data?.valueMissing}">{{item.value}}</span>
+            </ng-template>
+        </ng-select>
+        <ng-select (change)="onChange($event)"
+                   (focusout)="showTooltipError()"
+                   *ngIf="!compareWith"
+                   [bindLabel]="bindLabel"
+                   [bindValue]="bindValue"
+                   [clearable]="clearable"
+                   [formControl]="inputFormControl"
+                   [items]="options"
+                   [multiple]="multiple"
+                   [placeholder]="placeholder"
+                   [searchFn]="searchFn"
+                   appendTo="#ng-select-2-{{id}}"
+                   attr.aria-label="{{labelForAria}}"
+                   id="ng-select-2-{{id}}"
+                   labelForId="{{id}}"
+                   labelForId="{{id}}"
+                   mat-raised-button
+                   matTooltip="{{textTooltip}}"
+                   matTooltipClass="tooltipMaterialDiv"
+                   matTooltipDisabled="{{!textTooltip}}"
+                   matTooltipHideDelay="1000"
+        >
+            <ng-template let-item="item" ng-label-tmp>
+                <span [ngClass]="{'option-missing': item.data?.valueMissing}">{{item.value}}</span>
+            </ng-template>
+            <ng-template let-item="item" let-search="searchTerm" ng-option-tmp>
+                <span [ngClass]="{'option-missing': item.data?.valueMissing}">{{item.value}}</span>
+            </ng-template>
+        </ng-select>
+    </span>
+    <span *ngIf="isInvalid" class="error"><ng-content select="error"></ng-content></span>
+</div>

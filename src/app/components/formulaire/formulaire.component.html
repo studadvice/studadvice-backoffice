@@ -1,1 +1,56 @@
-<p>formulaire works!</p>
+<h2 class="text-2xl mb-5 font-bold">AJOUTER UNE DEMARCHE</h2>
+<form class="container studadvice">
+    <div class="item-form">
+        <app-input
+                [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
+                [clearable]="true"
+                [errorMessage]="'le titre est obligatoire'"
+                [hideLabel]="false"
+                [idInput]="'title'"
+                [id]="'title'"
+                [inputFormControl]="formControl"
+                [maxLength]="'10'"
+                [minLength]="'5'"
+                [nameInput]="'Titre'"
+                [placeholder]="'Titre de la démarche'"
+                [required]="true"
+                [type]="'text'"
+        >
+            <app-input-label class="font-bold">Titre</app-input-label>
+        </app-input>
+    </div>
+    <div class="item-form">
+        <app-input
+                [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
+                [clearable]="true"
+                [errorMessage]="'la description est obligatoire'"
+                [hideLabel]="false"
+                [idInput]="'description'"
+                [id]="'description'"
+                [inputFormControl]="formControl"
+                [nameInput]="'Description'"
+                [placeholder]="'Description de la démarche'"
+                [required]="true"
+                [type]="'textarea'"
+        >
+            <app-input-label class="font-bold">Description</app-input-label>
+        </app-input>
+    </div>
+    <div class="item-form">
+        <app-input-select
+                [bindLabel]="'label'"
+                [bindValue]="'label'"
+                [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
+                [clearable]="true"
+                [errorMessage]="'liste de documents obligatoire'"
+                [id]="'documents'"
+                [inputFormControl]="formControl"
+                [multiple]="true"
+                [options]="options"
+                [required]="false"
+
+        >
+            <app-input-label class="font-bold">Documents</app-input-label>
+        </app-input-select>
+    </div>
+</form>

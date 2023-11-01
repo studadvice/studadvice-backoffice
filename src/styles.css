@@ -6,3 +6,146 @@ html, body {
     height: 100%;
 }
 
+/* --------------------------------------------------------------------
+*	RESET
+-------------------------------------------------------------------- */
+
+a, abbr, acronym, address, applet, b, big, blockquote, body, caption, center, cite, code, dd, del, dfn, div, dl, dt, em, fieldset, figcaption, figure, font, form, h1, h2, h3, h4, h5, h6, html, i, iframe, img, ins, kbd, label, legend, li, object, ol, p, pre, q, s, samp, small, span, strike, strong, sub, sup, table, tbody, td, tfoot, th, thead, tr, tt, u, ul, var {
+    margin: 0;
+    padding: 0;
+    border: 0
+}
+
+* {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box
+}
+
+article, aside, figure, footer, header, main, nav, section {
+    display: block
+}
+
+[class^=ic-] {
+    text-indent: -9000px;
+    overflow: hidden;
+    display: inline-block
+}
+
+body {
+    color: #686868;
+    background: #ededed;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    overflow: hidden;
+    overflow-y: scroll;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    position: relative
+}
+
+main h2 {
+    text-transform: uppercase;
+    color: #777777;
+    font-size: 2em;
+    font-weight: normal;
+    text-shadow: 0 0 3px #fff;
+    margin-bottom: 1em
+}
+
+main h3 {
+    text-transform: uppercase;
+    color: #000;
+    font-size: 1.1em;
+    font-weight: normal;
+    margin: -2.2em auto 0 -0.9em;
+    background: #fff;
+    display: table;
+    padding: 0.5em 1em;
+    z-index: 1;
+    position: relative;
+}
+
+p,
+li,
+dt,
+dd {
+    font-size: 0.813rem;
+}
+
+li p,
+li dt,
+li dd,
+li li {
+    font-size: 100%;
+}
+
+a,
+a:link {
+    color: #5896d9;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline
+}
+
+.item-form {
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.label, .listFieldset legend, label {
+    display: block;
+    font-family: font-axone-black, sans-serif;
+    margin-bottom: 0.2rem;
+    position: relative;
+    font-size: var(--p-input-label);
+    line-height: .9rem;
+    color: var(--c-text);
+    margin-top: 0.7rem;
+}
+
+.inputComponent .no-txt-info label,
+.multipleSelectWidget .no-txt-info label,
+.textareaComponent .no-txt-info label,
+.selectComponent .no-txt-info label,
+.referentielWidget .no-txt-info label,
+.selectInputComponent .no-txt-info label,
+.dbSelectComponent .no-txt-info label,
+.textareaComponent.disabledTextArea.no-txt-info label {
+    padding-bottom: 11px;
+}
+
+input[type="text"],
+main input[type="password"],
+select,
+input[type="date"],
+textarea {
+    width: 100%;
+    background-color: #f3f3f3;
+    border: 1px solid #e3e3e3;
+    padding: 0.5em;
+    color: #686868;
+    border-radius: 2px;
+    position: relative;
+    font-size: 1rem;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+select:focus,
+input[type="date"]:focus,
+textarea:focus {
+    border: 1.5px solid #5896d9;
+    outline: none;
+}
+
+span.required {
+    position: relative;
+    top: -0.3em;
+    display: inline-block;
+    color: #b93349;
+    font-size: 1.063rem;
+    line-height: .5em;
+}
