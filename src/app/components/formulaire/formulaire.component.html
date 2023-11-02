@@ -1,5 +1,5 @@
 <h2 class="text-2xl mb-5 font-bold">AJOUTER UNE DEMARCHE</h2>
-<form class="container studadvice">
+<form [formGroup]="form" class="container studadvice">
     <div class="item-form">
         <app-input
                 [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
@@ -8,7 +8,7 @@
                 [hideLabel]="false"
                 [idInput]="'title'"
                 [id]="'title'"
-                [inputFormControl]="formControl"
+                [inputFormControl]="titleFormControl"
                 [maxLength]="'10'"
                 [minLength]="'5'"
                 [nameInput]="'Titre'"
@@ -27,7 +27,7 @@
                 [hideLabel]="false"
                 [idInput]="'description'"
                 [id]="'description'"
-                [inputFormControl]="formControl"
+                [inputFormControl]="descriptionFormControl"
                 [nameInput]="'Description'"
                 [placeholder]="'Description de la démarche'"
                 [required]="true"
@@ -44,7 +44,7 @@
                 [clearable]="true"
                 [errorMessage]="'liste de documents obligatoire'"
                 [id]="'documents'"
-                [inputFormControl]="formControl"
+                [inputFormControl]="documentsFormControl"
                 [multiple]="true"
                 [options]="options"
                 [required]="false"
@@ -53,4 +53,41 @@
             <label class="font-bold">Documents</label>
         </app-input-select>
     </div>
+    <div formArrayName="etapes">
+        <div *ngFor="let etape of etapesControls; let i = index">
+            <div [formGroupName]="i">
+                <div class="item-form">
+                    <app-input
+                            [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
+                            [idInput]="'{{i}}'"
+                            [id]="i"
+                            [inputFormControl]="etapeFormControl"
+                            [nameInput]="'Titre Etape ' + (i+1)"
+                            [placeholder]="'Titre de l\'étape ' + (i+1)"
+                            [required]="false"
+                            [type]="'text'"
+                            formControlName="titre">
+                        <app-input-label class="font-bold">Titre Etape {{i + 1}}</app-input-label>
+                    </app-input>
+                </div>
+                <div class="item-form">
+                    <app-input
+                            [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
+                            [idInput]="'{{i}}'"
+                            [id]="i"
+                            [inputFormControl]="etapeFormControl"
+                            [nameInput]="'Description Etape ' + (i+1)"
+                            [placeholder]="'Description de l\'étape ' + (i+1)"
+                            [required]="false"
+                            [type]="'textarea'"
+                            formControlName="description">
+                        <app-input-label class="font-bold">Description Etape {{i + 1}}</app-input-label>
+                    </app-input>
+                </div>
+                <button (click)="supprimerEtape(i)" type="button">Supprimer Etape</button>
+            </div>
+        </div>
+    </div>
+
+    <button (click)="ajouterEtape()" type="button">Ajouter une étape</button>
 </form>

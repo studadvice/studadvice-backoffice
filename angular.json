@@ -26,7 +26,8 @@
             ],
             "styles": [
               "src/styles.css",
-              "src/assets/css/theme.css"
+              "src/assets/css/theme.css",
+              "node_modules/font-awesome/css/font-awesome.css"
             ],
             "scripts": []
           },

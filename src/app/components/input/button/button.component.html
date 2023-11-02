@@ -1,1 +1,9 @@
-<p>button works!</p>
+<p [ngClass]="this.disabled || this.forcedDisabled || this.clicked ? 'disabled-bt' : this.btnClass">
+    <button (click)="onClick($event)"
+            [disabled]="clicked || disabled"
+            title="{{getTooltip()}}"
+            type="submit">
+        <fa-icon *ngIf="icon" aria-hidden="true" icon="icon"></fa-icon>
+        {{saveButtonLabel}}
+    </button>
+</p>
