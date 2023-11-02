@@ -26,7 +26,7 @@ import {InputComponentPrefixStick} from "./components/input/input-prefix-stick.c
 import {InputWarningComponent} from "./components/input/input-warning.component";
 import {InputErrorComponent} from "./components/input/input-error.component";
 import {MatTooltipModule} from "@angular/material/tooltip";
-import {AngularFontAwesomeModule} from "angular-font-awesome";
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 
 @NgModule({
     declarations: [
@@ -58,7 +58,7 @@ import {AngularFontAwesomeModule} from "angular-font-awesome";
         NgSelectModule,
         ReactiveFormsModule,
         MatTooltipModule,
-        AngularFontAwesomeModule
+        FontAwesomeModule,
     ],
     providers: [],
   bootstrap: [AppComponent]

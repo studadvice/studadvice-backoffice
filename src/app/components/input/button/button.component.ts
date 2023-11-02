@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {faSave} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
     selector: 'app-button',
@@ -10,7 +11,7 @@ export class ButtonComponent implements OnInit {
     @Output() save = new EventEmitter<any>();
     @Input() title: string = '';
     @Input() tooltip: string = '';
-    @Input() icon: string = 'save';
+    @Input() icon: any = faSave;
     @Input() btnClass: string = 'highlight-bt';
 
     public clicked: boolean = false;
@@ -32,10 +33,10 @@ export class ButtonComponent implements OnInit {
         this.saveButtonLabel = this.title;
     }
 
-    public onClick() {
+    public onClick(event: any) {
         this.clicked = true;
         this.saveButtonLabel = 'Enregistrement en cours...';
-        this.save.emit();
+        this.save.emit(event);
     }
 
     getTooltip() {

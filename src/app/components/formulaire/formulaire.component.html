@@ -1,5 +1,5 @@
 <h2 class="text-2xl mb-5 font-bold">AJOUTER UNE DEMARCHE</h2>
-<form [formGroup]="form" class="container studadvice">
+<form *ngIf="form" [formGroup]="form" class="container studadvice">
     <div class="item-form">
         <app-input
                 [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
@@ -61,12 +61,12 @@
                             [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
                             [idInput]="'{{i}}'"
                             [id]="i"
-                            [inputFormControl]="etapeFormControl"
+                            [inputFormControl]="etape.get('titre')"
                             [nameInput]="'Titre Etape ' + (i+1)"
                             [placeholder]="'Titre de l\'étape ' + (i+1)"
                             [required]="false"
                             [type]="'text'"
-                            formControlName="titre">
+                            formControlName="title">
                         <app-input-label class="font-bold">Titre Etape {{i + 1}}</app-input-label>
                     </app-input>
                 </div>
@@ -75,7 +75,7 @@
                             [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
                             [idInput]="'{{i}}'"
                             [id]="i"
-                            [inputFormControl]="etapeFormControl"
+                            [inputFormControl]="etape.get('description')"
                             [nameInput]="'Description Etape ' + (i+1)"
                             [placeholder]="'Description de l\'étape ' + (i+1)"
                             [required]="false"

@@ -16,8 +16,6 @@ export class FormulaireComponent implements OnInit {
         {value: 'Option 2', label: 'Option 2'},
     ];
     form: FormGroup = new FormGroup('');
-    etapeFormControl = new FormControl();
-    descriptionEtapeFormControl = new FormArray([]);
 
 
     constructor(private formBuilder: FormBuilder) {
@@ -32,7 +30,7 @@ export class FormulaireComponent implements OnInit {
             title: this.titleFormControl,
             description: this.descriptionFormControl,
             documents: this.documentsFormControl,
-            etapes: this.descriptionEtapeFormControl
+            etapes: this.formBuilder.array([])
         });
         this.ajouterEtape("Etape 1", "Description 1");
         this.ajouterEtape("Etape 2", "Description 2");
@@ -47,6 +45,6 @@ export class FormulaireComponent implements OnInit {
             title: [titleDefault, Validators.required],
             description: [descriptionDefault, Validators.required]
         });
-        (<FormArray>this.form.controls['etapes']).push(etapeFormGroup);
+        this.etapesControls.push(etapeFormGroup);
     }
 }

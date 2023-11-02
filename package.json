@@ -21,8 +21,10 @@
     "@angular/platform-browser": "^16.2.0",
     "@angular/platform-browser-dynamic": "^16.2.0",
     "@angular/router": "^16.2.0",
+    "@fortawesome/angular-fontawesome": "^0.13.0",
+    "@fortawesome/fontawesome-svg-core": "^6.4.2",
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@ng-select/ng-select": "^11.2.0",
-    "angular-font-awesome": "^3.1.2",
     "firebase": "10.5.2",
     "font-awesome": "^4.7.0",
     "rxjs": "~7.8.0",
@@ -30,8 +32,8 @@
     "zone.js": "~0.13.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^16.2.4",
-    "@angular/cli": "^16.2.4",
+    "@angular-devkit/build-angular": "^16.2.9",
+    "@angular/cli": "^16.2.9",
     "@angular/compiler-cli": "^16.2.0",
     "@types/jasmine": "~4.3.0",
     "autoprefixer": "^10.4.16",

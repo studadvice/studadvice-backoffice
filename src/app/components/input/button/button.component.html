@@ -3,7 +3,7 @@
             [disabled]="clicked || disabled"
             title="{{getTooltip()}}"
             type="submit">
-        <fa-icon *ngIf="icon" aria-hidden="true" icon="icon"></fa-icon>
+        <fa-icon *ngIf="icon" [icon]="icon" aria-hidden="true"></fa-icon>
         {{saveButtonLabel}}
     </button>
 </p>
