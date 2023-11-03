@@ -1,5 +1,6 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, forwardRef, Input, Output} from '@angular/core';
 import {AbstractInputComponent} from "./abstract-input.component";
+import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 
 @Component({
   selector: 'app-input',
@@ -8,9 +9,16 @@ import {AbstractInputComponent} from "./abstract-input.component";
   host: {
     '[class.inputComponent]': '!isTextarea()',
     '[class.textareaComponent]': 'isTextarea()'
-  }
+  },
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => InputComponent),
+      multi: true
+    }
+  ]
 })
-export class InputComponent extends AbstractInputComponent {
+export class InputComponent extends AbstractInputComponent implements ControlValueAccessor {
   @Input() required: boolean = false;
   @Input() errorMessage: string = '';
   @Input() placeholder: string = '';
@@ -40,6 +48,11 @@ export class InputComponent extends AbstractInputComponent {
   @Output() onClear: EventEmitter<any> = new EventEmitter<any>();
   @Output() keydown: EventEmitter<any> = new EventEmitter<any>();
   @Input() clearable: boolean = false;
+  value: any;
+  onChange: any = () => {
+  };
+  onTouched: any = () => {
+  };
 
   showErrors() {
     return this.inputFormControl.invalid && (this.inputFormControl.dirty || this.inputFormControl.touched);
@@ -60,6 +73,20 @@ export class InputComponent extends AbstractInputComponent {
   }
 
   isText() {
-    return false;
+    return this.type === 'text';
+  }
+
+  writeValue(obj: any): void {
+    this.value = obj;
+    this.onChange(obj);
+    this.onTouched();
+  }
+
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
   }
 }

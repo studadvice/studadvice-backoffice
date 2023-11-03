@@ -27,6 +27,7 @@ import {InputWarningComponent} from "./components/input/input-warning.component"
 import {InputErrorComponent} from "./components/input/input-error.component";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import {InputPasswordComponent} from './components/input/input-password/input-password.component';
 
 @NgModule({
     declarations: [
@@ -43,7 +44,8 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
         InputComponentLabel,
         InputComponentPrefixStick,
         InputWarningComponent,
-        InputErrorComponent
+        InputErrorComponent,
+        InputPasswordComponent
     ],
     imports: [
         BrowserModule,

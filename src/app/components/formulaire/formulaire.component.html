@@ -1,14 +1,15 @@
-<h2 class="text-2xl mb-5 font-bold">AJOUTER UNE DEMARCHE</h2>
-<form *ngIf="form" [formGroup]="form" class="container studadvice">
-    <div class="item-form">
-        <app-input
-                [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
-                [clearable]="true"
-                [errorMessage]="'le titre est obligatoire'"
-                [hideLabel]="false"
-                [idInput]="'title'"
-                [id]="'title'"
-                [inputFormControl]="titleFormControl"
+<div class="main-content">
+    <h2 class="text-2xl m-0 mb-5 font-bold">AJOUTER UNE DEMARCHE</h2>
+    <form *ngIf="form" [formGroup]="form" class="container studadvice">
+        <div class="item-form">
+            <app-input
+                    [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
+                    [clearable]="true"
+                    [errorMessage]="'le titre est obligatoire'"
+                    [hideLabel]="false"
+                    [idInput]="'title'"
+                    [id]="'title'"
+                    [inputFormControl]="titleFormControl"
                 [maxLength]="'10'"
                 [minLength]="'5'"
                 [nameInput]="'Titre'"
@@ -53,29 +54,29 @@
             <label class="font-bold">Documents</label>
         </app-input-select>
     </div>
-    <div formArrayName="etapes">
-        <div *ngFor="let etape of etapesControls; let i = index">
-            <div [formGroupName]="i">
-                <div class="item-form">
-                    <app-input
-                            [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
-                            [idInput]="'{{i}}'"
-                            [id]="i"
-                            [inputFormControl]="etape.get('titre')"
-                            [nameInput]="'Titre Etape ' + (i+1)"
-                            [placeholder]="'Titre de l\'étape ' + (i+1)"
-                            [required]="false"
-                            [type]="'text'"
-                            formControlName="title">
-                        <app-input-label class="font-bold">Titre Etape {{i + 1}}</app-input-label>
-                    </app-input>
+        <div formArrayName="etapeForm">
+            <div *ngFor="let etape of formData.controls; let i = index; let c = count">
+                <div [formGroupName]="i">
+                    <div class="item-form">
+                        <app-input
+                                [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
+                                [idInput]="'{{i}}'"
+                                [id]="i"
+                                [inputFormControl]="getControl(etape, 'titre')!"
+                                [nameInput]="'Titre Etape ' + (i+1)"
+                                [placeholder]="'Titre de l\'étape ' + (i+1)"
+                                [required]="false"
+                                [type]="'text'"
+                                formControlName="titre">
+                            <app-input-label class="font-bold">Titre Etape {{i + 1}}</app-input-label>
+                        </app-input>
                 </div>
                 <div class="item-form">
                     <app-input
                             [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
                             [idInput]="'{{i}}'"
                             [id]="i"
-                            [inputFormControl]="etape.get('description')"
+                            [inputFormControl]="getControl(etape, 'description')!"
                             [nameInput]="'Description Etape ' + (i+1)"
                             [placeholder]="'Description de l\'étape ' + (i+1)"
                             [required]="false"
@@ -84,10 +85,79 @@
                         <app-input-label class="font-bold">Description Etape {{i + 1}}</app-input-label>
                     </app-input>
                 </div>
-                <button (click)="supprimerEtape(i)" type="button">Supprimer Etape</button>
+                    <div class="item-form">
+                        <app-input-select
+                                [bindLabel]="'label'"
+                                [bindValue]="'label'"
+                                [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
+                                [clearable]="true"
+                                [errorMessage]="'Liste des documents obligatoire'"
+                                [hasLabel]="true"
+                                [id]="'documents'"
+                                [inputFormControl]="getControl(etape, 'documents')!"
+                                [multiple]="true"
+                                [options]="options"
+                                [required]="false"
+                        >
+                            <label class="font-bold">Documents Etape {{i + 1}}</label>
+                        </app-input-select>
+                    </div>
+                    <div class="item-form">
+                        <app-input
+                                [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
+                                [idInput]="'{{i}}'"
+                                [id]="i"
+                                [inputFormControl]="getControl(etape, 'lien')!"
+                                [nameInput]="'Lien Etape ' + (i+1)"
+                                [placeholder]="'Lien de l\'étape ' + (i+1)"
+                                [required]="false"
+                                [type]="'text'"
+                                formControlName="lien">
+                            <app-input-label class="font-bold">Lien Etape {{i + 1}}</app-input-label>
+                        </app-input>
+                    </div>
+                    <div class="item-form">
+                        <app-input
+                                [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
+                                [clearable]="true"
+                                [id]="'texte'"
+                                [inputFormControl]="getControl(etape, 'texte')!"
+                                [required]="false"
+                                [type]="'textarea'"
+                                formControlName="texte"
+                        >
+                            <app-input-label class="font-bold">Texte Etape {{i + 1}}</app-input-label>
+                        </app-input>
+                    </div>
+                    <div class="item-form flex space-between items-center justify-center">
+                        <app-button
+                                (click)="supprimerEtape(i)"
+                                [customClass]="'delete-btn btn btn-success text-white text-sm hover:bg-transparent'"
+                                [disabled]="formData.controls.length <= 1"
+                                [icon]="faTrash"
+                                [title]="'Supprimer l\'étape'"
+                                [tooltip]="'Supprimer l\'étape'"
+                        ></app-button>
+                        <app-button (click)="ajouterEtape()"
+                                    *ngIf="i === formData.controls.length - 1"
+                                    [customClass]="'btn btn-success text-white text-sm ml-5'"
+                                    [icon]="faPlus"
+                                    [title]="'Ajouter une étape'"
+                                    [tooltip]="'Ajouter une étape'"
+                        ></app-button>
+                        <!-- submit -->
+                        <app-button (click)="submit()"
+                                    *ngIf="i === formData.controls.length - 1"
+                                    [customClass]="'btn btn-success text-white text-sm ml-5'"
+                                    [icon]="faSave"
+                                    [title]="'Enregistrer'"
+                                    [tooltip]="'Enregistrer'"
+                        ></app-button>
+
+                    </div>
+
+                </div>
             </div>
         </div>
-    </div>
-
-    <button (click)="ajouterEtape()" type="button">Ajouter une étape</button>
-</form>
+    </form>
+</div>

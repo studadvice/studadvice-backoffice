@@ -18,6 +18,7 @@ export class ButtonComponent implements OnInit {
 
     public saveButtonLabel: string = 'Enregistrer';
     public forcedDisabled: boolean = false;
+    @Input() customClass: string = '';
 
     ngOnInit() {
         this.saveButtonLabel = this.title;

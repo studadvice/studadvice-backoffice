@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {AuthService} from "../../shared/services/auth.service";
 
 @Component({
     selector: 'app-nav',
@@ -6,27 +7,17 @@ import {Component} from '@angular/core';
     styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
-    menus = [
-        {
-            title: 'Administration portail pro',
-            subitems: ['Sous-menu 1', 'Sous-menu 2']
-        },
-        {
-            title: 'Organisation physique',
-            subitems: []
-        },
-    ];
+    public isDropdownOpen = false;
 
-    menuOpen = false;
-
-    userMenuOpen = false;
-
-    toggleUserMenu() {
-        this.userMenuOpen = !this.userMenuOpen;
+    constructor(private authService: AuthService) {
     }
 
+    toggleDropdown(event: Event): void {
+        event.stopPropagation();
+        this.isDropdownOpen = !this.isDropdownOpen;
+    }
 
-    toggleMenu() {
-        this.menuOpen = !this.menuOpen;
+    logout() {
+        this.authService.signOut();
     }
 }

@@ -2,6 +2,7 @@
     <button (click)="onClick($event)"
             [disabled]="clicked || disabled"
             title="{{getTooltip()}}"
+            class="{{customClass}}"
             type="submit">
         <fa-icon *ngIf="icon" [icon]="icon" aria-hidden="true"></fa-icon>
         {{saveButtonLabel}}

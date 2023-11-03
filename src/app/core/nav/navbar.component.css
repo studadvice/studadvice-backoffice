@@ -6,3 +6,23 @@ nav {
     transform: rotate(90deg);
     transition: transform 0.3s ease;
 }
+
+.sidebar a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.hidden {
+    display: none;
+}
+
+a, a:link {
+    color: inherit;
+    text-decoration: none;
+    font-style: normal;
+    font-weight: bold;
+}

@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {AuthService} from "../../shared/services/auth.service";
+import {faGoogle} from "@fortawesome/free-brands-svg-icons";
 
 @Component({
     selector: 'app-sign-in',
@@ -8,10 +9,18 @@ import {AuthService} from "../../shared/services/auth.service";
 })
 export class SignInComponent {
 
+    faGoogle = faGoogle;
+    password: string = '';
+    email: string = '';
+
     constructor(public authService: AuthService) {
     }
 
     login() {
         this.authService.signInWithGoogle();
+    }
+
+    loginWithUsernameAndPassword(email: string, password: string) {
+        this.authService.signIn(email, password);
     }
 }
