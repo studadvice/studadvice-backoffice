@@ -28,6 +28,8 @@ import {InputErrorComponent} from "./components/input/input-error.component";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {InputPasswordComponent} from './components/input/input-password/input-password.component';
+import {DashboardComponent} from './components/dashboard/dashboard.component';
+import {UsersComponent} from './components/users/users.component';
 
 @NgModule({
     declarations: [
@@ -45,7 +47,9 @@ import {InputPasswordComponent} from './components/input/input-password/input-pa
         InputComponentPrefixStick,
         InputWarningComponent,
         InputErrorComponent,
-        InputPasswordComponent
+        InputPasswordComponent,
+        DashboardComponent,
+        UsersComponent
     ],
     imports: [
         BrowserModule,

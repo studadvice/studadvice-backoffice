@@ -10,8 +10,10 @@
       <ng-content select="app-input-prefix-stick"></ng-content>
     </span>
     <span class="unite-over">
-        <span *ngIf="showErrors()" class="error"><ng-content select="app-input-error"></ng-content>
-            {{errorMessage}}</span>
+        <span *ngIf="showErrors()" class="error">
+            <ng-content select="app-input-error"></ng-content>
+            {{errorMessage}}
+        </span>
         <span *ngIf="warning && displayWarning" class="warning">{{warningMessage}}</span>
         <input #inputElement (blur)="blur.emit($event)"
                (focusout)="showTooltipError()"
@@ -42,12 +44,14 @@
           <button (click)="clearInput()"
                   class="icon-clear"></button>
         </span>
-        <textarea #textareaElement (focusout)="showTooltipError()"
+        <textarea #textareaElement
+                  (focusout)="showTooltipError()"
                   (input)="applyTransformationAndSetCaretPosition(textareaElement)"
                   *ngIf="isTextarea()"
+                  (keydown)="keydown.emit($event)"
+                  (keypress)="keypress.emit($event)"
                   [attr.aria-invalid]="error ? 'true' : false"
                   [attr.aria-required]="required ? 'true' : false"
-                  [attr.maxLength]="maxLength"
                   [attr.minLength]="minLength"
                   [attr.placeholder]="placeholder"
                   [formControl]="inputFormControl"

@@ -8,15 +8,27 @@ import {faPlus, faSave, faTrash} from "@fortawesome/free-solid-svg-icons";
     styleUrls: ['./formulaire.component.css']
 })
 export class FormulaireComponent implements OnInit {
-    titleFormControl = new FormControl();
-    descriptionFormControl = new FormControl();
+    titleFormControl = new FormControl(
+        '',
+        [Validators.required,
+            Validators.minLength(5),
+            Validators.maxLength(50),
+        ]
+    );
+    descriptionFormControl = new FormControl(
+        '',
+        [Validators.required,
+            Validators.minLength(5),
+            Validators.maxLength(50),
+        ]
+    );
     documentsFormControl = new FormControl();
     options: any[] = [
         {value: 'Option 1', label: 'Option 1'},
         {value: 'Option 2', label: 'Option 2'},
     ];
     form!: FormGroup;
-    etapeForm: FormArray = this.formBuilder.array([]);
+    etapes: FormArray = this.formBuilder.array([]);
     faTrash = faTrash;
     faPlus = faPlus;
     faSave = faSave;
@@ -25,7 +37,7 @@ export class FormulaireComponent implements OnInit {
     }
 
     get formData() {
-        return <FormArray>this.form.get('etapeForm')
+        return <FormArray>this.form.get('etapes')
     }
 
     ngOnInit() {
@@ -33,23 +45,28 @@ export class FormulaireComponent implements OnInit {
             title: this.titleFormControl,
             description: this.descriptionFormControl,
             documents: this.documentsFormControl,
-            etapeForm: this.etapeForm
+            etapes: this.etapes
         });
 
-        this.ajouterEtape("Etape 1", "Description 1");
         this.ajouterEtape("Etape 2", "Description 2");
     }
 
-    supprimerEtape(i: number) {
-        this.etapeForm.removeAt(i);
+    supprimerEtape(i: number, count: number) {
+        console.log("supprimerEtape", i, count);
+        this.etapes.removeAt(i);
     }
 
     ajouterEtape(titleDefault: string = '', descriptionDefault: string = '', documentsDefault: string[] = [], texteDefault: string = '', lienDefault: string = '') {
-        this.etapeForm.push(this.formBuilder.group({
-            titre: [titleDefault, Validators.required],
+        this.etapes.push(this.formBuilder.group({
+            titre: [
+                titleDefault,
+                [Validators.required, Validators.minLength(5), Validators.maxLength(50)]
+            ],
             description: [descriptionDefault, Validators.required],
             documents: [documentsDefault, Validators.required],
-            lien: [lienDefault, Validators.required],
+            lien: [lienDefault,
+                [Validators.required, Validators.minLength(5)]
+            ],
             texte: [texteDefault, Validators.required]
         }));
     }
@@ -61,6 +78,16 @@ export class FormulaireComponent implements OnInit {
     }
 
     submit() {
+        if (this.form.valid) {
+            let demarche = this.form.value;
+            console.log("demarche", demarche);
+        } else {
+            console.log("form invalid", this.form);
+        }
+    }
+
+    hasError(title: string, required: string) {
+        return this.getControl(this.form, title)?.hasError(required);
 
     }
 }

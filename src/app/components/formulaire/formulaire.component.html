@@ -1,90 +1,101 @@
 <div class="main-content">
     <h2 class="text-2xl m-0 mb-5 font-bold">AJOUTER UNE DEMARCHE</h2>
-    <form *ngIf="form" [formGroup]="form" class="container studadvice">
+    <form (ngSubmit)="submit()" *ngIf="form" [formGroup]="form" class="container studadvice">
         <div class="item-form">
             <app-input
                     [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
                     [clearable]="true"
-                    [errorMessage]="'le titre est obligatoire'"
+                    [errorMessage]="'Le titre est obligatoire'"
                     [hideLabel]="false"
                     [idInput]="'title'"
                     [id]="'title'"
                     [inputFormControl]="titleFormControl"
-                [maxLength]="'10'"
-                [minLength]="'5'"
-                [nameInput]="'Titre'"
-                [placeholder]="'Titre de la démarche'"
-                [required]="true"
-                [type]="'text'"
-        >
-            <app-input-label class="font-bold">Titre</app-input-label>
-        </app-input>
-    </div>
-    <div class="item-form">
-        <app-input
-                [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
-                [clearable]="true"
-                [errorMessage]="'la description est obligatoire'"
-                [hideLabel]="false"
-                [idInput]="'description'"
-                [id]="'description'"
-                [inputFormControl]="descriptionFormControl"
-                [nameInput]="'Description'"
-                [placeholder]="'Description de la démarche'"
-                [required]="true"
-                [type]="'textarea'"
-        >
-            <app-input-label class="font-bold">Description</app-input-label>
-        </app-input>
-    </div>
-    <div class="item-form">
-        <app-input-select
-                [bindLabel]="'label'"
-                [bindValue]="'label'"
-                [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
-                [clearable]="true"
-                [errorMessage]="'liste de documents obligatoire'"
-                [id]="'documents'"
-                [inputFormControl]="documentsFormControl"
-                [multiple]="true"
-                [options]="options"
-                [required]="false"
-                [hasLabel]="true"
-        >
-            <label class="font-bold">Documents</label>
-        </app-input-select>
-    </div>
-        <div formArrayName="etapeForm">
+                    [error]="hasError('title', 'required')"
+                    [maxLength]="'50'"
+                    [minLength]="'5'"
+                    [nameInput]="'Titre'"
+                    [placeholder]="'Titre de la démarche'"
+                    [required]="true"
+                    [type]="'text'"
+            >
+                <app-input-label class="font-bold">Titre</app-input-label>
+            </app-input>
+        </div>
+        <div class="item-form">
+            <app-input
+                    [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
+                    [clearable]="true"
+                    [errorMessage]="'La description est obligatoire'"
+                    [error]="hasError('description', 'required')"
+                    [hideLabel]="false"
+                    [idInput]="'description'"
+                    [id]="'description'"
+                    [inputFormControl]="descriptionFormControl"
+                    [minLength]="'5'"
+                    [nameInput]="'Description'"
+                    [placeholder]="'Description de la démarche'"
+                    [type]="'textarea'"
+            >
+                <app-input-label class="font-bold">Description</app-input-label>
+            </app-input>
+        </div>
+        <div class="item-form">
+            <app-input-select
+                    [bindLabel]="'label'"
+                    [bindValue]="'label'"
+                    [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
+                    [clearable]="true"
+                    [errorMessage]="'liste de documents obligatoire'"
+                    [hasLabel]="true"
+                    [id]="'documents'"
+                    [inputFormControl]="documentsFormControl"
+                    [multiple]="true"
+                    [options]="options"
+                    [required]="false"
+            >
+                <label class="font-bold">Documents</label>
+            </app-input-select>
+        </div>
+        <div formArrayName="etapes">
             <div *ngFor="let etape of formData.controls; let i = index; let c = count">
                 <div [formGroupName]="i">
                     <div class="item-form">
                         <app-input
                                 [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
-                                [idInput]="'{{i}}'"
-                                [id]="i"
+                                [clearable]="true"
+                                [errorMessage]="'Le titre de l\'étape est obligatoire'"
+                                [error]="hasError('titre', 'required')"
+                                [hideLabel]="false"
+                                [idInput]="'title ' + i"
                                 [inputFormControl]="getControl(etape, 'titre')!"
+                                [id]="'title ' + i"
+                                [maxLength]="'10'"
                                 [nameInput]="'Titre Etape ' + (i+1)"
                                 [placeholder]="'Titre de l\'étape ' + (i+1)"
-                                [required]="false"
+                                [minLength]="'5'"
                                 [type]="'text'"
-                                formControlName="titre">
+                                [required]="true"
+                        >
                             <app-input-label class="font-bold">Titre Etape {{i + 1}}</app-input-label>
                         </app-input>
-                </div>
-                <div class="item-form">
-                    <app-input
-                            [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
-                            [idInput]="'{{i}}'"
-                            [id]="i"
-                            [inputFormControl]="getControl(etape, 'description')!"
-                            [nameInput]="'Description Etape ' + (i+1)"
-                            [placeholder]="'Description de l\'étape ' + (i+1)"
-                            [required]="false"
-                            [type]="'textarea'"
-                            formControlName="description">
-                        <app-input-label class="font-bold">Description Etape {{i + 1}}</app-input-label>
-                    </app-input>
-                </div>
+                    </div>
+
+                    <div class="item-form">
+                        <app-input
+                                [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
+                                [errorMessage]="'La description de l\'étape est obligatoire'"
+                                [error]="hasError('description', 'required')"
+                                [idInput]="'{{i}}'"
+                                [id]="'description'"
+                                [inputFormControl]="getControl(etape, 'description')!"
+                                [nameInput]="'Description Etape ' + (i+1)"
+                                [placeholder]="'Description de l\'étape ' + (i+1)"
+                                [required]="true"
+                                [type]="'textarea'"
+                                formControlName="description">
+                            <app-input-label class="font-bold">Description Etape {{i + 1}}</app-input-label>
+                        </app-input>
+                    </div>
                     <div class="item-form">
                         <app-input-select
                                 [bindLabel]="'label'"
@@ -105,14 +116,19 @@
                     <div class="item-form">
                         <app-input
                                 [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
-                                [idInput]="'{{i}}'"
-                                [id]="i"
+                                [clearable]="true"
+                                [errorMessage]="'Le lien est obligatoire'"
+                                [error]="hasError('lien', 'required')"
+                                [hideLabel]="false"
+                                [idInput]="'lien ' + i"
                                 [inputFormControl]="getControl(etape, 'lien')!"
+                                [id]="'lien ' + i"
                                 [nameInput]="'Lien Etape ' + (i+1)"
                                 [placeholder]="'Lien de l\'étape ' + (i+1)"
-                                [required]="false"
+                                [minLength]="'5'"
                                 [type]="'text'"
-                                formControlName="lien">
+                                [required]="true"
+                        >
                             <app-input-label class="font-bold">Lien Etape {{i + 1}}</app-input-label>
                         </app-input>
                     </div>
@@ -120,43 +136,48 @@
                         <app-input
                                 [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
                                 [clearable]="true"
-                                [id]="'texte'"
+                                [error]="false"
+                                [hideLabel]="false"
+                                [idInput]="'texte ' + i"
                                 [inputFormControl]="getControl(etape, 'texte')!"
+                                [id]="'texte ' + i"
+                                [minLength]="'5'"
+                                [nameInput]="'Texte Etape ' + (i+1)"
                                 [required]="false"
                                 [type]="'textarea'"
-                                formControlName="texte"
+                                [placeholder]="'Texte de l\'étape ' + (i+1)"
                         >
                             <app-input-label class="font-bold">Texte Etape {{i + 1}}</app-input-label>
                         </app-input>
                     </div>
                     <div class="item-form flex space-between items-center justify-center">
                         <app-button
-                                (click)="supprimerEtape(i)"
+                                (click)="supprimerEtape(i, c)"
                                 [customClass]="'delete-btn btn btn-success text-white text-sm hover:bg-transparent'"
-                                [disabled]="formData.controls.length <= 1"
+                                [disabled]="formData.controls.length <= 0"
                                 [icon]="faTrash"
                                 [title]="'Supprimer l\'étape'"
                                 [tooltip]="'Supprimer l\'étape'"
                         ></app-button>
-                        <app-button (click)="ajouterEtape()"
-                                    *ngIf="i === formData.controls.length - 1"
-                                    [customClass]="'btn btn-success text-white text-sm ml-5'"
-                                    [icon]="faPlus"
-                                    [title]="'Ajouter une étape'"
-                                    [tooltip]="'Ajouter une étape'"
-                        ></app-button>
-                        <!-- submit -->
-                        <app-button (click)="submit()"
-                                    *ngIf="i === formData.controls.length - 1"
-                                    [customClass]="'btn btn-success text-white text-sm ml-5'"
-                                    [icon]="faSave"
-                                    [title]="'Enregistrer'"
-                                    [tooltip]="'Enregistrer'"
-                        ></app-button>
-
                     </div>
 
                 </div>
+            </div>
+            <div class="item-form flex space-between items-center justify-center">
+                <app-button (save)="ajouterEtape()"
+                            [customClass]="'btn btn-success text-white text-sm ml-5'"
+                            [icon]="faPlus"
+                            [title]="'Ajouter une étape'"
+                            [tooltip]="'Ajouter une étape'"
+                ></app-button>
+                <!-- submit -->
+                <app-button (save)="submit()"
+                            [customClass]="'btn btn-success text-white text-sm ml-5'"
+                            [disabled]="!form.valid"
+                            [icon]="faSave"
+                            [title]="'Enregistrer'"
+                            [tooltip]="'Enregistrer'"
+                ></app-button>
             </div>
         </div>
     </form>

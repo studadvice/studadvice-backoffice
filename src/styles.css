@@ -151,3 +151,41 @@ span.required {
     font-size: 1.063rem;
     line-height: .5em;
 }
+
+/* ****** TEXTE AREA *******
+**** (texte multi ligne ***** */
+
+.textareaComponent textarea {
+    padding-left: 10px;
+}
+
+.textareaComponent p.input-invalid > span:not(.prefix), .textareaComponent p.input-warning > span:not(.prefix) {
+    margin-bottom: 3em;
+}
+
+.textareaComponent span:not(.required) {
+    display: block;
+    position: relative;
+}
+
+.textareaComponent p > span::before {
+    position: absolute;
+    display: block;
+    content: "";
+    top: 6px;
+    left: 0.3rem;
+    width: 3px;
+    height: calc(100% - 13px);
+    background-color: var(--c-secondary);
+    z-index: 100;
+}
+
+/* DISABLED */
+
+.textareaComponent p.input-disabled span::before {
+    background-color: #b9b9b9;
+}
+
+.textareaComponent p.input-disabled textarea {
+    background-color: var(--c-disabled);
+}
