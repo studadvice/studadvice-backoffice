@@ -1,0 +1,27 @@
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table [dataSource]="dataSource" class="w-full text-sm text-left text-gray-500 dark:text-gray-400" mat-table
+           matSort>
+        <ng-container *ngFor="let def of columnDefinitions" [matColumnDef]="def.field">
+            <th *matHeaderCellDef mat-header-cell> {{ def.header }} </th>
+            <td *matCellDef="let element" mat-cell> {{ element[def.field] }} </td>
+        </ng-container>
+        <ng-container matColumnDef="action">
+            <th *matHeaderCellDef mat-header-cell mat-sticky> Action</th>
+            <td *matCellDef="let element" mat-cell mat-sticky>
+                {{ actionColumnContent(element) }}
+            </td>
+        </ng-container>
+
+        <!-- Header and Row Declarations -->
+        <mat-header-row *matHeaderRowDef="displayColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayColumns;"
+                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+        </mat-row>
+
+
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                   aria-label="Select page of periodic elements"
+                   showFirstLastButtons>
+    </mat-paginator>
+</div>

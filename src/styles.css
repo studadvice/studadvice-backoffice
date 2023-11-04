@@ -189,3 +189,20 @@ span.required {
 .textareaComponent p.input-disabled textarea {
     background-color: var(--c-disabled);
 }
+
+/** MAIN STYLE **/
+.item-form {
+    padding: 1em;
+}
+
+.main-content {
+    padding-top: 5em;
+    padding-left: 15em;
+    min-height: 100vh;
+}
+
+.studadvice {
+    width: 100%;
+    /*max-width: */
+    margin: auto;
+}

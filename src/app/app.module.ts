@@ -15,21 +15,26 @@ import {SignInComponent} from './components/sign-in/sign-in.component';
 import {SignUpComponent} from './components/sign-up/sign-up.component';
 import {ForgotPasswordComponent} from './components/forgot-password/forgot-password.component';
 import {VerifyEmailComponent} from './components/verify-email/verify-email.component';
-import {InputComponent} from './components/input/input.component';
-import {InputSelectComponent} from './components/input/input-select/input-select.component';
-import {ButtonComponent} from './components/input/button/button.component';
+import {InputComponent} from './core/input/input.component';
+import {InputSelectComponent} from './core/input/input-select/input-select.component';
+import {ButtonComponent} from './core/input/button/button.component';
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
-import {InputComponentLabel} from "./components/input/input-label.component";
-import {InputComponentPrefixStick} from "./components/input/input-prefix-stick.component";
-import {InputWarningComponent} from "./components/input/input-warning.component";
-import {InputErrorComponent} from "./components/input/input-error.component";
+import {InputComponentLabel} from "./core/input/input-label.component";
+import {InputComponentPrefixStick} from "./core/input/input-prefix-stick.component";
+import {InputWarningComponent} from "./core/input/input-warning.component";
+import {InputErrorComponent} from "./core/input/input-error.component";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
-import {InputPasswordComponent} from './components/input/input-password/input-password.component';
+import {InputPasswordComponent} from './core/input/input-password/input-password.component';
 import {DashboardComponent} from './components/dashboard/dashboard.component';
 import {UsersComponent} from './components/users/users.component';
+import {MatTableModule} from "@angular/material/table";
+import {MatSortModule} from "@angular/material/sort";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {TableComponent} from './core/table/table.component';
 
 @NgModule({
     declarations: [
@@ -49,10 +54,12 @@ import {UsersComponent} from './components/users/users.component';
         InputErrorComponent,
         InputPasswordComponent,
         DashboardComponent,
-        UsersComponent
+        UsersComponent,
+        TableComponent
     ],
     imports: [
         BrowserModule,
+        BrowserAnimationsModule,
         AppRoutingModule,
         AngularFireModule.initializeApp(environment.firebase),
         AngularFireAuthModule,
@@ -65,6 +72,9 @@ import {UsersComponent} from './components/users/users.component';
         ReactiveFormsModule,
         MatTooltipModule,
         FontAwesomeModule,
+        MatTableModule,
+        MatSortModule,
+        MatPaginatorModule,
     ],
     providers: [],
   bootstrap: [AppComponent]
