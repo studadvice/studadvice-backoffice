@@ -1,27 +1,42 @@
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <table [dataSource]="dataSource" class="w-full text-sm text-left text-gray-500 dark:text-gray-400" mat-table
-           matSort>
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="min-w-full text-sm text-left text-gray-500 dark:text-gray-400" mat-table [dataSource]="dataSource" matSort>
+        <!-- En-tête du tableau -->
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+        </thead>
+
+        <!-- Corps du tableau -->
+        <tbody>
+        <tr mat-row *matRowDef="let row; columns: displayColumns;" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"></tr>
+        </tbody>
+
         <ng-container *ngFor="let def of columnDefinitions" [matColumnDef]="def.field">
-            <th *matHeaderCellDef mat-header-cell> {{ def.header }} </th>
-            <td *matCellDef="let element" mat-cell> {{ element[def.field] }} </td>
+            <th mat-header-cell *matHeaderCellDef class="py-3 px-6">{{ def.header }}</th>
+            <td mat-cell *matCellDef="let element" class="py-4 px-6">{{ element[def.field] }}</td>
         </ng-container>
-        <ng-container matColumnDef="action">
-            <th *matHeaderCellDef mat-header-cell mat-sticky> Action</th>
-            <td *matCellDef="let element" mat-cell mat-sticky>
-                {{ actionColumnContent(element) }}
+
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef class="py-3 px-6">Actions</th>
+            <td mat-cell *matCellDef="let element" class="py-4 px-6">
+                <button
+                        mat-icon-button
+                        matTooltip="Modifier"
+                        (click)="onEdit(element)"
+                >
+                    <fa-icon [icon]="faEdit" class="text-xl "></fa-icon>
+                </button>
+                <button
+                        mat-icon-button
+                        matTooltip="Supprimer"
+                        (click)="onDelete(element)"
+                >
+                    <fa-icon [icon]="faTrash" class="text-xl"></fa-icon>
+                </button>
             </td>
         </ng-container>
 
-        <!-- Header and Row Declarations -->
-        <mat-header-row *matHeaderRowDef="displayColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayColumns;"
-                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-        </mat-row>
-
-
     </table>
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]"
-                   aria-label="Select page of periodic elements"
-                   showFirstLastButtons>
-    </mat-paginator>
+    <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" aria-label="Select page of elements" showFirstLastButtons></mat-paginator>
+</div>
 </div>

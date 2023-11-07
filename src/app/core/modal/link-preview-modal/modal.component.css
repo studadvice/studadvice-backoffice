@@ -1,0 +1,39 @@
+.link-preview {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.link-image img {
+    max-width: 120px;
+    max-height: 90px;
+    object-fit: cover;
+}
+
+.link-content {
+    padding: 10px;
+    flex-grow: 1;
+}
+
+.link-title {
+    font-size: 1.2em;
+    margin-bottom: 0.5em;
+}
+
+.link-description {
+    font-size: 1em;
+    margin-bottom: 0.5em;
+}
+
+.link-url {
+    font-size: 0.9em;
+    text-decoration: none;
+    color: #007bff;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+}

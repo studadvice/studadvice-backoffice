@@ -2,7 +2,7 @@
     z-index: 2;
 }
 
-.clear {
+.clear, .preview {
     position: absolute;
     top: 10px;
     right: 0;
@@ -71,3 +71,17 @@ p label.hidden {
 .input-invalid input:focus, p.input-invalid textarea:focus {
     border-color: var(--c-important) !important;
 }
+
+.icon-clear, .icon-preview {
+    color: var(--grey-darken-1);
+}
+
+::ng-deep .cdk-overlay-container {
+    position: fixed;
+    top: 0;
+    left: 25%;
+    right: 25%;
+    display: block;
+    z-index: 100000;
+}
+

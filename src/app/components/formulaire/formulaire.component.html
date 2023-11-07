@@ -19,7 +19,7 @@
                     [type]="'text'"
             >
                 <app-input-label class="font-bold">Titre</app-input-label>
-            </app-input>
+            </app-input>-
         </div>
         <div class="item-form">
             <app-input
@@ -116,7 +116,7 @@
                     <div class="item-form">
                         <app-input
                                 [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
-                                [clearable]="true"
+                                [clearable]="false"
                                 [errorMessage]="'Le lien est obligatoire'"
                                 [error]="hasError('lien', 'required')"
                                 [hideLabel]="false"
@@ -128,6 +128,8 @@
                                 [minLength]="'5'"
                                 [type]="'text'"
                                 [required]="true"
+                                [previewable]="true"
+                                [linkText]="getControl(etape, 'lien')!.value"
                         >
                             <app-input-label class="font-bold">Lien Etape {{i + 1}}</app-input-label>
                         </app-input>
@@ -136,40 +138,34 @@
                         <app-input
                                 [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
                                 [clearable]="true"
-                                [error]="false"
+                                [error]="hasError('texte', 'required')"
                                 [hideLabel]="false"
                                 [idInput]="'texte ' + i"
                                 [inputFormControl]="getControl(etape, 'texte')!"
                                 [id]="'texte ' + i"
                                 [minLength]="'5'"
+                                [errorMessage]="'Le texte est obligatoire'"
                                 [nameInput]="'Texte Etape ' + (i+1)"
                                 [required]="false"
                                 [type]="'textarea'"
-                                [placeholder]="'Texte de l\'étape ' + (i+1)"
-                        >
+                                [placeholder]="'Texte de l\'étape ' + (i+1)">
                             <app-input-label class="font-bold">Texte Etape {{i + 1}}</app-input-label>
                         </app-input>
                     </div>
                     <div class="item-form flex space-between items-center justify-center">
                         <app-button
-                                (click)="supprimerEtape(i, c)"
+                                (click)="deleteStep(i, c)"
                                 [customClass]="'delete-btn btn btn-success text-white text-sm hover:bg-transparent'"
                                 [disabled]="formData.controls.length <= 0"
                                 [icon]="faTrash"
                                 [title]="'Supprimer l\'étape'"
                                 [tooltip]="'Supprimer l\'étape'"
                         ></app-button>
-                    </div>
 
+                    </div>
                 </div>
             </div>
             <div class="item-form flex space-between items-center justify-center">
-                <app-button (save)="ajouterEtape()"
-                            [customClass]="'btn btn-success text-white text-sm ml-5'"
-                            [icon]="faPlus"
-                            [title]="'Ajouter une étape'"
-                            [tooltip]="'Ajouter une étape'"
-                ></app-button>
                 <!-- submit -->
                 <app-button (save)="submit()"
                             [customClass]="'btn btn-success text-white text-sm ml-5'"
@@ -177,6 +173,12 @@
                             [icon]="faSave"
                             [title]="'Enregistrer'"
                             [tooltip]="'Enregistrer'"
+                ></app-button>
+                <app-button (save)="addStep()"
+                            [customClass]="'btn btn-success text-white text-sm ml-5'"
+                            [icon]="faPlus"
+                            [title]="'Ajouter une étape'"
+                            [tooltip]="'Ajouter une étape'"
                 ></app-button>
             </div>
         </div>

@@ -13,8 +13,6 @@ import {AngularFireStorageModule} from "@angular/fire/compat/storage";
 import {environment} from "../environments/environments";
 import {SignInComponent} from './components/sign-in/sign-in.component';
 import {SignUpComponent} from './components/sign-up/sign-up.component';
-import {ForgotPasswordComponent} from './components/forgot-password/forgot-password.component';
-import {VerifyEmailComponent} from './components/verify-email/verify-email.component';
 import {InputComponent} from './core/input/input.component';
 import {InputSelectComponent} from './core/input/input-select/input-select.component';
 import {ButtonComponent} from './core/input/button/button.component';
@@ -35,6 +33,13 @@ import {MatSortModule} from "@angular/material/sort";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {TableComponent} from './core/table/table.component';
+import {ActionButtonComponent} from "./core/table/action-button.component";
+import {MatIconModule} from "@angular/material/icon";
+import {MatButtonModule} from "@angular/material/button";
+import { LinkPreviewComponent } from './core/link-preview/link-preview.component';
+import {HttpClientModule} from "@angular/common/http";
+import { ModalComponent } from './core/modal/link-preview-modal/modal.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
     declarations: [
@@ -43,8 +48,6 @@ import {TableComponent} from './core/table/table.component';
         FormulaireComponent,
         SignInComponent,
         SignUpComponent,
-        ForgotPasswordComponent,
-        VerifyEmailComponent,
         InputComponent,
         InputSelectComponent,
         ButtonComponent,
@@ -55,7 +58,10 @@ import {TableComponent} from './core/table/table.component';
         InputPasswordComponent,
         DashboardComponent,
         UsersComponent,
-        TableComponent
+        TableComponent,
+        ActionButtonComponent,
+        LinkPreviewComponent,
+        ModalComponent
     ],
     imports: [
         BrowserModule,
@@ -75,6 +81,10 @@ import {TableComponent} from './core/table/table.component';
         MatTableModule,
         MatSortModule,
         MatPaginatorModule,
+        MatIconModule,
+        MatButtonModule,
+        HttpClientModule,
+        MatDialogModule
     ],
     providers: [],
   bootstrap: [AppComponent]

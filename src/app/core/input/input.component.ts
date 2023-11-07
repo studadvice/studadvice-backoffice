@@ -1,6 +1,9 @@
 import {Component, EventEmitter, forwardRef, Input, Output} from '@angular/core';
 import {AbstractInputComponent} from "./abstract-input.component";
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
+import {faEye, faTimesCircle} from "@fortawesome/free-solid-svg-icons";
+import {MatDialog} from "@angular/material/dialog";
+import {ModalComponent} from "../modal/link-preview-modal/modal.component";
 
 @Component({
   selector: 'app-input',
@@ -42,6 +45,9 @@ export class InputComponent extends AbstractInputComponent implements ControlVal
   @Input() hideLabel: any;
   @Input() error: any;
   @Input() textTooltip: any;
+  @Input() link: boolean = false;
+  @Input() linkText: string = '';
+  @Input() previewable: boolean = false;
   @Output() keypress: EventEmitter<any> = new EventEmitter<any>();
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
@@ -49,8 +55,15 @@ export class InputComponent extends AbstractInputComponent implements ControlVal
   @Output() keydown: EventEmitter<any> = new EventEmitter<any>();
   @Input() clearable: boolean = false;
   value: any;
+  modalOpen: boolean = false;
+
+  constructor(public dialog: MatDialog) {
+    super();
+  }
+
   onChange: any = () => {
   };
+
   onTouched: any = () => {
   };
 
@@ -88,5 +101,26 @@ export class InputComponent extends AbstractInputComponent implements ControlVal
 
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
+  }
+
+  protected readonly faTimesCircle = faTimesCircle;
+  protected readonly faEye = faEye;
+
+  openPreview() {
+    if (!this.modalOpen) { // Prevents from opening multiple modals
+      this.modalOpen = true;
+      const dialogRef = this.dialog.open(ModalComponent, {
+        position: {top: '0',
+          left: '0',
+          bottom: '0',
+          right: '0'
+        },
+        data: {link: this.inputFormControl.value}
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`);
+        this.modalOpen = false;
+      });
+    }
   }
 }

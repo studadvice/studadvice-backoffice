@@ -1,5 +1,7 @@
 nav {
     background-color: cornflowerblue;
+    z-index: 100;
+    padding: 8px;
 }
 
 .rotate-90 {

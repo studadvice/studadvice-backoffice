@@ -42,7 +42,16 @@
         >
         <span *ngIf="clearable && isText() && inputFormControl.value" class="clear noBorder">
           <button (click)="clearInput()"
-                  class="icon-clear"></button>
+                  class="icon-clear">
+              <fa-icon [icon]="faTimesCircle"></fa-icon>
+          </button>
+        </span>
+        <!-- link modal preview -->
+        <span *ngIf="previewable && !clearable && isText() && inputFormControl.value" class="preview noBorder">
+          <button (click)="openPreview()"
+                  class="icon-preview">
+              <fa-icon [icon]="faEye"></fa-icon>
+          </button>
         </span>
         <textarea #textareaElement
                   (focusout)="showTooltipError()"

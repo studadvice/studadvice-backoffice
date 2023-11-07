@@ -7,6 +7,7 @@ html, body {
     height: 100%;
 }
 
+
 /* --------------------------------------------------------------------
 *	RESET
 -------------------------------------------------------------------- */
@@ -205,4 +206,61 @@ span.required {
     width: 100%;
     /*max-width: */
     margin: auto;
+}
+
+/* ****** MODAL ******* */
+
+.modal-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 900;
+    left: 0;
+    bottom: 0;
+}
+
+.modalComponent {
+    z-index: 1000;
+}
+
+.modal-body {
+    padding: 15px;
+    background-color: #fff;
+    margin: 20px;
+}
+
+.modalComponent .modal-header {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 0.5em;
+    margin-bottom: 0.2rem;
+    border-bottom: 3px solid #1359a4;
+}
+
+.modalComponent .modal-header h1 {
+    padding: 0;
+    margin: 0;
+    font-size: 1rem;
+    color: #1359a4;
+    text-transform: uppercase;
+    flex: 2;
+}
+
+.modalComponent .modal-header button.close {
+    font-size: 1.5rem;
+    /*background-image: url("assets/img/close.svg");*/
+    transition: all 0.3s ease 0s;
+}
+
+.modalComponent .modal-header button.close:hover, .modalComponent .modal-header button.close:focus {
+    transform: rotate(180deg);
+}
+
+.modalComponent .modal-body {
+    max-height: calc(100vh - 15rem);
+    overflow: auto;
+}
+
+.modal-open {
+    overflow: hidden;
 }

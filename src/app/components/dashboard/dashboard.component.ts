@@ -7,21 +7,33 @@ import {MatPaginator} from "@angular/material/paginator";
     templateUrl: './dashboard.component.html',
     styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit, AfterViewInit {
-    displayedColumns: string[] = ['name', 'color', 'category', 'price', 'action'];
-    dataSource = new MatTableDataSource<Demarche>(ELEMENT_DATA);
-    @ViewChild(MatPaginator) paginator!: MatPaginator;
+export class DashboardComponent implements OnInit {
+    displayedColumns: string[] = ['name', 'color', 'category', 'price', 'actions'];
+    dataSource = ELEMENT_DATA;
+    columnDefinitions: any[] = [
+        {field: 'name', header: 'Name'},
+        {field: 'color', header: 'Color'},
+        {field: 'category', header: 'Category'},
+        {field: 'price', header: 'Price'},
+    ];
 
     ngOnInit() {
         // Initialize your data source here
     }
 
-    ngAfterViewInit() {
-        this.dataSource.paginator = this.paginator;
+    handleAction(event: { action: string, data: any }) {
+        console.log('Action Triggered:', event.action, 'With Row Data:', event.data);
+    }
+
+    editAction(item: Demarche) {
+        
+    }
+
+    deleteAction(item: Demarche) {
+        
     }
 }
 
-// Replace this with your actual data model
 export interface Demarche {
     id: number;
     name: string;
@@ -30,7 +42,6 @@ export interface Demarche {
     price: number;
 }
 
-// Replace this with your actual data
 const ELEMENT_DATA: Demarche[] = [
     {id: 1, name: 'Apple MacBook Pro 17"', color: 'Silver', category: 'Laptop', price: 2999},
     {id: 2, name: 'Microsoft Surface Pro', color: 'White', category: 'Laptop PC', price: 1999},

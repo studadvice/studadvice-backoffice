@@ -1,0 +1,26 @@
+<div class="modalComponent small">
+  <div class="modal-body">
+    <div class="modal">
+      <div class="modal-header">
+        <h1 class="modal-title">Prévisualisation du lien</h1>
+        <button type="button" class="close right" data-dismiss="modal" aria-label="Close" (click)="closeLinkPreview()">
+          <span aria-hidden="true" class="close-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="794.994 121.536 11.377 11.377">
+    <path fill="none" stroke="#012E47" stroke-width="2" stroke-miterlimit="10" d="M795.933 122.224l9.5 10M805.683 122.474l-10 9.5"/></svg>
+          </span>
+        </button>
+      </div>
+
+      <div class="link-preview">
+        <div class="link-image">
+          <img src="{{ preview.image }}" alt="{{ preview.title }}">
+        </div>
+        <div class="link-content">
+          <h2 class="link-title">{{ header }}</h2>
+          <p class="link-description">{{ preview.description }}</p>
+          <a href="{{ preview.url }}" class="link-url">{{ preview.url }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

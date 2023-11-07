@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {faPlus, faSave, faTrash} from "@fortawesome/free-solid-svg-icons";
+import {faEye, faPlus, faSave, faTrash} from "@fortawesome/free-solid-svg-icons";
+import {ModalComponent} from "../../core/modal/link-preview-modal/modal.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
     selector: 'app-formulaire',
@@ -33,7 +35,7 @@ export class FormulaireComponent implements OnInit {
     faPlus = faPlus;
     faSave = faSave;
 
-    constructor(private formBuilder: FormBuilder) {
+    constructor(private formBuilder: FormBuilder, public dialog: MatDialog) {
     }
 
     get formData() {
@@ -48,27 +50,33 @@ export class FormulaireComponent implements OnInit {
             etapes: this.etapes
         });
 
-        this.ajouterEtape("Etape 2", "Description 2");
+        this.addStep("Etape 2", "Description 2");
     }
 
-    supprimerEtape(i: number, count: number) {
+    deleteStep(i: number, count: number) {
         console.log("supprimerEtape", i, count);
         this.etapes.removeAt(i);
     }
 
-    ajouterEtape(titleDefault: string = '', descriptionDefault: string = '', documentsDefault: string[] = [], texteDefault: string = '', lienDefault: string = '') {
-        this.etapes.push(this.formBuilder.group({
+    addStep(titleDefault: string = '', descriptionDefault: string = '', documentsDefault: string[] = [], texteDefault: string = '', lienDefault: string = '') {
+        console.log("addStep", titleDefault, descriptionDefault, documentsDefault, texteDefault, lienDefault);
+        this.etapes.push(this.addNewStep(titleDefault, descriptionDefault, documentsDefault, lienDefault, texteDefault));
+    }
+
+    private addNewStep(titleDefault: string, descriptionDefault: string, documentsDefault: string[], lienDefault: string, texteDefault: string) {
+        return this.formBuilder.group({
             titre: [
                 titleDefault,
                 [Validators.required, Validators.minLength(5), Validators.maxLength(50)]
             ],
             description: [descriptionDefault, Validators.required],
             documents: [documentsDefault, Validators.required],
-            lien: [lienDefault,
+            lien: [
+                lienDefault,
                 [Validators.required, Validators.minLength(5)]
             ],
             texte: [texteDefault, Validators.required]
-        }));
+        });
     }
 
     getControl(control: AbstractControl, controlName: string): FormControl | null {

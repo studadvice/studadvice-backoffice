@@ -1,5 +1,22 @@
 <div class="main-content">
     <h2 class="text-2xl m-0 mb-5 font-bold">TABLEAU DES DEMARCHES</h2>
     <!-- Your Angular component template file -->
-
+    <app-table
+            [data]="dataSource"
+            [columnDefinitions]="columnDefinitions"
+            [displayColumns]="displayedColumns"
+            (actionTriggered)="handleAction($event)">
+        <ng-container *ngFor="let item of dataSource">
+            <action-button>
+                <button mat-icon-button matTooltip="Modifier">
+                    <mat-icon>edit</mat-icon>
+                </button>
+            </action-button>
+            <action-button>
+                <button mat-icon-button matTooltip="Supprimer">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </action-button>
+        </ng-container>
+    </app-table>
 </div>
