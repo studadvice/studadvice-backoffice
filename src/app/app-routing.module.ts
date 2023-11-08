@@ -5,13 +5,17 @@ import {SignUpComponent} from "./components/sign-up/sign-up.component";
 import {SignInComponent} from "./components/sign-in/sign-in.component";
 import {AuthGuard} from "./shared/guard/auth.guard";
 import {DashboardComponent} from "./components/dashboard/dashboard.component";
+import {CategoryFormsComponent} from "./components/category-forms/category-forms.component";
+import {AddCategoryComponent} from "./components/add-category/add-category.component";
 
 const routes: Routes = [
   {path: 'formulaire', component: FormulaireComponent, canActivate: [AuthGuard], data: {roles: ['ROLE_ADMIN']}},
   {path: '', redirectTo: '/formulaire', pathMatch: 'full'},
   {path: 'sign-in', component: SignInComponent},
   {path: 'register-user', component: SignUpComponent},
-  {path: 'dashboard', component: DashboardComponent}
+  {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard], data: {roles: ['ROLE_ADMIN']}},
+  {path: 'category', component: CategoryFormsComponent, canActivate: [AuthGuard], data: {roles: ['ROLE_ADMIN']}},
+  {path: 'category/add', component: AddCategoryComponent, canActivate: [AuthGuard], data: {roles: ['ROLE_ADMIN']}},
 ];
 
 @NgModule({

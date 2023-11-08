@@ -1,97 +1,4 @@
-.studadvice .btn {
-    -webkit-transition: color 300ms;
-    -moz-transform-origin: color 300ms;
-    transition: color 300ms;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    min-height: 36px;
-    padding: 0 1.25rem;
-    border-radius: 18px;
-    border: none;
-    height: fit-content;
-    cursor: pointer;
-}
-
-.studadvice .btn > span {
-    font-size: 16px;
-}
-
-.studadvice .btn > span::before {
-    font-size: 33px;
-}
-
-.studadvice .btn:hover {
-    border: none;
-}
-
-.studadvice .btn.btn-success,
-.studadvice .btn.btn-primary {
-    -webkit-transition: background-color 300ms;
-    -moz-transform-origin: background-color 300ms;
-    transition: background-color 300ms;
-    border: 1px solid;
-}
-
-.studadvice .btn.btn-success:focus,
-.studadvice .btn.btn-primary:focus,
-.studadvice .btn.btn-success:hover,
-.studadvice .btn.btn-primary:hover {
-    border: 1px solid;
-    border-radius: 18px;
-}
-
-.studadvice .btn.btn-cancel,
-.studadvice .btn.btn-secondary {
-    -webkit-transition: color 300ms;
-    -moz-transform-origin: color 300ms;
-    transition: color 300ms;
-    border: 1px solid;
-}
-
-.studadvice .btn.btn-cancel:hover,
-.studadvice .btn.btn-secondary:hover {
-    border: 1px solid;
-}
-
-.studadvice .btn:focus,
-.studadvice .btn:active:focus,
-.studadvice .btn.active:focus {
-    outline: none;
-}
-
-.studadvice .btn:active {
-    box-shadow: none;
-}
-
-.studadvice {
-    background-color: #ffffff;
-    --main-font: "DDIN";
-    --secondary-font: "DDIN";
-    /** Colors */
-    --main-color: #000000;
-    --secondary-color: #00ae9f;
-    --tertiary-color: #49aad6;
-    --main-color-hover: #333333;
-    --secondary-color-hover: #66cec5;
-    --rub-active-color: #fafafa;
-    --rub-color: #ffffff;
-    --warning-color: #ff9768;
-    --success-color: #c6ca2e;
-    --shadow-color: #eef1f2;
-    --white: #ffffff;
-    --black: #000000;
-    --yellow: #f7b900;
-    --light-blue: #14aff0;
-    --blue: #5fa2db;
-    --red: #e6372d;
-    --grey-lighten-1: #f2f3f5;
-    --grey-lighten-2: #e9ebef;
-    --grey-lighten-3: #d4d6df;
-    --grey-darken-1: #9ea4b7;
-    --grey-darken-2: #444243;
-    --input-background-color: #f3f3f3;
+:root {
     --c-primary: #1359a4;
     --c-primary-dark: #0c2556;
     --c-primary-light: #b7c1cd;
@@ -105,58 +12,16 @@
     --c-reset-dark: #161b25;
     --c-disabled: #afafaf;
     --c-disabled-dark: #888888;
-    --c-warning: #fe742b;
     --c-success: #00c6ad;
     --c-text: #404040;
     --c-info: #000091;
 
-    --p-button: .875rem;
+    --p-button: 1rem;
     --p-input-label: 0.9rem;
     --p-input-value: 0.9rem;
     --p-champlecture-label: .85em;
-    --p-champlecture-value: 0.813rem;
-    --p-text: 0.813rem;
-}
-
-.studadvice .btn {
-    font-family: "DDIN", sans-serif;
-    font-weight: 600;
-    font-size: 12px;
-    line-height: 1.2;
-    color: #00ae9f;
-}
-
-.studadvice .btn:hover {
-    background-color: #ffffff;
-    color: #66cec5;
-}
-
-.studadvice .btn.btn-success,
-.studadvice .btn.btn-primary {
-    background-color: #00ae9f;
-    border-color: #00ae9f;
-    color: #ffffff;
-}
-
-.studadvice .btn.btn-success:focus,
-.studadvice .btn.btn-primary:focus,
-.studadvice .btn.btn-success:hover,
-.studadvice .btn.btn-primary:hover {
-    border-color: #66cec5;
-    background-color: #66cec5;
-}
-
-.studadvice .btn.btn-cancel,
-.studadvice .btn.btn-secondary {
-    background-color: transparent;
-    border-color: transparent;
-    color: #00ae9f;
-}
-
-.studadvice .btn.btn-cancel:hover,
-.studadvice .btn.btn-secondary:hover {
-    color: #66cec5;
-    border-color: transparent;
+    --p-champlecture-value: .813rem;
+    --p-text: .813rem;
 }
 
 /* ****** INPUT COMPONENT ( AVEC GESTION DES ERREURS ) ******** */
@@ -348,4 +213,176 @@
 
 .selectComponent .input-disabled select {
     background-color: #e3e3e3;
+}
+
+/* ****** BUTTON COMPONENT ******** */
+.buttonComponent {
+    width: 100%;
+    text-align: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+.buttonComponent li input {
+    padding: 0.7em 1rem;
+}
+
+.k-buttons-bar {
+    width: 100%;
+    text-align: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+.k-buttons-bar li {
+    list-style-type: none;
+    margin: 0 0.7em;
+}
+
+.k-buttons-bar li input {
+    padding: 0.7em 1rem;
+}
+
+.highlight-bt, .secondary-bt, .disabled-bt, .reset-bt, .important-bt {
+    text-align: center;
+    font-size: 1rem;
+    line-height: 1rem;
+    padding: 0.7rem 0 0 0;
+}
+
+.highlight-bt.noSpace, .secondary-bt.noSpace, .disabled-bt.noSpace, .reset-bt.noSpace, .important-bt.noSpace {
+    padding: 0;
+}
+
+.highlight-bt a, .highlight-bt input, .highlight-bt button,
+.secondary-bt a, .secondary-bt input, .secondary-bt button,
+.disabled-bt a, .disabled-bt input, .disabled-bt button,
+.reset-bt a, .reset-bt input, .reset-bt button,
+.important-bt a, .important-bt input, .important-bt button,
+.buttonComponent input:disabled {
+    text-transform: uppercase;
+    font-family: 'font-studadvice-black', sans-serif;
+    color: #fff;
+    border-radius: 4px;
+    text-decoration: none;
+    padding: 0.5em 1rem;
+    font-style: oblique;
+    background: var(--c-primary);
+    -webkit-box-shadow: 0px 2px 0 var(--c-primary-dark);
+    box-shadow: 0px 2px 0 var(--c-primary-dark);
+    border: 2px solid var(--c-primary);
+    line-height: 1rem;
+}
+
+.highlight-bt a, .secondary-bt a, .disabled-bt a, .reset-bt a, .important-bt a,
+.highlight-bt button, .secondary-bt button, .disabled-bt button, .reset-bt button, .important-bt button, .buttonComponent input:disabled {
+    padding: 0.5em 1rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    font-size: var(--p-button);
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+.highlight-bt a:hover, .highlight-bt input:hover, .highlight-bt button:hover,
+.highlight-bt a:focus, .highlight-bt input:focus, .highlight-bt button:focus {
+    background: transparent;
+    border: 2px solid var(--c-primary);
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    color: var(--c-primary);
+}
+
+.secondary-bt a, .secondary-bt input, .secondary-bt button {
+    background: var(--c-secondary);
+    -webkit-box-shadow: 0px 2px 0 var(--c-secondary-dark);
+    box-shadow: 0px 2px 0 var(--c-secondary-dark);
+    border: 2px solid var(--c-secondary);
+    font-size: .875rem;
+}
+
+.secondary-bt a:hover, .secondary-bt input:hover, .secondary-bt button:hover,
+.secondary-bt a:focus, .secondary-bt input:focus, .secondary-bt button:focus {
+    background: transparent;
+    border: 2px solid var(--c-secondary);
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    color: var(--c-secondary);
+}
+
+.disabled-bt a, .disabled-bt input, .disabled-bt button,
+.buttonComponent input:disabled, .buttonComponent button:disabled,
+.highlight-bt button:disabled, .highlight-bt input:disabled,
+.secondary-bt button:disabled, .secondary-bt input:disabled {
+    background: var(--c-disabled);
+    -webkit-box-shadow: 0px 2px 0 var(--c-disabled-dark);
+    box-shadow: 0px 2px 0 var(--c-disabled-dark);
+    border: 2px solid var(--c-disabled);
+    color: var(--c-disabled-dark);
+}
+
+.buttonComponent input:disabled, .buttonComponent button:disabled {
+    text-align: center;
+    margin: 2rem 0 1rem 0;
+    padding: 0.5em 1rem;
+    background: var(--c-disabled);
+    -webkit-box-shadow: 0px 2px 0 var(--c-disabled-dark);
+    box-shadow: 0px 2px 0 var(--c-disabled-dark);
+    border: 2px solid var(--c-disabled);
+    color: var(--c-disabled-dark);
+}
+
+.disabled-bt input:disabled, .disabled-bt button:disabled,
+.highlight-bt input:disabled, .highlight-bt button:disabled {
+    margin: 0;
+}
+
+.disabled-bt a:hover, .disabled-bt input:hover, .disabled-bt button:hover,
+.highlight-bt input:disabled:hover, .highlight-bt button:disabled:hover,
+.secondary-bt input:disabled:hover, .secondary-bt button:disabled:hover,
+button:disabled {
+    cursor: Not-Allowed;
+}
+
+.reset-bt a, .reset-bt input, .reset-bt button {
+    background: var(--c-reset);
+    -webkit-box-shadow: 0px 2px 0 var(--c-reset-dark);
+    box-shadow: 0px 2px 0 var(--c-reset-dark);
+    border: 2px solid var(--c-reset);
+}
+
+.reset-bt a:hover, .reset-bt input:hover, .reset-bt button:hover,
+.reset-bt a:focus, .reset-bt input:focus, .reset-bt button:focus {
+    background: transparent;
+    border: 2px solid var(--c-reset-dark);
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    color: var(--c-reset-dark);
+}
+
+.important-bt a, .important-bt input, .important-bt button {
+    background: var(--c-important);
+    -webkit-box-shadow: 0px 2px 0 var(--c-important-dark);
+    box-shadow: 0px 2px 0 var(--c-important-dark);
+    border: 2px solid var(--c-important);
+}
+
+.important-bt a:hover, .important-bt input:hover, .important-bt button:hover,
+.important-bt a:focus, .important-bt input:focus, .important-bt button:focus {
+    background: transparent;
+    border: 2px solid var(--c-important);
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    color: var(--c-important);
 }

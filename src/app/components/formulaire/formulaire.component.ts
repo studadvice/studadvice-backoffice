@@ -1,8 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {faEye, faPlus, faSave, faTrash} from "@fortawesome/free-solid-svg-icons";
 import {ModalComponent} from "../../core/modal/link-preview-modal/modal.component";
 import {MatDialog} from "@angular/material/dialog";
+import {ButtonComponent} from "../../core/input/button/button.component";
+import {FormControlService} from "../../shared/services/form-control.service";
 
 @Component({
     selector: 'app-formulaire',
@@ -10,92 +12,97 @@ import {MatDialog} from "@angular/material/dialog";
     styleUrls: ['./formulaire.component.css']
 })
 export class FormulaireComponent implements OnInit {
-    titleFormControl = new FormControl(
-        '',
-        [Validators.required,
-            Validators.minLength(5),
-            Validators.maxLength(50),
-        ]
-    );
-    descriptionFormControl = new FormControl(
-        '',
-        [Validators.required,
-            Validators.minLength(5),
-            Validators.maxLength(50),
-        ]
-    );
-    documentsFormControl = new FormControl();
-    options: any[] = [
-        {value: 'Option 1', label: 'Option 1'},
-        {value: 'Option 2', label: 'Option 2'},
-    ];
+
     form!: FormGroup;
-    etapes: FormArray = this.formBuilder.array([]);
     faTrash = faTrash;
     faPlus = faPlus;
     faSave = faSave;
 
-    constructor(private formBuilder: FormBuilder, public dialog: MatDialog) {
-    }
+    @ViewChild('addResourceButton', { static: false }) addResourceButton!: ButtonComponent;
+    @ViewChild('addStepButton', { static: false }) addStepButton!: ButtonComponent;
+    @ViewChild('submitButton', { static: false }) submitButton!: ButtonComponent;
 
-    get formData() {
-        return <FormArray>this.form.get('etapes')
+    constructor(private formBuilder: FormBuilder, public dialog: MatDialog,
+                private formControlService: FormControlService) {
     }
 
     ngOnInit() {
         this.form = this.formBuilder.group({
-            title: this.titleFormControl,
-            description: this.descriptionFormControl,
-            documents: this.documentsFormControl,
-            etapes: this.etapes
+            title: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
+            description: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
+            etapes: this.formBuilder.array([]),
+            resources: this.formBuilder.array([])
         });
-
-        this.addStep("Etape 2", "Description 2");
+        this.formControlService.setForm(this.form);
     }
 
-    deleteStep(i: number, count: number) {
-        console.log("supprimerEtape", i, count);
-        this.etapes.removeAt(i);
+    // Utilitaires pour obtenir des FormArray spécifiques
+    get etapes(): FormArray {
+        return this.form.get('etapes') as FormArray;
     }
 
-    addStep(titleDefault: string = '', descriptionDefault: string = '', documentsDefault: string[] = [], texteDefault: string = '', lienDefault: string = '') {
-        console.log("addStep", titleDefault, descriptionDefault, documentsDefault, texteDefault, lienDefault);
-        this.etapes.push(this.addNewStep(titleDefault, descriptionDefault, documentsDefault, lienDefault, texteDefault));
+    get resources(): FormArray {
+        return this.form.get('resources') as FormArray;
     }
 
-    private addNewStep(titleDefault: string, descriptionDefault: string, documentsDefault: string[], lienDefault: string, texteDefault: string) {
-        return this.formBuilder.group({
-            titre: [
-                titleDefault,
-                [Validators.required, Validators.minLength(5), Validators.maxLength(50)]
-            ],
-            description: [descriptionDefault, Validators.required],
-            documents: [documentsDefault, Validators.required],
-            lien: [
-                lienDefault,
-                [Validators.required, Validators.minLength(5)]
-            ],
-            texte: [texteDefault, Validators.required]
+    // Méthode pour ajouter une étape au FormArray avec des FormControl spécifiques
+    addStep() {
+        const stepGroup = this.formBuilder.group({
+            titre: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
+            description: new FormControl('', [Validators.required, Validators.minLength(5)]),
+            documents: new FormControl([], Validators.required), // Assumption: 'documents' is an array of strings
+            lien: new FormControl('', [Validators.required, Validators.minLength(5)])
         });
+        this.etapes.push(stepGroup);
+        this.addStepButton.enable();
     }
 
-    getControl(control: AbstractControl, controlName: string): FormControl | null {
-        const formGroup = control as FormGroup;
-        const formControl = formGroup.get(controlName);
-        return formControl instanceof FormControl ? formControl : null;
+    // Méthode pour ajouter une ressource au FormArray avec des FormControl spécifiques
+    addResource() {
+        const resourceGroup = this.formBuilder.group({
+            titre: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
+            description: new FormControl('', [Validators.required, Validators.minLength(5)]),
+            url: new FormControl('', [Validators.required, Validators.minLength(5)]),
+            image: new FormControl('', Validators.required)
+        });
+        this.resources.push(resourceGroup);
+        this.addResourceButton.enable();
     }
 
+    // Méthode pour obtenir un contrôle spécifique d'un FormGroup
+    getControl(group: AbstractControl, controlName: string): FormControl {
+        return this.formControlService.getControl(group, controlName);
+    }
+
+    // Méthode pour récupérer un FormControl en utilisant le nom du contrôle
+    getFormControl(name: string) {
+        return this.formControlService.getFormControl(name);
+    }
+
+    // Méthode pour vérifier s'il y a une erreur spécifique sur un contrôle
+    hasError(controlName: string, errorName: string): boolean {
+        return this.formControlService.hasError(controlName, errorName);
+    }
+
+    // Méthode pour supprimer une étape du FormArray
+    deleteStep(index: number) {
+        this.etapes.removeAt(index);
+    }
+
+    // Méthode pour supprimer une ressource du FormArray
+    deleteResource(index: number) {
+        this.resources.removeAt(index);
+    }
+
+    // Méthode pour traiter la soumission du formulaire
     submit() {
         if (this.form.valid) {
-            let demarche = this.form.value;
-            console.log("demarche", demarche);
+            console.log('Form Data:', this.form.value);
+            this.submitButton.enable();
         } else {
-            console.log("form invalid", this.form);
+            console.error('Form Invalid:', this.form.errors);
+            this.submitButton.enable();
         }
     }
 
-    hasError(title: string, required: string) {
-        return this.getControl(this.form, title)?.hasError(required);
-
-    }
 }

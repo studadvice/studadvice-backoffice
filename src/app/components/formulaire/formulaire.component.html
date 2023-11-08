@@ -1,6 +1,6 @@
 <div class="main-content">
     <h2 class="text-2xl m-0 mb-5 font-bold">AJOUTER UNE DEMARCHE</h2>
-    <form (ngSubmit)="submit()" *ngIf="form" [formGroup]="form" class="container studadvice">
+    <form (ngSubmit)="submit()" *ngIf="form" [formGroup]="form" class="container studadvice box-mainLook">
         <div class="item-form">
             <app-input
                     [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
@@ -9,7 +9,7 @@
                     [hideLabel]="false"
                     [idInput]="'title'"
                     [id]="'title'"
-                    [inputFormControl]="titleFormControl"
+                    [inputFormControl]="getFormControl('title')!"
                     [error]="hasError('title', 'required')"
                     [maxLength]="'50'"
                     [minLength]="'5'"
@@ -30,7 +30,7 @@
                     [hideLabel]="false"
                     [idInput]="'description'"
                     [id]="'description'"
-                    [inputFormControl]="descriptionFormControl"
+                    [inputFormControl]="getFormControl('description')!"
                     [minLength]="'5'"
                     [nameInput]="'Description'"
                     [placeholder]="'Description de la démarche'"
@@ -39,25 +39,8 @@
                 <app-input-label class="font-bold">Description</app-input-label>
             </app-input>
         </div>
-        <div class="item-form">
-            <app-input-select
-                    [bindLabel]="'label'"
-                    [bindValue]="'label'"
-                    [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
-                    [clearable]="true"
-                    [errorMessage]="'liste de documents obligatoire'"
-                    [hasLabel]="true"
-                    [id]="'documents'"
-                    [inputFormControl]="documentsFormControl"
-                    [multiple]="true"
-                    [options]="options"
-                    [required]="false"
-            >
-                <label class="font-bold">Documents</label>
-            </app-input-select>
-        </div>
         <div formArrayName="etapes">
-            <div *ngFor="let etape of formData.controls; let i = index; let c = count">
+            <div *ngFor="let etape of etapes.controls; let i = index; let c = count">
                 <div [formGroupName]="i">
                     <div class="item-form">
                         <app-input
@@ -79,7 +62,7 @@
                             <app-input-label class="font-bold">Titre Etape {{i + 1}}</app-input-label>
                         </app-input>
                     </div>
-
+                    <!-- numero de l'etape -->
                     <div class="item-form">
                         <app-input
                                 [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
@@ -99,7 +82,7 @@
                     <div class="item-form">
                         <app-input-select
                                 [bindLabel]="'label'"
-                                [bindValue]="'label'"
+                                [bindValue]="'value'"
                                 [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
                                 [clearable]="true"
                                 [errorMessage]="'Liste des documents obligatoire'"
@@ -107,7 +90,11 @@
                                 [id]="'documents'"
                                 [inputFormControl]="getControl(etape, 'documents')!"
                                 [multiple]="true"
-                                [options]="options"
+                                [options]="[
+                                    { value: 'document1', label: 'Document 1' },
+                                    { value: 'document2', label: 'Document 2' },
+                                    { value: 'document3', label: 'Document 3' }
+                                ]"
                                 [required]="false"
                         >
                             <label class="font-bold">Documents Etape {{i + 1}}</label>
@@ -134,29 +121,11 @@
                             <app-input-label class="font-bold">Lien Etape {{i + 1}}</app-input-label>
                         </app-input>
                     </div>
-                    <div class="item-form">
-                        <app-input
-                                [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
-                                [clearable]="true"
-                                [error]="hasError('texte', 'required')"
-                                [hideLabel]="false"
-                                [idInput]="'texte ' + i"
-                                [inputFormControl]="getControl(etape, 'texte')!"
-                                [id]="'texte ' + i"
-                                [minLength]="'5'"
-                                [errorMessage]="'Le texte est obligatoire'"
-                                [nameInput]="'Texte Etape ' + (i+1)"
-                                [required]="false"
-                                [type]="'textarea'"
-                                [placeholder]="'Texte de l\'étape ' + (i+1)">
-                            <app-input-label class="font-bold">Texte Etape {{i + 1}}</app-input-label>
-                        </app-input>
-                    </div>
                     <div class="item-form flex space-between items-center justify-center">
                         <app-button
-                                (click)="deleteStep(i, c)"
+                                (click)="deleteStep(i)"
                                 [customClass]="'delete-btn btn btn-success text-white text-sm hover:bg-transparent'"
-                                [disabled]="formData.controls.length <= 0"
+                                [disabled]="etapes.controls.length <= 0"
                                 [icon]="faTrash"
                                 [title]="'Supprimer l\'étape'"
                                 [tooltip]="'Supprimer l\'étape'"
@@ -165,22 +134,119 @@
                     </div>
                 </div>
             </div>
-            <div class="item-form flex space-between items-center justify-center">
-                <!-- submit -->
-                <app-button (save)="submit()"
-                            [customClass]="'btn btn-success text-white text-sm ml-5'"
-                            [disabled]="!form.valid"
-                            [icon]="faSave"
-                            [title]="'Enregistrer'"
-                            [tooltip]="'Enregistrer'"
-                ></app-button>
-                <app-button (save)="addStep()"
-                            [customClass]="'btn btn-success text-white text-sm ml-5'"
-                            [icon]="faPlus"
-                            [title]="'Ajouter une étape'"
-                            [tooltip]="'Ajouter une étape'"
-                ></app-button>
+        </div>
+        <!-- resources -->
+        <div formArrayName="resources">
+            <div *ngFor="let resource of resources.controls; let i = index; let c = count">
+                <div [formGroupName]="i">
+                    <div class="item-form">
+                        <app-input
+                                [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
+                                [clearable]="true"
+                                [errorMessage]="'Le titre de la resource est obligatoire'"
+                                [error]="hasError('titre', 'required')"
+                                [hideLabel]="false"
+                                [idInput]="'title ' + i"
+                                [inputFormControl]="getControl(resource, 'titre')!"
+                                [id]="'title ' + i"
+                                [maxLength]="'10'"
+                                [nameInput]="'nom resource ' + i"
+                                [placeholder]="'Nom de la resource ' + (i+1)"
+                                [minLength]="'5'"
+                                [type]="'text'"
+                                [required]="true"
+                        >
+                            <app-input-label class="font-bold">Nom de la resource {{i + 1}}</app-input-label>
+                        </app-input>
+                        </div>
+                        <div class="item-form">
+                            <app-input
+                                    [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
+                                    [errorMessage]="'La description de la ressource est obligatoire'"
+                                    [error]="hasError('description', 'required')"
+                                    [idInput]="'{{i}}'"
+                                    [id]="'description'"
+                                    [inputFormControl]="getControl(resource, 'description')!"
+                                    [nameInput]="'Description de la ressource ' + (i+1)"
+                                    [placeholder]="'Description de la ressource ' + (i+1)"
+                                    [required]="true"
+                                    [type]="'textarea'"
+                                    formControlName="description">
+                                <app-input-label class="font-bold">Description de la resource {{i + 1}}</app-input-label>
+                            </app-input>
+                        </div>
+                        <div class="item-form">
+                            <app-input
+                                    [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
+                                    [clearable]="false"
+                                    [errorMessage]="'Le lien est obligatoire'"
+                                    [error]="hasError('url', 'required')"
+                                    [hideLabel]="false"
+                                    [idInput]="'lien ' + i"
+                                    [inputFormControl]="getControl(resource, 'url')!"
+                                    [id]="'lien ' + i"
+                                    [nameInput]="'Lien de la ressource ' + (i+1)"
+                                    [placeholder]="'Lien de l\'étape ' + (i+1)"
+                                    [minLength]="'5'"
+                                    [type]="'text'"
+                                    [required]="true"
+                                    [previewable]="true"
+                                    [linkText]="getControl(resource, 'url')!.value"
+                            >
+                                <app-input-label class="font-bold">Lien de la ressource {{i + 1}}</app-input-label>
+                            </app-input>
+                        </div>
+                    <div class="item-form">
+                        <app-input
+                                [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
+                                [clearable]="false"
+                                [error]="hasError('image', 'required')"
+                                [hideLabel]="false"
+                                [idInput]="'image ' + i"
+                                [inputFormControl]="getControl(resource, 'image')!"
+                                [id]="'image ' + i"
+                                [nameInput]="'image de la ressource ' + (i+1)"
+                                [placeholder]="'image de la ressource ' + (i+1)"
+                                [minLength]="'5'"
+                                [type]="'text'"
+                        >
+                            <app-input-label class="font-bold">L'image de la ressource {{i + 1}}</app-input-label>
+                        </app-input>
+                    </div>
+                    <div class="item-form flex space-between items-center justify-center">
+                            <app-button
+                                    (click)="deleteResource(i)"
+                                    [customClass]="'delete-btn btn btn-success text-white text-sm hover:bg-transparent'"
+                                    [disabled]="resources.controls.length <= 0"
+                                    [icon]="''"
+                                    [title]="'Supprimer la ressource'"
+                                    [tooltip]="'Supprimer la ressource'"
+                            ></app-button>
+                    </div>
+                </div>
             </div>
+        </div>
+        <div class="item-form flex space-between items-center justify-center">
+            <!-- submit -->
+            <app-button #submitButton (save)="submit()"
+                        [customClass]="'btn btn-success text-white text-sm ml-5'"
+                        [icon]="faSave"
+                        [title]="'Enregistrer'"
+                        [tooltip]="'Enregistrer'"
+                        [disabled]="!form.valid"
+            ></app-button>
+            <app-button #addStepButton (save)="addStep()"
+                        [customClass]="'btn btn-success text-white text-sm text-lg ml-5'"
+                        [icon]="''"
+                        [title]="'Ajouter une étape'"
+                        [tooltip]="'Ajouter une étape'"
+            ></app-button>
+            <app-button #addResourceButton (save)="addResource()"
+                        [customClass]="'btn btn-success text-white text-sm text-lg ml-5'"
+                        [icon]="''"
+                        [title]="'Ajouter une ressource'"
+                        [tooltip]="'Ajouter une ressource'"
+            ></app-button>
         </div>
     </form>
 </div>

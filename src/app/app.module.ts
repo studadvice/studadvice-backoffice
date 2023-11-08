@@ -32,14 +32,21 @@ import {MatTableModule} from "@angular/material/table";
 import {MatSortModule} from "@angular/material/sort";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {TableComponent} from './core/table/table.component';
-import {ActionButtonComponent} from "./core/table/action-button.component";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import { LinkPreviewComponent } from './core/link-preview/link-preview.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
 import { ModalComponent } from './core/modal/link-preview-modal/modal.component';
 import {MatDialogModule} from "@angular/material/dialog";
+import { CategoryFormsComponent } from './components/category-forms/category-forms.component';
+import {TranslateHttpLoader} from "@ngx-translate/http-loader";
+import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
+import { DocumentsComponent } from './components/documents/documents.component';
+import { AddCategoryComponent } from './components/add-category/add-category.component';
+
+export function HttpLoaderFactory(http: HttpClient) {
+    return new TranslateHttpLoader(http);
+}
 
 @NgModule({
     declarations: [
@@ -58,10 +65,11 @@ import {MatDialogModule} from "@angular/material/dialog";
         InputPasswordComponent,
         DashboardComponent,
         UsersComponent,
-        TableComponent,
-        ActionButtonComponent,
         LinkPreviewComponent,
-        ModalComponent
+        ModalComponent,
+        CategoryFormsComponent,
+        DocumentsComponent,
+        AddCategoryComponent
     ],
     imports: [
         BrowserModule,
@@ -84,7 +92,14 @@ import {MatDialogModule} from "@angular/material/dialog";
         MatIconModule,
         MatButtonModule,
         HttpClientModule,
-        MatDialogModule
+        MatDialogModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        })
     ],
     providers: [],
   bootstrap: [AppComponent]

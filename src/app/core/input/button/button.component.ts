@@ -4,7 +4,8 @@ import {faSave} from "@fortawesome/free-solid-svg-icons";
 @Component({
     selector: 'app-button',
     templateUrl: './button.component.html',
-    styleUrls: ['./button.component.css']
+    styleUrls: ['./button.component.css'],
+    host: {'class': 'buttonComponent'}
 })
 export class ButtonComponent implements OnInit {
     @Input() disabled: Boolean | any;
@@ -35,6 +36,7 @@ export class ButtonComponent implements OnInit {
     }
 
     public onClick(event: any) {
+        console.log('ButtonComponent.onClick()');
         this.clicked = true;
         // this.saveButtonLabel = 'Enregistrement en cours...';
         this.save.emit(event);

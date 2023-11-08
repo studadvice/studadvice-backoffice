@@ -1,6 +1,7 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
+import {faEdit, faTrash} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
     selector: 'app-dashboard',
@@ -32,6 +33,9 @@ export class DashboardComponent implements OnInit {
     deleteAction(item: Demarche) {
         
     }
+
+    protected readonly faTrash = faTrash;
+    protected readonly faEdit = faEdit;
 }
 
 export interface Demarche {

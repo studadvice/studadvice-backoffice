@@ -7,6 +7,12 @@ html, body {
     height: 100%;
 }
 
+@font-face {
+    font-family: font-studadvice-black;
+    src: url("assets/fonts/Lato-Black.ttf");
+    font-weight: normal;
+    font-style: normal;
+}
 
 /* --------------------------------------------------------------------
 *	RESET
@@ -34,6 +40,7 @@ article, aside, figure, footer, header, main, nav, section {
 }
 
 body {
+    font-family: font-studadvice-black, sans-serif;
     color: #686868;
     background: #ededed;
     -webkit-box-sizing: border-box;
@@ -264,3 +271,78 @@ span.required {
 .modal-open {
     overflow: hidden;
 }
+
+/* -------------------------------------------------------------
+ * TABLE
+ ---------------------------------------------------------------*/
+
+table {
+    font-size: 0.9em;
+}
+
+table caption {
+    text-indent: -9000px;
+    position: absolute;
+}
+
+table a {
+    margin: 0 0.3em
+}
+
+th {
+    color: #141414;
+    padding: 0.3em 0.5em;
+    border: 3px solid #ededed;
+    border-bottom: none;
+}
+
+th.left {
+    text-align: left;
+}
+
+td {
+    border: 3px solid #ededed;
+    padding: 0.3em 0.5em;
+}
+
+td.center {
+    text-align: center
+}
+
+/* Button table */
+
+button.table-button {
+    padding: .1em .2em;
+    background: transparent;
+}
+
+/* -------- BOX MAINLOOK ENGLOBANT LES TABLEAUX -------- */
+
+.box-mainLook {
+    -webkit-box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+    padding: 1em;
+    background: #fff;
+    border: 10px solid #ededed;
+    position: relative;
+    margin-bottom: 2em;
+    z-index: 2;
+}
+
+.box-mainLook:last-child {
+    margin-bottom: 0
+}
+
+.box-mainLook:after {
+    position: absolute;
+    content: "";
+    width: calc(100% + 18px);
+    height: calc(100% + 18px);
+    background-color: transparent;
+    left: -10px;
+    top: -10px;
+    z-index: -1;
+    border: 1px solid #fff;
+}
+
+/* -------- INPUT FILE -------- */

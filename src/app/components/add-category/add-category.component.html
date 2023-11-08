@@ -1,0 +1,147 @@
+<div class="main-content">
+    <h2 class="text-2xl m-0 mb-5 font-bold">{{'_ADD_CATEGORY_' | translate}}</h2>
+    <form (ngSubmit)="submit()" *ngIf="form" [formGroup]="form" class="container studadvice box-mainLook">
+        <div class="item-form">
+            <app-input
+                    [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
+                    [clearable]="true"
+                    [errorMessage]="'Le titre est obligatoire'"
+                    [hideLabel]="false"
+                    [idInput]="'title'"
+                    [id]="'title'"
+                    [inputFormControl]="getFormControl('title')!"
+                    [error]="hasError('title', 'required')"
+                    [maxLength]="'50'"
+                    [minLength]="'5'"
+                    [nameInput]="'Titre'"
+                    [placeholder]="'Titre de la démarche'"
+                    [required]="true"
+                    [type]="'text'"
+            >
+                <app-input-label class="font-bold">Titre</app-input-label>
+            </app-input>
+        </div>
+        <div class="item-form">
+            <app-input
+                    [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
+                    [clearable]="true"
+                    [errorMessage]="'La description est obligatoire'"
+                    [hideLabel]="false"
+                    [idInput]="'description'"
+                    [id]="'description'"
+                    [inputFormControl]="getFormControl('description')!"
+                    [error]="hasError('description', 'required')"
+                    [maxLength]="'50'"
+                    [minLength]="'5'"
+                    [nameInput]="'description'"
+                    [placeholder]="'Description de la catégorie'"
+                    [required]="true"
+                    [type]="'text'"
+            >
+                <app-input-label class="font-bold">Description</app-input-label>
+            </app-input>
+        </div>
+        <!-- image -->
+        <div class="item-form">
+            <app-input
+                    [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
+                    [clearable]="true"
+                    [errorMessage]="'L\'image est obligatoire'"
+                    [hideLabel]="false"
+                    [idInput]="'image'"
+                    [id]="'image'"
+                    [inputFormControl]="getFormControl('image')!"
+                    [error]="hasError('image', 'required')"
+                    [maxLength]="'50'"
+                    [minLength]="'5'"
+                    [nameInput]="'Image'"
+                    [placeholder]="'Image de la catégorie'"
+                    [type]="'text'"
+            >
+                <app-input-label class="font-bold">Image</app-input-label>
+            </app-input>
+        </div>
+        <!-- Ajout  de plusieurs sous catégories si on click sur le bouton -->
+        <div formArrayName="subcategories">
+            <div *ngFor="let subcategory of subcategories.controls; let i=index">
+                <div [formGroupName]="i">
+                    <div class="item-form">
+                        <app-input
+                                [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
+                                [errorMessage]="'La description de la sous catégorie est obligatoire'"
+                                [error]="hasError('description', 'required')"
+                                [idInput]="'{{i}}'"
+                                [id]="'description'"
+                                [inputFormControl]="getControl(subcategory, 'description')!"
+                                [nameInput]="'Description de la sous catégorie'"
+                                [placeholder]="'Description de la sous catégorie'"
+                                [required]="true"
+                                [type]="'textarea'"
+                                formControlName="description">
+                            <app-input-label class="font-bold">Description de la sous catégorie {{i+1}}</app-input-label>
+                        </app-input>
+                    </div>
+                    <div class="item-form">
+                        <app-input
+                                [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
+                                [clearable]="true"
+                                [hideLabel]="false"
+                                [idInput]="'image ' + i"
+                                [inputFormControl]="getControl(subcategory, 'image')!"
+                                [id]="'image ' + i"
+                                [nameInput]="'image de la sous catégorie'"
+                                [placeholder]="'image de la sous catégorie'"
+                                [minLength]="'5'"
+                                [type]="'text'"
+                        >
+                            <app-input-label class="font-bold">L'image de la sous catégorie {{i+1}}</app-input-label>
+                        </app-input>
+                    </div>
+                    <div class="item-form">
+                        <app-input-select
+                                [bindLabel]="'label'"
+                                [bindValue]="'value'"
+                                [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
+                                [clearable]="true"
+                                [errorMessage]="'La démarche est obligatoire'"
+                                [hasLabel]="true"
+                                [id]="'demarche'"
+                                [inputFormControl]="getControl(subcategory, 'demarche')!"
+                                [options]="[
+                                    {label: 'Démarche 1', value: '1'},
+                                    {label: 'Démarche 2', value: '2'},
+                                ]"
+                                [required]="false"
+                        >
+                            <label class="font-bold">Démarche de la sous catégorie {{i+1}}</label>
+                        </app-input-select>
+                    </div>
+                    <div class="item-form flex space-between items-center justify-center">
+                        <app-button #removeSubCategoryButton
+                                (click)="removeSubcategory(i)"
+                                [disabled]="subcategories.length < 1"
+                                [icon]="''"
+                                [title]="'Supprimer la sous catégorie'"
+                                [tooltip]="'Supprimer la sous catégorie'"
+                        ></app-button>
+                    </div>
+                </div>
+            </div>
+            <div class="item-form flex space-between items-center justify-center">
+                    <app-button #submitButton (save)="submit()"
+                                [customClass]="'btn'"
+                                [icon]="faSave"
+                                [title]="'Enregistrer'"
+                                [tooltip]="'Enregistrer'"
+                                [disabled]="!form.valid"
+                    ></app-button>
+                    <app-button #addSubCategoryButton (save)="addSubCategory()"
+                                [customClass]="'btn'"
+                                [icon]="''"
+                                [title]="'AJOUTER UNE SOUS CATEGORIE'"
+                                [tooltip]="'Ajouter une sous catégorie'"
+                    ></app-button>
+            </div>
+        </div>
+    </form>
+</div>

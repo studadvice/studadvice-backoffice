@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "./shared/services/auth.service";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-root',
@@ -11,10 +12,15 @@ export class AppComponent implements OnInit {
 
   isAuth: boolean = false;
 
-  constructor(public authService: AuthService) {
+  constructor(public authService: AuthService, private translate: TranslateService) {
+    translate.setDefaultLang('fr-FR');
   }
 
   ngOnInit(): void {
 
+  }
+
+  switchLanguage(language: string) {
+    this.translate.use(language);
   }
 }
