@@ -43,6 +43,7 @@ import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import { DocumentsComponent } from './components/documents/documents.component';
 import { AddCategoryComponent } from './components/add-category/add-category.component';
+import { PaginationComponent } from './core/pagination/pagination.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -69,7 +70,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         ModalComponent,
         CategoryFormsComponent,
         DocumentsComponent,
-        AddCategoryComponent
+        AddCategoryComponent,
+        PaginationComponent
     ],
     imports: [
         BrowserModule,
