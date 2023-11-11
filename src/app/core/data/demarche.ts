@@ -1,24 +1,37 @@
-interface Demarche {
+import {Resource} from "./resources";
+
+export interface Procedure {
     id: string;
-    titre: string;
+    title: string;
     description: string;
-    type: string;
-    listeDeDoc: Document[];
-    etapes: Etape[];
+    steps: Step[];
 }
 
-interface Document {
+export interface Document {
     id: string;
-    titre: string;
+    title: string;
     description: string;
     type: string;
     url?: string;
 }
 
-interface Etape {
+export interface Step {
     id: string;
-    titre: string;
+    title: string;
     description: string;
-    type: string;
-    docs: Document[];
+    requiredDocuments: Document[];
+    resources: Resource[];
+}
+
+export interface SubCategory {
+    name: string;
+    description: string;
+    procedures: Procedure[];
+}
+
+export interface Category {
+    name: string;
+    description: string;
+    image: string;
+    subCategories: SubCategory[];
 }

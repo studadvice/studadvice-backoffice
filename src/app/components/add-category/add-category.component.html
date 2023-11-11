@@ -7,10 +7,10 @@
                     [clearable]="true"
                     [errorMessage]="'Le titre est obligatoire'"
                     [hideLabel]="false"
-                    [idInput]="'title'"
-                    [id]="'title'"
-                    [inputFormControl]="getFormControl('title')!"
-                    [error]="hasError('title', 'required')"
+                    [idInput]="'name'"
+                    [id]="'name'"
+                    [inputFormControl]="getFormControl('name')!"
+                    [error]="hasError('name', 'required')"
                     [maxLength]="'50'"
                     [minLength]="'5'"
                     [nameInput]="'Titre'"
@@ -51,12 +51,10 @@
                     [idInput]="'image'"
                     [id]="'image'"
                     [inputFormControl]="getFormControl('image')!"
-                    [error]="hasError('image', 'required')"
-                    [maxLength]="'50'"
-                    [minLength]="'5'"
                     [nameInput]="'Image'"
                     [placeholder]="'Image de la catégorie'"
-                    [type]="'text'"
+                    [type]="'file'"
+                    [required]="false"
             >
                 <app-input-label class="font-bold">Image</app-input-label>
             </app-input>
@@ -65,6 +63,26 @@
         <div formArrayName="subcategories">
             <div *ngFor="let subcategory of subcategories.controls; let i=index">
                 <div [formGroupName]="i">
+                    <div class="item-form">
+                        <app-input
+                                [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
+                                [clearable]="true"
+                                [errorMessage]="'Le titre est obligatoire'"
+                                [hideLabel]="false"
+                                [idInput]="'name'"
+                                [id]="'name'"
+                                [inputFormControl]="getControl(subcategory, 'name')!"
+                                [error]="hasError('name', 'required')"
+                                [maxLength]="'50'"
+                                [minLength]="'5'"
+                                [nameInput]="'Titre'"
+                                [placeholder]="'Titre de la sous catégorie'"
+                                [required]="true"
+                                [type]="'text'"
+                        >
+                            <app-input-label class="font-bold">Titre</app-input-label>
+                        </app-input>
+                    </div>
                     <div class="item-form">
                         <app-input
                                 [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
@@ -92,7 +110,8 @@
                                 [nameInput]="'image de la sous catégorie'"
                                 [placeholder]="'image de la sous catégorie'"
                                 [minLength]="'5'"
-                                [type]="'text'"
+                                [type]="'file'"
+                                [required]="false"
                         >
                             <app-input-label class="font-bold">L'image de la sous catégorie {{i+1}}</app-input-label>
                         </app-input>

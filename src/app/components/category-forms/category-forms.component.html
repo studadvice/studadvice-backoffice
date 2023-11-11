@@ -1,40 +1,57 @@
-<div class="main-content">
+<main class="main-content" *ngIf="categories.length > 0">
     <h2 class="text-2xl m-0 mb-5 font-bold">{{'_CATEGORIES_' | translate}}</h2>
     <div class="bg-white shadow-md rounded my-6 box-mainLook">
         <table class="min-w-full border-collapse table">
-            <thead>
-            <tr>
-                <th class="py-2 px-4 border-b border-gray-200 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                    {{'_NAME_' | translate}}
-                </th>
-                <th class="py-2 px-4 border-b border-gray-200 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                    {{'_DESCRIPTION_' | translate}}
-                </th>
-                <th class="py-2 px-4 border-b border-gray-200 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                    {{'_IMAGE_' | translate}}
-                </th>
-                <th class="py-2 px-4 border-b border-gray-200 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                    {{'_ACTION_' | translate}}
-                </th>
-            </tr>
-            </thead>
+                    <thead class="thead-light">
+                    <tr>
+                        <th class="py-2 px-4 border-b text-xs uppercase tracking-wider">
+                            {{'_NAME_' | translate}}
+                        </th>
+                        <th class="py-2 px-4 border-b text-xs uppercase tracking-wider">
+                            {{'_DESCRIPTION_' | translate}}
+                        </th>
+                        <th class="py-2 px-4 border-b text-xs uppercase tracking-wider">
+                            {{'_IMAGE_' | translate}}
+                        </th>
+                        <th class="py-2 px-4 border-b text-xs uppercase tracking-wider">
+                            {{'_ACTION_' | translate}}
+                        </th>
+                    </tr>
+                    </thead>
             <tbody>
-            <tr>
-                <td class="py-2 px-4 border-b border-gray-200 text-sm">nom de la catégorie</td>
-                <td class="py-2 px-4 border-b border-gray-200 text-sm">description de la catégorie</td>
-                <td class="py-2 px-4 border-b border-gray-200 text-sm">image de la catégorie</td>
-                <td class="py-2 px-4 border-b border-gray-200 text-sm">
-                    <fa-icon [icon]="faEdit" class="text-blue-500 cursor-pointer"></fa-icon>
-                    <fa-icon [icon]="faTrash" class="text-blue-500 px-3 cursor-pointer"></fa-icon>
+            <tr *ngFor="let category of categories">
+                <td class="py-2 px-4 border-b border-gray-200 text-sm center">{{category.name}}</td>
+                <td class="py-2 px-4 border-b border-gray-200 text-sm center">{{category.description}}</td>
+                <td class="py-2 px-4 border-b border-gray-200 text-sm center">{{category.image}}</td>
+                <td class="py-2 px-4 border-b border-gray-200 text-sm center">
+                    <div class="btn btn-primary">
+                        <fa-icon [icon]="faEdit" class="cursor-pointer"></fa-icon>
+                        <fa-icon [icon]="faTrash" class="px-3 cursor-pointer"></fa-icon>
+                    </div>
                 </td>
             </tr>
             <!-- Repeat for other rows -->
             </tbody>
         </table>
-        <div class="studadvice flex justify-center items-center p-3">
-            <button class="btn btn-primary" (click)="addCategory()">
-                {{'_ADD_' | translate}}
-            </button>
-        </div>
+        <app-button #addCategoryButton (save)="addCategory()"
+                    [customClass]="'btn'"
+                    [icon]="''"
+                    [title]="'AJOUTER'"
+                    [tooltip]="'Ajouter une sous catégorie'"
+        ></app-button>
     </div>
-</div>
+</main>
+
+<main role="main" class="main-content" *ngIf="categories.length === 0">
+    <h2 class="text-2xl m-0 mb-5 font-bold">{{'_CATEGORIES_' | translate}}</h2>
+    <div class="bg-white shadow-md rounded my-6 box-mainLook">
+        <p class="table-empty">{{'_NO_CATEGORIES_' | translate}}</p>
+        <app-button #addCategoryButton (save)="addCategory()"
+                    [customClass]="'btn'"
+                    [icon]="''"
+                    [title]="'AJOUTER'"
+                    [tooltip]="'Ajouter une sous catégorie'"
+        ></app-button>
+    </div>
+
+</main>

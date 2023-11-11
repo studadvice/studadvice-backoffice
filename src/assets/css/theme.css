@@ -386,3 +386,415 @@ button:disabled {
     box-shadow: none;
     color: var(--c-important);
 }
+
+
+/* ************************************ */
+/* DEBUT DU CSS POUR LE SELECT MULTIPLE */
+/* ************************************ */
+
+/* Container Ouvert */
+.ng-select.ng-select-opened > .ng-select-container {
+    background: #f3f3f3;
+    border: 1px solid var(--c-secondary);
+    padding-left: 10px;
+    border-radius: 2px;
+}
+
+/* Petit Flèche */
+.ng-select.ng-select-opened > .ng-select-container .ng-arrow {
+    top: -2px;
+    border-color: transparent transparent var(--c-secondary);
+    border-width: 0 5px 5px
+}
+
+/* Arrondis container une fois ouvert (en bas) */
+.ng-select.ng-select-opened.ng-select-bottom > .ng-select-container {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0
+}
+
+/* Arrondis contianer une fois ouvert (en haut) */
+.ng-select.ng-select-opened.ng-select-top > .ng-select-container {
+    border-top-right-radius: 0;
+    border-top-left-radius: 0
+}
+
+/* Select Disabled */
+.ng-select.ng-select-disabled > .ng-select-container {
+    background-color: var(--c-disabled);
+}
+
+.ng-select.ng-select-disabled .ng-select-container::before {
+    background-color: var(--c-disabled);
+}
+
+.ng-select.ng-select-disabled .ng-arrow-wrapper .ng-arrow {
+    background-color: var(--c-disabled);
+    border-color: var(--c-disabled-dark) transparent transparent;
+    border-style: solid;
+    border-width: 5px 5px 2.5px;
+}
+
+/* Virer le placeholder */
+.ng-select .ng-has-value .ng-placeholder {
+    display: none
+}
+
+/* Container du select non ouvert */
+.ng-select .ng-select-container {
+    min-height: 36px;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    background: #f3f3f3;
+    border: 1px solid #e3e3e3;
+    padding-left: 15px;
+    border-radius: 2px;
+    position: relative;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    -o-border-radius: 2px;
+}
+
+/* Before , trait bleu devant le select */
+.ng-select .ng-select-container::before {
+    position: absolute;
+    display: block;
+    content: "";
+    top: 4px;
+    left: 0.3rem;
+    width: 3px;
+    height: calc(100% - 7px);
+    background-color: var(--c-secondary);
+    z-index: 2;
+}
+
+/* Couleur du Placeholder */
+.ng-select .ng-select-container .ng-value-container .ng-placeholder {
+    color: var(--c-disabled-dark);
+}
+
+/* Hauteur du container */
+.ng-select.ng-select-single .ng-select-container {
+    height: 36px
+}
+
+/* Positions de l'input */
+.ng-select.ng-select-single .ng-select-container .ng-value-container .ng-input {
+    left: 0;
+    padding-left: 10px;
+    padding-right: 50px;
+    top: 5px
+}
+
+.ng-select .ng-select-container .ng-value-container .ng-input > input {
+    padding: .5em 0;
+}
+
+/* Disabled Value */
+.ng-select.ng-select-multiple.ng-select-disabled > .ng-select-container .ng-value-container .ng-value {
+    background-color: #f9f9f9;
+    border: 1px solid #e3e3e3;
+    color: var(--c-text);
+}
+
+/* Disabled Label */
+.ng-select.ng-select-multiple.ng-select-disabled > .ng-select-container .ng-value-container .ng-value .ng-value-label {
+    padding: 0px 5px
+}
+
+/* Cards dans le select */
+.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value {
+    font-size: 1em;
+    background-color: var(--c-secondary);
+    border-radius: 5px;
+    color: white;
+    height: 100%;
+    padding-top: 0.15rem;
+    padding-bottom: 0.15rem;
+    margin: 0.25rem 6.4px 0.15rem 0;
+}
+
+.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value:first-of-type {
+    margin-left: 0.3rem;
+}
+
+/* Cards dans le select étant disabled */
+.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value.ng-value-disabled {
+    background-color: #f9f9f9;
+    border: 1px solid #e3e3e3
+}
+
+/* Label une fois disabled */
+.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value.ng-value-disabled .ng-value-label {
+    padding-left: 5px
+}
+
+/* Label de la card dans le select */
+.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value .ng-value-label {
+    display: inline-block;
+    padding: 0px 5px 0px 5px;
+    font-size: var(--p-input-value);
+}
+
+/* Icon de la card dans le select */
+.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value .ng-value-icon {
+    display: inline-block;
+    padding: 0px 5px
+}
+
+/* Couleur et taille icon croix */
+.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value .ng-value-icon.left {
+    font-weight: bold;
+    color: var(--c-reset-dark);
+    border: none;
+    float: right;
+}
+
+/* Trait pour l'icon a droite */
+.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value .ng-value-icon.right {
+    border-left: 1px solid var(--c-primary-light);
+}
+
+/* l'input en soi dans la card */
+.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-input {
+    padding-bottom: 3px;
+    padding-left: 3px
+}
+
+/* Position du placeholder */
+.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-placeholder {
+    top: 10px;
+    font-size: .875em;
+}
+
+/* Couleur pour la croix de clear */
+.ng-select .ng-clear-wrapper {
+    color: var(--c-secondary);
+    padding-left: 6.5px;
+    z-index: 500;
+}
+
+/* Zone pour le spinner */
+.ng-select .ng-spinner-zone {
+    padding-right: 5px;
+    padding-top: 5px
+}
+
+/* Espace pour la flèche */
+.ng-select .ng-arrow-wrapper {
+    padding-right: 5px;
+    width: 25px
+}
+
+/* Flèche */
+.ng-select .ng-arrow-wrapper .ng-arrow {
+    border-color: var(--c-secondary) transparent transparent;
+    border-style: solid;
+    border-width: 5px 5px 2.5px
+}
+
+.ng-select span.ng-value-label {
+    font-family: 'font-studadvice-black', sans-serif;
+    font-size: var(--p-input-value);
+}
+
+.ng-select .ng-select-container .ng-value-container .ng-input > input {
+    padding-top: 0.2rem;
+}
+
+ng-select.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value {
+    white-space: unset;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+/* Le dropdown du select */
+.ng-dropdown-panel {
+    background-color: #f3f3f3;
+    border: 1px solid var(--c-secondary);
+}
+
+/* Bas du dropdown du select */
+.ng-dropdown-panel.ng-select-bottom {
+    top: 100%;
+    margin-top: -1px
+}
+
+/* Haut du dropdown du select */
+.ng-dropdown-panel.ng-select-top {
+    bottom: 100%;
+    margin-bottom: -1px
+}
+
+/* ******** */
+.ng-dropdown-panel .ng-dropdown-header {
+    border-bottom: 1px solid var(--c-disabled);
+    padding: 5px 7px
+}
+
+/* ******** */
+.ng-dropdown-panel .ng-dropdown-footer {
+    border-top: 1px solid var(--c-disabled);
+    padding: 5px 7px
+}
+
+/* Margin entre les items du dropdown du select */
+.ng-dropdown-panel .ng-dropdown-panel-items {
+    margin-bottom: 1px
+}
+
+/* options gorupées */
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-optgroup {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: default;
+    padding: 8px 10px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.54);
+    cursor: pointer
+}
+
+/* Options groupées disabled */
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-optgroup.ng-option-disabled {
+    cursor: default
+}
+
+/* Options  groupées marquées (hover) */
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-optgroup.ng-option-marked {
+    background-color: #ebf5ff
+}
+
+/* Options groupées selectionnées */
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-optgroup.ng-option-selected {
+    color: var(--c-secondary);
+}
+
+/* Options uniques */
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
+    font-size: var(--p-input-value);
+    background-color: #fff;
+    color: #686868;
+    padding: 8px 10px;
+}
+
+#container .ng-dropdown-panel .ng-dropdown-panel-items .ng-option,
+.modal-content .ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
+    white-space: normal;
+}
+
+/* Options uniques sélectionnées */
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-selected {
+    color: var(--c-secondary);
+}
+
+/* Options uniques sélectionnées */
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-marked {
+    background-color: var(--c-secondary);
+    color: #FFF;
+}
+
+/* Options uniques disabled */
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-disabled {
+    color: var(--c-disabled)
+}
+
+/* Option unique enfant */
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-child {
+    padding-left: 22px
+}
+
+/* ********************************** */
+/* FIN DU CSS POUR LE SELECT MULTIPLE */
+/* ********************************** */
+
+
+/* ***** POUR LES TABLEAUX ***** */
+
+table:not(.alterne) tr th, td.entete {
+    background-color: #f6f6f6;
+}
+
+table.alterne tbody tr:nth-child(odd), table.alterne.fixed tr:nth-child(odd) th {
+    background-color: #f6f6f6;
+}
+
+table.alterne tbody tr:nth-child(even), table.alterne.fixed tr:nth-child(even) th {
+    background-color: white;
+}
+
+table tr .tronquee {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.truncWithTitle {
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+td.truncWithTitle {
+    white-space: nowrap;
+}
+
+table button {
+    background-color: initial;
+}
+
+/* Tableau avec 1ere colonne fixe */
+.tableFixedOuter {
+    position: relative;
+    overflow: hidden;
+}
+
+.tableFixedInner {
+    overflow-x: auto;
+    overflow-y: visible;
+    width: 400px;
+    margin-left: 100px;
+}
+
+table.fixed {
+    table-layout: fixed;
+    width: 100%;
+    *margin-left: -100px; /*ie7*/
+}
+
+table.fixed.small {
+    width: auto;
+}
+
+table.fixed td, table.fixed th {
+    vertical-align: top;
+}
+
+table.fixed th {
+    margin-top: -1px;
+}
+
+table.fixed.small td {
+    float: left;
+}
+
+table.fixed .headcol {
+    position: absolute;
+    *position: relative; /*ie7*/
+    margin-left: -100px;
+    width: 100px;
+    height: 100%;
+}
+
+table.fixed tr:last-child th {
+    border-bottom: 1px solid #ededed
+}
+
+
+/* ***** POUR LES TABLEAUX VIDES ***** */
+.table-empty {
+    margin: 1rem;
+    font-style: italic;
+}

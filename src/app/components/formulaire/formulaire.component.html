@@ -123,13 +123,19 @@
                     </div>
                     <div class="item-form flex space-between items-center justify-center">
                         <app-button
-                                (click)="deleteStep(i)"
+                                (save)="deleteStep(i)"
                                 [disabled]="etapes.controls.length <= 0"
-                                [icon]="faTrash"
+                                [icon]="''"
                                 [title]="'Supprimer l\'étape'"
                                 [tooltip]="'Supprimer l\'étape'"
                         ></app-button>
-
+                        <app-button  *ngIf="i === etapes.controls.length - 1"
+                            #addResourceButton
+                                    (save)="addResource(i)"
+                                    [icon]="''"
+                                    [title]="'Ajouter une ressource'"
+                                    [tooltip]="'Ajouter une ressource'"
+                        ></app-button>
                     </div>
                 </div>
             </div>
@@ -235,11 +241,6 @@
                         [icon]="''"
                         [title]="'Ajouter une étape'"
                         [tooltip]="'Ajouter une étape'"
-            ></app-button>
-            <app-button #addResourceButton (save)="addResource()"
-                        [icon]="''"
-                        [title]="'Ajouter une ressource'"
-                        [tooltip]="'Ajouter une ressource'"
             ></app-button>
         </div>
         </div>

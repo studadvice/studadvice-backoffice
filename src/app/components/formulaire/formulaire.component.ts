@@ -36,7 +36,6 @@ export class FormulaireComponent implements OnInit {
         this.formControlService.setForm(this.form);
     }
 
-    // Utilitaires pour obtenir des FormArray spécifiques
     get etapes(): FormArray {
         return this.form.get('etapes') as FormArray;
     }
@@ -45,61 +44,56 @@ export class FormulaireComponent implements OnInit {
         return this.form.get('resources') as FormArray;
     }
 
-    // Méthode pour ajouter une étape au FormArray avec des FormControl spécifiques
     addStep() {
         const stepGroup = this.formBuilder.group({
             titre: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
             description: new FormControl('', [Validators.required, Validators.minLength(5)]),
-            documents: new FormControl([], Validators.required), // Assumption: 'documents' is an array of strings
+            documents: new FormControl([], Validators.required),
             lien: new FormControl('', [Validators.required, Validators.minLength(5)])
         });
         this.etapes.push(stepGroup);
         this.addStepButton.enable();
     }
 
-
-    addResource() {
-        // Crée un nouveau FormGroup avec des FormControl spécifiques
+    addResource(etapeIndex: number) {
         const resourceGroup = this.formBuilder.group({
-            titre: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]), // Le titre de la ressource, doit être une chaîne de caractères de 5 à 50 caractères
-            description: new FormControl('', [Validators.required, Validators.minLength(5)]), // La description de la ressource, doit être une chaîne de caractères d'au moins 5 caractères
-            url: new FormControl('', [Validators.required, Validators.minLength(5)]), // L'URL de la ressource, doit être une chaîne de caractères d'au moins 5 caractères
-            image: new FormControl('', Validators.required) // L'image de la ressource, est requise
+            titre: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
+            description: new FormControl('', [Validators.required, Validators.minLength(5)]),
+            url: new FormControl('', [Validators.required, Validators.minLength(5)]),
+            image: new FormControl('', Validators.required),
+            etapeIndex: new FormControl(etapeIndex)
         });
 
-        // Ajoute le FormGroup au FormArray `resources`
         this.resources.push(resourceGroup);
-
-        // Active le bouton pour ajouter une ressource
         this.addResourceButton.enable();
     }
 
-    // Méthode pour obtenir un contrôle spécifique d'un FormGroup
     getControl(group: AbstractControl, controlName: string): FormControl {
         return this.formControlService.getControl(group, controlName);
     }
 
-    // Méthode pour récupérer un FormControl en utilisant le nom du contrôle
     getFormControl(name: string) {
         return this.formControlService.getFormControl(name);
     }
 
-    // Méthode pour vérifier s'il y a une erreur spécifique sur un contrôle
     hasError(controlName: string, errorName: string): boolean {
         return this.formControlService.hasError(controlName, errorName);
     }
 
-    // Méthode pour supprimer une étape du FormArray
     deleteStep(index: number) {
         this.etapes.removeAt(index);
+        const resources = this.resources.value;
+        for (let i = resources.length - 1; i >= 0; i--) {
+            if (resources[i].etapeIndex === index) {
+                this.resources.removeAt(i);
+            }
+        }
     }
 
-    // Méthode pour supprimer une ressource du FormArray
     deleteResource(index: number) {
         this.resources.removeAt(index);
     }
 
-    // Méthode pour traiter la soumission du formulaire
     submit() {
         if (this.form.valid) {
             console.log('Form Data:', this.form.value);

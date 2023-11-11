@@ -4,6 +4,8 @@ import {ButtonComponent} from "../../core/input/button/button.component";
 import {MatDialog} from "@angular/material/dialog";
 import {FormControlService} from "../../shared/services/form-control.service";
 import {faPlus, faSave, faTrash} from "@fortawesome/free-solid-svg-icons";
+import {DataService} from "../../shared/dataservices/data.service";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-add-category',
@@ -17,21 +19,29 @@ export class AddCategoryComponent implements OnInit {
     @ViewChild('submitButton', { static: false }) submitButton!: ButtonComponent;
     @ViewChild('removeSubCategoryButton', { static: false }) removeSubCategoryButton!: ButtonComponent;
     constructor(private formBuilder: FormBuilder, public dialog: MatDialog,
-                private formControlService: FormControlService) {
+                private formControlService: FormControlService,
+                private dataService: DataService,
+                public router: Router,
+                ) {
 
     }
 
     ngOnInit() {
         this.form = this.formBuilder.group({
-            title: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
+            name: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
             description: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
-            image: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
+            image: ['', [Validators.required]],
             subcategories: this.formBuilder.array([]),
         });
         this.formControlService.setForm(this.form);
     }
 
     submit() {
+        if (this.form.valid) {
+            this.dataService.addCategory(this.form.value).subscribe((response) => {
+                this.router.navigate(['category']);
+            });
+        }
     }
 
     getControl(group: AbstractControl, controlName: string): FormControl {
@@ -52,10 +62,10 @@ export class AddCategoryComponent implements OnInit {
 
     addSubCategory() {
         const subcategoryGroup = this.formBuilder.group({
-            title: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
+            name: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
             description: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
-            image: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
-            demarche: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
+            image: new FormControl('', [Validators.required]),
+            demarche: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]),
         });
         this.subcategories.push(subcategoryGroup);
         this.addSubcategoryButton.enable();

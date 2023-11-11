@@ -8,7 +8,6 @@
         <span *ngIf="required" class="required">*</span>
         <span *ngIf="showAideSaisie" class="help requiredHelp">{{aideSaisie}}</span>
     </label>
-    <span>
         <ng-select (change)="onChange($event)"
                    (focusout)="showTooltipError()" *ngIf="compareWith"
                    [bindLabel]="bindLabel"
@@ -67,6 +66,5 @@
                 <span [ngClass]="{'option-missing': item.data?.valueMissing}">{{item.value}}</span>
             </ng-template>
         </ng-select>
-    </span>
     <span *ngIf="isInvalid" class="error"><ng-content select="error"></ng-content></span>
 </div>
