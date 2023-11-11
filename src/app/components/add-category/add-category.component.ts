@@ -5,25 +5,33 @@ import {MatDialog} from "@angular/material/dialog";
 import {FormControlService} from "../../shared/services/form-control.service";
 import {faPlus, faSave, faTrash} from "@fortawesome/free-solid-svg-icons";
 import {DataService} from "../../shared/dataservices/data.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-add-category',
-  templateUrl: './add-category.component.html',
-  styleUrls: ['./add-category.component.css']
+    selector: 'app-add-category',
+    templateUrl: './add-category.component.html',
+    styleUrls: ['./add-category.component.css']
 })
 export class AddCategoryComponent implements OnInit {
     form!: FormGroup;
 
-    @ViewChild('addSubCategoryButton', { static: false }) addSubcategoryButton!: ButtonComponent;
-    @ViewChild('submitButton', { static: false }) submitButton!: ButtonComponent;
-    @ViewChild('removeSubCategoryButton', { static: false }) removeSubCategoryButton!: ButtonComponent;
+    @ViewChild('addSubCategoryButton', {static: false}) addSubcategoryButton!: ButtonComponent;
+    @ViewChild('submitButton', {static: false}) submitButton!: ButtonComponent;
+    @ViewChild('removeSubCategoryButton', {static: false}) removeSubCategoryButton!: ButtonComponent;
+    protected readonly faTrash = faTrash;
+    protected readonly faPlus = faPlus;
+    protected readonly faSave = faSave;
+
     constructor(private formBuilder: FormBuilder, public dialog: MatDialog,
                 private formControlService: FormControlService,
                 private dataService: DataService,
                 public router: Router,
-                ) {
+    ) {
 
+    }
+
+    get subcategories(): FormArray {
+        return this.form.get('subcategories') as FormArray;
     }
 
     ngOnInit() {
@@ -56,10 +64,6 @@ export class AddCategoryComponent implements OnInit {
         return this.formControlService.hasError(controlName, errorName);
     }
 
-    get subcategories() : FormArray {
-        return this.form.get('subcategories') as FormArray;
-    }
-
     addSubCategory() {
         const subcategoryGroup = this.formBuilder.group({
             name: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
@@ -75,8 +79,4 @@ export class AddCategoryComponent implements OnInit {
         this.subcategories.removeAt(index);
         this.removeSubCategoryButton.enable();
     }
-
-    protected readonly faTrash = faTrash;
-    protected readonly faPlus = faPlus;
-    protected readonly faSave = faSave;
 }
