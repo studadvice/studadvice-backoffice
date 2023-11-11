@@ -3,15 +3,17 @@ import {PreviewService} from "../../shared/dataservices/preview.service";
 import {PreviewData} from "../data/linkpreview";
 
 @Component({
-  selector: 'app-link-preview',
-  templateUrl: './link-preview.component.html',
-  styleUrls: ['./link-preview.component.css']
+    selector: 'app-link-preview',
+    templateUrl: './link-preview.component.html',
+    styleUrls: ['./link-preview.component.css']
 })
 export class LinkPreviewComponent implements OnInit {
 
     @Input() url!: string;
     previewData!: PreviewData;
-    constructor(private linkPreviewService: PreviewService) { }
+
+    constructor(private linkPreviewService: PreviewService) {
+    }
 
     ngOnInit(): void {
         this.previewData = new PreviewData();
@@ -32,6 +34,6 @@ export class LinkPreviewComponent implements OnInit {
                     this.previewData.url = this.url;
                     this.previewData.title = this.url;
                 }
-        });
+            });
     }
 }

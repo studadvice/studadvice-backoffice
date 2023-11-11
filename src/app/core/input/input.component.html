@@ -49,6 +49,7 @@
         <!-- link modal preview -->
         <span *ngIf="previewable && !clearable && isText() && inputFormControl.value" class="preview noBorder">
           <button (click)="openPreview()"
+                  type="button"
                   class="icon-preview">
               <fa-icon [icon]="faEye"></fa-icon>
           </button>
@@ -56,9 +57,9 @@
         <textarea #textareaElement
                   (focusout)="showTooltipError()"
                   (input)="applyTransformationAndSetCaretPosition(textareaElement)"
-                  *ngIf="isTextarea()"
                   (keydown)="keydown.emit($event)"
                   (keypress)="keypress.emit($event)"
+                  *ngIf="isTextarea()"
                   [attr.aria-invalid]="error ? 'true' : false"
                   [attr.aria-required]="required ? 'true' : false"
                   [attr.minLength]="minLength"

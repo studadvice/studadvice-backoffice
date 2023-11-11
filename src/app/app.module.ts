@@ -34,16 +34,16 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
-import { LinkPreviewComponent } from './core/link-preview/link-preview.component';
+import {LinkPreviewComponent} from './core/link-preview/link-preview.component';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
-import { ModalComponent } from './core/modal/link-preview-modal/modal.component';
+import {ModalComponent} from './core/modal/link-preview-modal/modal.component';
 import {MatDialogModule} from "@angular/material/dialog";
-import { CategoryFormsComponent } from './components/category-forms/category-forms.component';
+import {CategoryFormsComponent} from './components/category-forms/category-forms.component';
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
-import { DocumentsComponent } from './components/documents/documents.component';
-import { AddCategoryComponent } from './components/add-category/add-category.component';
-import { PaginationComponent } from './core/pagination/pagination.component';
+import {DocumentsComponent} from './components/documents/documents.component';
+import {AddCategoryComponent} from './components/add-category/add-category.component';
+import {PaginationComponent} from './core/pagination/pagination.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -104,6 +104,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         })
     ],
     providers: [],
-  bootstrap: [AppComponent]
+    bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

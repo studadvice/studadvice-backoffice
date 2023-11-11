@@ -6,11 +6,11 @@
                     [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
                     [clearable]="true"
                     [errorMessage]="'Le titre est obligatoire'"
+                    [error]="hasError('name', 'required')"
                     [hideLabel]="false"
                     [idInput]="'name'"
                     [id]="'name'"
                     [inputFormControl]="getFormControl('name')!"
-                    [error]="hasError('name', 'required')"
                     [maxLength]="'50'"
                     [minLength]="'5'"
                     [nameInput]="'Titre'"
@@ -26,11 +26,11 @@
                     [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
                     [clearable]="true"
                     [errorMessage]="'La description est obligatoire'"
+                    [error]="hasError('description', 'required')"
                     [hideLabel]="false"
                     [idInput]="'description'"
                     [id]="'description'"
                     [inputFormControl]="getFormControl('description')!"
-                    [error]="hasError('description', 'required')"
                     [maxLength]="'50'"
                     [minLength]="'5'"
                     [nameInput]="'description'"
@@ -53,8 +53,8 @@
                     [inputFormControl]="getFormControl('image')!"
                     [nameInput]="'Image'"
                     [placeholder]="'Image de la catégorie'"
-                    [type]="'file'"
                     [required]="false"
+                    [type]="'file'"
             >
                 <app-input-label class="font-bold">Image</app-input-label>
             </app-input>
@@ -68,11 +68,11 @@
                                 [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
                                 [clearable]="true"
                                 [errorMessage]="'Le titre est obligatoire'"
+                                [error]="hasError('name', 'required')"
                                 [hideLabel]="false"
                                 [idInput]="'name'"
                                 [id]="'name'"
                                 [inputFormControl]="getControl(subcategory, 'name')!"
-                                [error]="hasError('name', 'required')"
                                 [maxLength]="'50'"
                                 [minLength]="'5'"
                                 [nameInput]="'Titre'"
@@ -96,7 +96,8 @@
                                 [required]="true"
                                 [type]="'textarea'"
                                 formControlName="description">
-                            <app-input-label class="font-bold">Description de la sous catégorie {{i+1}}</app-input-label>
+                            <app-input-label class="font-bold">Description de la sous
+                                catégorie {{i + 1}}</app-input-label>
                         </app-input>
                     </div>
                     <div class="item-form">
@@ -105,20 +106,20 @@
                                 [clearable]="true"
                                 [hideLabel]="false"
                                 [idInput]="'image ' + i"
-                                [inputFormControl]="getControl(subcategory, 'image')!"
                                 [id]="'image ' + i"
+                                [inputFormControl]="getControl(subcategory, 'image')!"
+                                [minLength]="'5'"
                                 [nameInput]="'image de la sous catégorie'"
                                 [placeholder]="'image de la sous catégorie'"
-                                [minLength]="'5'"
-                                [type]="'file'"
                                 [required]="false"
+                                [type]="'file'"
                         >
-                            <app-input-label class="font-bold">L'image de la sous catégorie {{i+1}}</app-input-label>
+                            <app-input-label class="font-bold">L'image de la sous catégorie {{i + 1}}</app-input-label>
                         </app-input>
                     </div>
                     <div class="item-form">
                         <app-input-select
-                                [bindLabel]="'label'"
+                                [bindLabel]="'value.name'"
                                 [bindValue]="'value'"
                                 [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
                                 [clearable]="true"
@@ -126,40 +127,37 @@
                                 [hasLabel]="true"
                                 [id]="'demarche'"
                                 [inputFormControl]="getControl(subcategory, 'demarche')!"
-                                [options]="[
-                                    {label: 'Démarche 1', value: '1'},
-                                    {label: 'Démarche 2', value: '2'},
-                                ]"
+                                [options]="procedures"
                                 [required]="false"
                         >
-                            <label class="font-bold">Démarche de la sous catégorie {{i+1}}</label>
+                            <label class="font-bold">Démarche de la sous catégorie {{i + 1}}</label>
                         </app-input-select>
                     </div>
-                   <div class="item-form flex space-between items-center justify-center">
+                    <div class="item-form flex space-between items-center justify-center">
                         <app-button #removeSubCategoryButton
-                                (save)="removeSubcategory(i)"
-                                [disabled]="subcategories.length < 1"
-                                [icon]="''"
-                                [title]="'Supprimer la sous catégorie'"
-                                [tooltip]="'Supprimer la sous catégorie'"
+                                    (save)="removeSubcategory(i)"
+                                    [disabled]="subcategories.length < 1"
+                                    [icon]="''"
+                                    [title]="'Supprimer la sous catégorie'"
+                                    [tooltip]="'Supprimer la sous catégorie'"
                         ></app-button>
                     </div>
                 </div>
             </div>
             <div class="item-form flex space-between items-center justify-center">
-                    <app-button #submitButton (save)="submit()"
-                                [customClass]="'btn'"
-                                [icon]="faSave"
-                                [title]="'Enregistrer'"
-                                [tooltip]="'Enregistrer'"
-                                [disabled]="!form.valid"
-                    ></app-button>
-                    <app-button #addSubCategoryButton (save)="addSubCategory()"
-                                [customClass]="'btn'"
-                                [icon]="''"
-                                [title]="'AJOUTER UNE SOUS CATEGORIE'"
-                                [tooltip]="'Ajouter une sous catégorie'"
-                    ></app-button>
+                <app-button #submitButton (save)="submit()"
+                            [customClass]="'btn'"
+                            [disabled]="!form.valid"
+                            [icon]="faSave"
+                            [title]="'Enregistrer'"
+                            [tooltip]="'Enregistrer'"
+                ></app-button>
+                <app-button #addSubCategoryButton (save)="addSubCategory()"
+                            [customClass]="'btn'"
+                            [icon]="''"
+                            [title]="'AJOUTER UNE SOUS CATEGORIE'"
+                            [tooltip]="'Ajouter une sous catégorie'"
+                ></app-button>
             </div>
         </div>
     </form>

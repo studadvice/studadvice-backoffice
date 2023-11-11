@@ -1,23 +1,23 @@
-<main class="main-content" *ngIf="categories.length > 0">
+<main *ngIf="categories.length > 0" class="main-content">
     <h2 class="text-2xl m-0 mb-5 font-bold">{{'_CATEGORIES_' | translate}}</h2>
     <div class="bg-white shadow-md rounded my-6 box-mainLook">
         <table class="min-w-full border-collapse table">
-                    <thead class="thead-light">
-                    <tr>
-                        <th class="py-2 px-4 border-b text-xs uppercase tracking-wider">
-                            {{'_NAME_' | translate}}
-                        </th>
-                        <th class="py-2 px-4 border-b text-xs uppercase tracking-wider">
-                            {{'_DESCRIPTION_' | translate}}
-                        </th>
-                        <th class="py-2 px-4 border-b text-xs uppercase tracking-wider">
-                            {{'_IMAGE_' | translate}}
-                        </th>
-                        <th class="py-2 px-4 border-b text-xs uppercase tracking-wider">
-                            {{'_ACTION_' | translate}}
-                        </th>
-                    </tr>
-                    </thead>
+            <thead class="thead-light">
+            <tr>
+                <th class="py-2 px-4 border-b text-xs uppercase tracking-wider">
+                    {{'_NAME_' | translate}}
+                </th>
+                <th class="py-2 px-4 border-b text-xs uppercase tracking-wider">
+                    {{'_DESCRIPTION_' | translate}}
+                </th>
+                <th class="py-2 px-4 border-b text-xs uppercase tracking-wider">
+                    {{'_IMAGE_' | translate}}
+                </th>
+                <th class="py-2 px-4 border-b text-xs uppercase tracking-wider">
+                    {{'_ACTION_' | translate}}
+                </th>
+            </tr>
+            </thead>
             <tbody>
             <tr *ngFor="let category of categories">
                 <td class="py-2 px-4 border-b border-gray-200 text-sm center">{{category.name}}</td>
@@ -42,7 +42,7 @@
     </div>
 </main>
 
-<main role="main" class="main-content" *ngIf="categories.length === 0">
+<main *ngIf="categories.length === 0" class="main-content" role="main">
     <h2 class="text-2xl m-0 mb-5 font-bold">{{'_CATEGORIES_' | translate}}</h2>
     <div class="bg-white shadow-md rounded my-6 box-mainLook">
         <p class="table-empty">{{'_NO_CATEGORIES_' | translate}}</p>

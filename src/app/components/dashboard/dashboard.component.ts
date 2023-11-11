@@ -1,7 +1,9 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {MatTableDataSource} from "@angular/material/table";
-import {MatPaginator} from "@angular/material/paginator";
+import {Component, OnInit} from '@angular/core';
 import {faEdit, faTrash} from "@fortawesome/free-solid-svg-icons";
+import {Procedure} from "../../core/data/demarche";
+import {DataService} from "../../shared/dataservices/data.service";
+import {Router} from "@angular/router";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
     selector: 'app-dashboard',
@@ -9,50 +11,40 @@ import {faEdit, faTrash} from "@fortawesome/free-solid-svg-icons";
     styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-    displayedColumns: string[] = ['name', 'color', 'category', 'price', 'actions'];
-    dataSource = ELEMENT_DATA;
-    columnDefinitions: any[] = [
-        {field: 'name', header: 'Name'},
-        {field: 'color', header: 'Color'},
-        {field: 'category', header: 'Category'},
-        {field: 'price', header: 'Price'},
-    ];
+    protected readonly faTrash = faTrash;
+    protected readonly faEdit = faEdit;
+    procedures: Procedure[] = [];
+
+    constructor(private dialog: MatDialog,
+                public router: Router,
+                private dataService: DataService,) {
+    }
 
     ngOnInit() {
-        // Initialize your data source here
+        this.getProcedures();
     }
 
     handleAction(event: { action: string, data: any }) {
         console.log('Action Triggered:', event.action, 'With Row Data:', event.data);
     }
 
-    editAction(item: Demarche) {
-        
+    editAction(item: Procedure) {
+
     }
 
-    deleteAction(item: Demarche) {
-        
+    deleteAction(item: Procedure) {
+
     }
 
-    protected readonly faTrash = faTrash;
-    protected readonly faEdit = faEdit;
+    getProcedures() {
+        return this.dataService.getProcedures().subscribe(
+            {
+                next: (response) => {
+                    this.procedures = response;
+                },
+                error: (error) => {
+                    console.log(error);
+                }
+            });
+    }
 }
-
-export interface Demarche {
-    id: number;
-    name: string;
-    color: string;
-    category: string;
-    price: number;
-}
-
-const ELEMENT_DATA: Demarche[] = [
-    {id: 1, name: 'Apple MacBook Pro 17"', color: 'Silver', category: 'Laptop', price: 2999},
-    {id: 2, name: 'Microsoft Surface Pro', color: 'White', category: 'Laptop PC', price: 1999},
-    {id: 3, name: 'Magic Mouse 2', color: 'Black', category: 'Accessories', price: 99},
-    {id: 4, name: 'Apple Watch', color: 'Black', category: 'Watches', price: 199},
-    {id: 5, name: 'Apple iMac', color: 'Silver', category: 'PC', price: 2999},
-    {id: 6, name: 'Apple AirPods', color: 'White', category: 'Accessories', price: 399},
-    {id: 7, name: 'iPad Pro', color: 'Gold', category: 'Tablet', price: 699},
-    {id: 8, name: 'Magic Keyboard', color: 'Black', category: 'Accessories', price: 99}
-];

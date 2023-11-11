@@ -2,7 +2,7 @@ import {Resource} from "./resources";
 
 export interface Procedure {
     id: string;
-    title: string;
+    name: string;
     description: string;
     steps: Step[];
 }

@@ -9,19 +9,20 @@ import {CategoryFormsComponent} from "./components/category-forms/category-forms
 import {AddCategoryComponent} from "./components/add-category/add-category.component";
 
 const routes: Routes = [
-  {path: 'formulaire', component: FormulaireComponent, canActivate: [AuthGuard], data: {roles: ['ROLE_ADMIN']}},
-  {path: '', redirectTo: '/formulaire', pathMatch: 'full'},
-  {path: 'sign-in', component: SignInComponent},
-  {path: 'register-user', component: SignUpComponent},
-  {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard], data: {roles: ['ROLE_ADMIN']}},
-  {path: 'category', component: CategoryFormsComponent, canActivate: [AuthGuard], data: {roles: ['ROLE_ADMIN']}},
-  {path: 'category/add', component: AddCategoryComponent, canActivate: [AuthGuard], data: {roles: ['ROLE_ADMIN']}},
+    {path: 'formulaire', component: FormulaireComponent, canActivate: [AuthGuard], data: {roles: ['ROLE_ADMIN']}},
+    {path: '', redirectTo: '/formulaire', pathMatch: 'full'},
+    {path: 'sign-in', component: SignInComponent},
+    {path: 'register-user', component: SignUpComponent},
+    {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard], data: {roles: ['ROLE_ADMIN']}},
+    {path: 'category', component: CategoryFormsComponent, canActivate: [AuthGuard], data: {roles: ['ROLE_ADMIN']}},
+    {path: 'category/add', component: AddCategoryComponent, canActivate: [AuthGuard], data: {roles: ['ROLE_ADMIN']}},
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(routes),
-  ],
-  exports: [RouterModule]
+    imports: [
+        RouterModule.forRoot(routes),
+    ],
+    exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

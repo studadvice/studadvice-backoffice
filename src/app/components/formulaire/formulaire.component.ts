@@ -1,10 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {faEye, faPlus, faSave, faTrash} from "@fortawesome/free-solid-svg-icons";
-import {ModalComponent} from "../../core/modal/link-preview-modal/modal.component";
+import {faPlus, faSave, faTrash} from "@fortawesome/free-solid-svg-icons";
 import {MatDialog} from "@angular/material/dialog";
 import {ButtonComponent} from "../../core/input/button/button.component";
 import {FormControlService} from "../../shared/services/form-control.service";
+import {DataService} from "../../shared/dataservices/data.service";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-formulaire',
@@ -18,22 +19,15 @@ export class FormulaireComponent implements OnInit {
     faPlus = faPlus;
     faSave = faSave;
 
-    @ViewChild('addResourceButton', { static: false }) addResourceButton!: ButtonComponent;
-    @ViewChild('addStepButton', { static: false }) addStepButton!: ButtonComponent;
-    @ViewChild('submitButton', { static: false }) submitButton!: ButtonComponent;
+    @ViewChild('addResourceButton', {static: false}) addResourceButton!: ButtonComponent;
+    @ViewChild('addStepButton', {static: false}) addStepButton!: ButtonComponent;
+    @ViewChild('submitButton', {static: false}) submitButton!: ButtonComponent;
 
     constructor(private formBuilder: FormBuilder, public dialog: MatDialog,
-                private formControlService: FormControlService) {
-    }
-
-    ngOnInit() {
-        this.form = this.formBuilder.group({
-            title: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
-            description: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
-            etapes: this.formBuilder.array([]),
-            resources: this.formBuilder.array([])
-        });
-        this.formControlService.setForm(this.form);
+                private formControlService: FormControlService,
+                private dataService: DataService,
+                private router: Router,
+                ) {
     }
 
     get etapes(): FormArray {
@@ -44,9 +38,19 @@ export class FormulaireComponent implements OnInit {
         return this.form.get('resources') as FormArray;
     }
 
+    ngOnInit() {
+        this.form = this.formBuilder.group({
+            name: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
+            description: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
+            etapes: this.formBuilder.array([]),
+            resources: this.formBuilder.array([])
+        });
+        this.formControlService.setForm(this.form);
+    }
+
     addStep() {
         const stepGroup = this.formBuilder.group({
-            titre: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
+            name: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
             description: new FormControl('', [Validators.required, Validators.minLength(5)]),
             documents: new FormControl([], Validators.required),
             lien: new FormControl('', [Validators.required, Validators.minLength(5)])
@@ -57,7 +61,7 @@ export class FormulaireComponent implements OnInit {
 
     addResource(etapeIndex: number) {
         const resourceGroup = this.formBuilder.group({
-            titre: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
+            name: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
             description: new FormControl('', [Validators.required, Validators.minLength(5)]),
             url: new FormControl('', [Validators.required, Validators.minLength(5)]),
             image: new FormControl('', Validators.required),
@@ -97,7 +101,19 @@ export class FormulaireComponent implements OnInit {
     submit() {
         if (this.form.valid) {
             console.log('Form Data:', this.form.value);
-            this.submitButton.enable();
+            this.dataService.addProcedure(this.form.value).subscribe(
+                {
+                    next: (response) => {
+                        console.log('Response:', response);
+                        this.submitButton.enable();
+                        this.router.navigate(['dashboard']);
+                    },
+                    error: (error) => {
+                        console.error('Error:', error);
+                        this.submitButton.enable();
+                    }
+                }
+            );
         } else {
             console.error('Form Invalid:', this.form.errors);
             this.submitButton.enable();

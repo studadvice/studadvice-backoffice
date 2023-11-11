@@ -4,31 +4,36 @@ import {Observable, of} from "rxjs";
 
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class DataService {
-  private data = {
-    categories: [] as Category[],
-  }
-
-  constructor() {
-  }
-
-  getCategories(): Observable<Category[]> {
-    return of(this.data.categories);
-  }
-
-  addCategory(category: Category): Observable<Category> {
-    this.data.categories.push(category);
-    return of(category);
-  }
-
-  addProcedure(categoryName: string, subCategoryName: string, procedure: Procedure): void {
-    const category = this.data.categories.find(c => c.name === categoryName);
-    const subCategory = category?.subCategories.find(sc => sc.name === subCategoryName);
-    if (subCategory) {
-      subCategory.procedures.push(procedure);
+    private data = {
+        categories: [] as Category[],
     }
-  }
+
+    private proceduresData = {
+        procedures: [] as Procedure[],
+    }
+
+    constructor() {
+    }
+
+    getCategories(): Observable<Category[]> {
+        return of(this.data.categories);
+    }
+
+    addCategory(category: Category, procedures?: Procedure[]): Observable<Category> {
+        this.data.categories.push(category);
+        return of(category);
+    }
+
+    addProcedure(procedure: Procedure): Observable<Procedure> {
+        this.proceduresData.procedures.push(procedure);
+        return of(procedure);
+    }
+
+    getProcedures(): Observable<Procedure[]> {
+        return of(this.proceduresData.procedures);
+    }
 
 }

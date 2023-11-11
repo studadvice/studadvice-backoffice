@@ -1,37 +1,39 @@
-<div class="main-content">
-        <h2 class="text-2xl m-0 mb-5 font-bold">{{'_TABLE_DEMARCHES_' | translate}}</h2>
-        <div class="bg-white shadow-md rounded my-6 box-mainLook">
-            <table class="min-w-full border-collapse table">
-                <thead class="thead-light">
-                <tr>
-                    <th class="py-2 px-4 border-b text-xs uppercase tracking-wider">
-                        {{'_NAME_' | translate}}
-                    </th>
-                    <th class="py-2 px-4 border-b text-xs uppercase tracking-wider">
-                        {{'_DESCRIPTION_' | translate}}
-                    </th>
-                    <th class="py-2 px-4 border-b text-xs uppercase tracking-wider">
-                        {{'_IMAGE_' | translate}}
-                    </th>
-                    <th class="py-2 px-4 border-b text-xs uppercase tracking-wider">
-                        {{'_ACTION_' | translate}}
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td class="py-2 px-4 border-b border-gray-200 text-sm center">nom de la catégorie</td>
-                    <td class="py-2 px-4 border-b border-gray-200 text-sm center">description de la catégorie</td>
-                    <td class="py-2 px-4 border-b border-gray-200 text-sm center">image de la catégorie</td>
-                    <td class="py-2 px-4 border-b border-gray-200 text-sm  center">
-                        <button class="btn btn-primary">
-                            <fa-icon [icon]="faEdit"></fa-icon>
-                        </button>
-                    </td>
-                </tr>
-                <!-- Repeat for other rows -->
-                </tbody>
-            </table>
+<main class="main-content" role="main" *ngIf="procedures.length > 0">
+    <h2 class="text-2xl m-0 mb-5 font-bold">{{'_TABLE_DEMARCHES_' | translate}}</h2>
+    <div class="bg-white shadow-md rounded my-6 box-mainLook">
+        <table class="min-w-full border-collapse table">
+            <thead class="thead-light">
+            <tr>
+                <th class="py-2 px-4 border-b text-xs uppercase tracking-wider">
+                    {{'_NAME_' | translate}}
+                </th>
+                <th class="py-2 px-4 border-b text-xs uppercase tracking-wider">
+                    {{'_DESCRIPTION_' | translate}}
+                </th>
+                <th class="py-2 px-4 border-b text-xs uppercase tracking-wider">
+                    {{'_ACTION_' | translate}}
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let procedure of procedures">
+                <td class="py-2 px-4 border-b border-gray-200 text-sm center">{{procedure.name}}</td>
+                <td class="py-2 px-4 border-b border-gray-200 text-sm center">{{procedure.description}}</td>
+                <td class="py-2 px-4 border-b border-gray-200 text-sm  center">
+                    <button class="btn btn-primary">
+                        <fa-icon [icon]="faEdit"></fa-icon>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
 
-        </div>
-</div>
+    </div>
+</main>
+
+<main *ngIf="procedures.length === 0" class="main-content" role="main">
+    <h2 class="text-2xl m-0 mb-5 font-bold">{{'_TABLE_DEMARCHES_' | translate}}</h2>
+    <div class="bg-white shadow-md rounded my-6 box-mainLook">
+        <p class="table-empty">{{'_NO_PROCEDURES_' | translate}}</p>
+    </div>
+</main>

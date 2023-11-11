@@ -6,6 +6,7 @@ import {FormControlService} from "../../shared/services/form-control.service";
 import {faPlus, faSave, faTrash} from "@fortawesome/free-solid-svg-icons";
 import {DataService} from "../../shared/dataservices/data.service";
 import {Router} from "@angular/router";
+import {Procedure} from "../../core/data/demarche";
 
 @Component({
     selector: 'app-add-category',
@@ -21,13 +22,13 @@ export class AddCategoryComponent implements OnInit {
     protected readonly faTrash = faTrash;
     protected readonly faPlus = faPlus;
     protected readonly faSave = faSave;
+    procedures: Procedure[] = [];
 
     constructor(private formBuilder: FormBuilder, public dialog: MatDialog,
                 private formControlService: FormControlService,
                 private dataService: DataService,
                 public router: Router,
     ) {
-
     }
 
     get subcategories(): FormArray {
@@ -35,6 +36,7 @@ export class AddCategoryComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.getProcedure();
         this.form = this.formBuilder.group({
             name: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
             description: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
@@ -47,6 +49,7 @@ export class AddCategoryComponent implements OnInit {
     submit() {
         if (this.form.valid) {
             this.dataService.addCategory(this.form.value).subscribe((response) => {
+                console.log(response);
                 this.router.navigate(['category']);
             });
         }
@@ -69,7 +72,7 @@ export class AddCategoryComponent implements OnInit {
             name: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
             description: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
             image: new FormControl('', [Validators.required]),
-            demarche: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]),
+            demarche: new FormControl(null, [Validators.required]),
         });
         this.subcategories.push(subcategoryGroup);
         this.addSubcategoryButton.enable();
@@ -78,5 +81,26 @@ export class AddCategoryComponent implements OnInit {
     removeSubcategory(index: number) {
         this.subcategories.removeAt(index);
         this.removeSubCategoryButton.enable();
+    }
+
+    getProcedure(): void {
+        this.dataService.getProcedures()
+            .subscribe(
+                {
+                    next: (response) => {
+                        this.procedures = response;
+                        this.procedures = this.procedures.map((procedure) => {
+                            return {
+                                ...procedure,
+                                value: procedure,
+                                label: procedure.description
+                            }
+                        });
+                    },
+                    error: (error) => {
+                        console.log(error);
+                    }
+                }
+            )
     }
 }
