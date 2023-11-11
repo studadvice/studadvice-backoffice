@@ -116,9 +116,9 @@
                             <label class="font-bold">Démarche de la sous catégorie {{i+1}}</label>
                         </app-input-select>
                     </div>
-                    <div class="item-form flex space-between items-center justify-center">
+                   <div class="item-form flex space-between items-center justify-center">
                         <app-button #removeSubCategoryButton
-                                (click)="removeSubcategory(i)"
+                                (save)="removeSubcategory(i)"
                                 [disabled]="subcategories.length < 1"
                                 [icon]="''"
                                 [title]="'Supprimer la sous catégorie'"

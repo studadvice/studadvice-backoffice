@@ -57,15 +57,20 @@ export class FormulaireComponent implements OnInit {
         this.addStepButton.enable();
     }
 
-    // Méthode pour ajouter une ressource au FormArray avec des FormControl spécifiques
+
     addResource() {
+        // Crée un nouveau FormGroup avec des FormControl spécifiques
         const resourceGroup = this.formBuilder.group({
-            titre: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
-            description: new FormControl('', [Validators.required, Validators.minLength(5)]),
-            url: new FormControl('', [Validators.required, Validators.minLength(5)]),
-            image: new FormControl('', Validators.required)
+            titre: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]), // Le titre de la ressource, doit être une chaîne de caractères de 5 à 50 caractères
+            description: new FormControl('', [Validators.required, Validators.minLength(5)]), // La description de la ressource, doit être une chaîne de caractères d'au moins 5 caractères
+            url: new FormControl('', [Validators.required, Validators.minLength(5)]), // L'URL de la ressource, doit être une chaîne de caractères d'au moins 5 caractères
+            image: new FormControl('', Validators.required) // L'image de la ressource, est requise
         });
+
+        // Ajoute le FormGroup au FormArray `resources`
         this.resources.push(resourceGroup);
+
+        // Active le bouton pour ajouter une ressource
         this.addResourceButton.enable();
     }
 

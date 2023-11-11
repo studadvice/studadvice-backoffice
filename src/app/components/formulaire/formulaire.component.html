@@ -124,7 +124,6 @@
                     <div class="item-form flex space-between items-center justify-center">
                         <app-button
                                 (click)="deleteStep(i)"
-                                [customClass]="'delete-btn btn btn-success text-white text-sm hover:bg-transparent'"
                                 [disabled]="etapes.controls.length <= 0"
                                 [icon]="faTrash"
                                 [title]="'Supprimer l\'étape'"
@@ -214,39 +213,35 @@
                         </app-input>
                     </div>
                     <div class="item-form flex space-between items-center justify-center">
-                            <app-button
-                                    (click)="deleteResource(i)"
-                                    [customClass]="'delete-btn btn btn-success text-white text-sm hover:bg-transparent'"
-                                    [disabled]="resources.controls.length <= 0"
-                                    [icon]="''"
-                                    [title]="'Supprimer la ressource'"
-                                    [tooltip]="'Supprimer la ressource'"
-                            ></app-button>
+                        <app-button
+                                (save)="deleteResource(i)"
+                                [disabled]="resources.controls.length <= 0"
+                                [icon]="faTrash"
+                                [title]="'Supprimer la ressource'"
+                                [tooltip]="'Supprimer la ressource'"
+                        ></app-button>
                     </div>
                 </div>
             </div>
-        </div>
         <div class="item-form flex space-between items-center justify-center">
             <!-- submit -->
             <app-button #submitButton (save)="submit()"
-                        [customClass]="'btn btn-success text-white text-sm ml-5'"
                         [icon]="faSave"
                         [title]="'Enregistrer'"
                         [tooltip]="'Enregistrer'"
                         [disabled]="!form.valid"
             ></app-button>
             <app-button #addStepButton (save)="addStep()"
-                        [customClass]="'btn btn-success text-white text-sm text-lg ml-5'"
                         [icon]="''"
                         [title]="'Ajouter une étape'"
                         [tooltip]="'Ajouter une étape'"
             ></app-button>
             <app-button #addResourceButton (save)="addResource()"
-                        [customClass]="'btn btn-success text-white text-sm text-lg ml-5'"
                         [icon]="''"
                         [title]="'Ajouter une ressource'"
                         [tooltip]="'Ajouter une ressource'"
             ></app-button>
+        </div>
         </div>
     </form>
 </div>

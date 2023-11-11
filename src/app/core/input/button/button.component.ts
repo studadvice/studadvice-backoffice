@@ -36,7 +36,6 @@ export class ButtonComponent implements OnInit {
     }
 
     public onClick(event: any) {
-        console.log('ButtonComponent.onClick()');
         this.clicked = true;
         // this.saveButtonLabel = 'Enregistrement en cours...';
         this.save.emit(event);
