@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {faPlus, faSave, faTrash} from "@fortawesome/free-solid-svg-icons";
 import {MatDialog} from "@angular/material/dialog";
@@ -6,6 +6,7 @@ import {ButtonComponent} from "../../core/input/button/button.component";
 import {FormControlService} from "../../shared/services/form-control.service";
 import {DataService} from "../../shared/dataservices/data.service";
 import {Router} from "@angular/router";
+import {Procedure} from "../../core/data/demarche";
 
 @Component({
     selector: 'app-formulaire',
@@ -16,14 +17,14 @@ export class FormulaireComponent implements OnInit {
 
     form!: FormGroup;
     faTrash = faTrash;
-    faPlus = faPlus;
     faSave = faSave;
 
     @ViewChild('addResourceButton', {static: false}) addResourceButton!: ButtonComponent;
     @ViewChild('addStepButton', {static: false}) addStepButton!: ButtonComponent;
     @ViewChild('submitButton', {static: false}) submitButton!: ButtonComponent;
 
-    currentStepIndex: number = 0;
+    @Input() title: string = '_ADD_PROCEDURE_';
+    @Input() procedure?: Procedure;
 
     constructor(private formBuilder: FormBuilder, public dialog: MatDialog,
                 private formControlService: FormControlService,
@@ -43,7 +44,7 @@ export class FormulaireComponent implements OnInit {
 
     ngOnInit() {
         this.form = this.formBuilder.group({
-            name: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
+            name: ['', [Validators.required, Validators.minLength(5)]],
             description: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
             etapes: this.formBuilder.array([]),
         });
@@ -52,7 +53,7 @@ export class FormulaireComponent implements OnInit {
 
     addStep() {
         const stepGroup = this.formBuilder.group({
-            name: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
+            name: new FormControl('', [Validators.required, Validators.minLength(5)]),
             description: new FormControl('', [Validators.required, Validators.minLength(5)]),
             documents: new FormControl([], Validators.required),
             lien: new FormControl('', [Validators.required, Validators.minLength(5)]),
@@ -64,7 +65,7 @@ export class FormulaireComponent implements OnInit {
 
     addResource(etapeIndex: number) {
         const resourceGroup = this.formBuilder.group({
-            name: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
+            name: new FormControl('', [Validators.required, Validators.minLength(5)]),
             description: new FormControl('', [Validators.required, Validators.minLength(5)]),
             url: new FormControl('', [Validators.required, Validators.minLength(5)]),
             image: new FormControl('', Validators.required),
@@ -88,12 +89,6 @@ export class FormulaireComponent implements OnInit {
 
     deleteStep(index: number) {
         this.etapes.removeAt(index);
-        const resources = this.etapes.controls[index].get('resources') as FormArray;
-        // for (let i = resources.length - 1; i >= 0; i--) {
-        //     if (resources[i].etapeIndex === index) {
-        //         this.resources.removeAt(i);
-        //     }
-        // }
     }
 
     deleteResource(etapeIndex: number, index: number) {

@@ -1,5 +1,5 @@
 <div class="main-content">
-    <h2 class="text-2xl m-0 mb-5 font-bold">AJOUTER UNE DEMARCHE</h2>
+    <h2 class="text-2xl m-0 mb-5 font-bold">{{ title | translate}}</h2>
     <form (ngSubmit)="submit()" *ngIf="form" [formGroup]="form" class="container studadvice box-mainLook">
         <div class="item-form">
             <app-input
@@ -11,7 +11,6 @@
                     [idInput]="'title'"
                     [id]="'title'"
                     [inputFormControl]="getFormControl('name')!"
-                    [maxLength]="'50'"
                     [minLength]="'5'"
                     [nameInput]="'Titre'"
                     [placeholder]="'Titre de la démarche'"
@@ -20,7 +19,6 @@
             >
                 <app-input-label class="font-bold">Titre</app-input-label>
             </app-input>
-            -
         </div>
         <div class="item-form">
             <app-input
@@ -53,7 +51,6 @@
                                 [idInput]="'name ' + etapeIndex"
                                 [id]="'name ' + etapeIndex"
                                 [inputFormControl]="getControl(etape, 'name')!"
-                                [maxLength]="'10'"
                                 [minLength]="'5'"
                                 [nameInput]="'Titre Etape ' + (etapeIndex + 1)"
                                 [placeholder]="'Titre de l\'étape ' + (etapeIndex + 1)"
@@ -152,7 +149,6 @@
                                             [idInput]="'name ' + resourcesIndex"
                                             [id]="'name ' + resourcesIndex"
                                             [inputFormControl]="getControl(resource, 'name')!"
-                                            [maxLength]="'10'"
                                             [minLength]="'5'"
                                             [nameInput]="'nom resource ' + resourcesIndex"
                                             [placeholder]="'Nom de la resource ' + (resourcesIndex + 1)"
@@ -212,6 +208,7 @@
                                             [id]="'image ' + resourcesIndex"
                                             [inputFormControl]="getControl(resource, 'image')!"
                                             [minLength]="'5'"
+                                            [accept]="'image/*'"
                                             [nameInput]="'image de la ressource ' + (resourcesIndex+1)"
                                             [placeholder]="'image de la ressource ' + (resourcesIndex+1)"
                                             [type]="'file'"

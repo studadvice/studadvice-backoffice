@@ -14,6 +14,9 @@ export class DashboardComponent implements OnInit {
     protected readonly faTrash = faTrash;
     protected readonly faEdit = faEdit;
     procedures: Procedure[] = [];
+    totalItems: number = 100;
+    itemsPerPage: number = 10;
+    currentPage: number = 1;
 
     constructor(private dialog: MatDialog,
                 public router: Router,
@@ -46,5 +49,10 @@ export class DashboardComponent implements OnInit {
                     console.log(error);
                 }
             });
+    }
+
+
+    pageChanged($event: any) {
+        console.log($event);
     }
 }

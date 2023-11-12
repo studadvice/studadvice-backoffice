@@ -27,7 +27,13 @@
             </tr>
             </tbody>
         </table>
-
+        <div class="pagination-container">
+            <app-pagination
+                [totalItems]="totalItems"
+                [itemsPerPage]="itemsPerPage"
+                (pageChanged)="pageChanged($event)">
+            </app-pagination>
+        </div>
     </div>
 </main>
 

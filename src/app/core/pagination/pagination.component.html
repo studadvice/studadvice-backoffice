@@ -1,4 +1,4 @@
-<div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+<div class="bg-white px-4 py-8 flex items-center justify-between border-t border-gray-200 sm:px-6">
     <div class="flex-1 flex justify-between sm:hidden">
         <a (click)="selectPage(currentPage - 1)" [class.hidden]="currentPage === 1"
            class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
@@ -7,18 +7,8 @@
            class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
            href="#"> Next </a>
     </div>
+
     <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-        <div>
-            <p class="text-sm text-gray-700">
-                Showing
-                <span class="font-medium">{{ (currentPage - 1) * itemsPerPage + 1 }}</span>
-                to
-                <span class="font-medium">{{ currentPage * itemsPerPage }}</span>
-                of
-                <span class="font-medium">{{ totalItems }}</span>
-                results
-            </p>
-        </div>
         <div>
             <nav aria-label="Pagination" class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
                 <a (click)="selectPage(currentPage - 1)" [class.hidden]="currentPage === 1"
@@ -34,7 +24,7 @@
                 </a>
                 <!-- Generate page numbers dynamically -->
                 <a (click)="selectPage(page)" *ngFor="let page of getPages()" [attr.aria-current]="page === currentPage ? 'page' : null"
-                   [ngClass]="{'z-10 bg-indigo-50 border-indigo-500 text-indigo-600': page === currentPage, 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50': page !== currentPage}"
+                   [ngClass]="{'z-10 custom-bg': page === currentPage, 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50': page !== currentPage}"
                    class="relative inline-flex items-center px-4 py-2 border text-sm font-medium"
                    href="#">
                     {{ page }}

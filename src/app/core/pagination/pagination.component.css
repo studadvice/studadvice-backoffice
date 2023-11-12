@@ -1,0 +1,4 @@
+.custom-bg {
+    background-color: var(--c-secondary);
+    color: var(--c-primary-light);
+}
