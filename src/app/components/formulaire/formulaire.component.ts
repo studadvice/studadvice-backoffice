@@ -23,6 +23,8 @@ export class FormulaireComponent implements OnInit {
     @ViewChild('addStepButton', {static: false}) addStepButton!: ButtonComponent;
     @ViewChild('submitButton', {static: false}) submitButton!: ButtonComponent;
 
+    currentStepIndex: number = 0;
+
     constructor(private formBuilder: FormBuilder, public dialog: MatDialog,
                 private formControlService: FormControlService,
                 private dataService: DataService,
@@ -34,8 +36,9 @@ export class FormulaireComponent implements OnInit {
         return this.form.get('etapes') as FormArray;
     }
 
-    get resources(): FormArray {
-        return this.form.get('resources') as FormArray;
+    getResources(etapeIndex: number): FormArray {
+        const currentStepFormGroup = this.etapes.controls[etapeIndex] as FormGroup;
+        return currentStepFormGroup.get('resources') as FormArray;
     }
 
     ngOnInit() {
@@ -43,7 +46,6 @@ export class FormulaireComponent implements OnInit {
             name: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
             description: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
             etapes: this.formBuilder.array([]),
-            resources: this.formBuilder.array([])
         });
         this.formControlService.setForm(this.form);
     }
@@ -53,7 +55,8 @@ export class FormulaireComponent implements OnInit {
             name: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
             description: new FormControl('', [Validators.required, Validators.minLength(5)]),
             documents: new FormControl([], Validators.required),
-            lien: new FormControl('', [Validators.required, Validators.minLength(5)])
+            lien: new FormControl('', [Validators.required, Validators.minLength(5)]),
+            resources: this.formBuilder.array([]),
         });
         this.etapes.push(stepGroup);
         this.addStepButton.enable();
@@ -65,10 +68,9 @@ export class FormulaireComponent implements OnInit {
             description: new FormControl('', [Validators.required, Validators.minLength(5)]),
             url: new FormControl('', [Validators.required, Validators.minLength(5)]),
             image: new FormControl('', Validators.required),
-            etapeIndex: new FormControl(etapeIndex)
         });
-
-        this.resources.push(resourceGroup);
+        
+        this.getResources(etapeIndex).push(resourceGroup);
         this.addResourceButton.enable();
     }
 
@@ -86,21 +88,22 @@ export class FormulaireComponent implements OnInit {
 
     deleteStep(index: number) {
         this.etapes.removeAt(index);
-        const resources = this.resources.value;
-        for (let i = resources.length - 1; i >= 0; i--) {
-            if (resources[i].etapeIndex === index) {
-                this.resources.removeAt(i);
-            }
-        }
+        const resources = this.etapes.controls[index].get('resources') as FormArray;
+        // for (let i = resources.length - 1; i >= 0; i--) {
+        //     if (resources[i].etapeIndex === index) {
+        //         this.resources.removeAt(i);
+        //     }
+        // }
     }
 
-    deleteResource(index: number) {
-        this.resources.removeAt(index);
+    deleteResource(etapeIndex: number, index: number) {
+        this.getResources(etapeIndex).removeAt(index);
     }
 
     submit() {
         if (this.form.valid) {
             console.log('Form Data:', this.form.value);
+
             this.dataService.addProcedure(this.form.value).subscribe(
                 {
                     next: (response) => {
