@@ -16,7 +16,7 @@ import {Procedure} from "../../core/data/demarche";
 export class AddCategoryComponent implements OnInit {
     form!: FormGroup;
 
-    @ViewChild('addSubCategoryButton', {static: false}) addSubcategoryButton!: ButtonComponent;
+    @ViewChild('addProcedureButton', {static: false}) addProcedureButton!: ButtonComponent;
     @ViewChild('submitButton', {static: false}) submitButton!: ButtonComponent;
     @ViewChild('removeSubCategoryButton', {static: false}) removeSubCategoryButton!: ButtonComponent;
     protected readonly faTrash = faTrash;
@@ -31,17 +31,13 @@ export class AddCategoryComponent implements OnInit {
     ) {
     }
 
-    get subcategories(): FormArray {
-        return this.form.get('subcategories') as FormArray;
-    }
-
     ngOnInit() {
         this.getProcedure();
         this.form = this.formBuilder.group({
-            name: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
-            description: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
+            name: ['', [Validators.required, Validators.minLength(5)]],
+            description: ['', [Validators.required, Validators.minLength(5)]],
             image: ['', [Validators.required]],
-            subcategories: this.formBuilder.array([]),
+            procedures: ['', [Validators.required]],
         });
         this.formControlService.setForm(this.form);
     }
@@ -67,22 +63,6 @@ export class AddCategoryComponent implements OnInit {
         return this.formControlService.hasError(controlName, errorName);
     }
 
-    addSubCategory() {
-        const subcategoryGroup = this.formBuilder.group({
-            name: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
-            description: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
-            image: new FormControl('', [Validators.required]),
-            demarche: new FormControl(null, [Validators.required]),
-        });
-        this.subcategories.push(subcategoryGroup);
-        this.addSubcategoryButton.enable();
-    }
-
-    removeSubcategory(index: number) {
-        this.subcategories.removeAt(index);
-        this.removeSubCategoryButton.enable();
-    }
-
     getProcedure(): void {
         this.dataService.getProcedures()
             .subscribe(
@@ -92,8 +72,8 @@ export class AddCategoryComponent implements OnInit {
                         this.procedures = this.procedures.map((procedure) => {
                             return {
                                 ...procedure,
-                                value: procedure,
-                                label: procedure.description
+                                value: procedure.id,
+                                label: procedure.name
                             }
                         });
                     },
@@ -102,5 +82,15 @@ export class AddCategoryComponent implements OnInit {
                     }
                 }
             )
+    }
+
+    handleFileChange($event: Event) {
+        const element = event!.target as HTMLInputElement;
+        if (element.files && element.files.length) {
+            const file = element.files[0];
+            this.form.patchValue({
+                image: file
+            });
+        }
     }
 }

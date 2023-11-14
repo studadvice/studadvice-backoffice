@@ -7,6 +7,7 @@ import {AuthGuard} from "./shared/guard/auth.guard";
 import {DashboardComponent} from "./components/dashboard/dashboard.component";
 import {CategoryFormsComponent} from "./components/category-forms/category-forms.component";
 import {AddCategoryComponent} from "./components/add-category/add-category.component";
+import {DocumentsComponent} from "./components/documents/documents.component";
 
 const routes: Routes = [
     {path: 'formulaire', component: FormulaireComponent, canActivate: [AuthGuard], data: {roles: ['ROLE_ADMIN']}},
@@ -16,6 +17,7 @@ const routes: Routes = [
     {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard], data: {roles: ['ROLE_ADMIN']}},
     {path: 'category', component: CategoryFormsComponent, canActivate: [AuthGuard], data: {roles: ['ROLE_ADMIN']}},
     {path: 'category/add', component: AddCategoryComponent, canActivate: [AuthGuard], data: {roles: ['ROLE_ADMIN']}},
+    {path: 'documents', component: DocumentsComponent, canActivate: [AuthGuard], data: {roles: ['ROLE_ADMIN']}},
 ];
 
 @NgModule({

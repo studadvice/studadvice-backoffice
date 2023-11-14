@@ -38,8 +38,8 @@
                 <app-input-label class="font-bold">Description</app-input-label>
             </app-input>
         </div>
-        <div formArrayName="etapes">
-            <div *ngFor="let etape of etapes.controls; let etapeIndex = index; let c = count">
+        <div formArrayName="steps">
+            <div *ngFor="let etape of steps.controls; let etapeIndex = index; let c = count">
                 <div [formGroupName]="etapeIndex">
                     <div class="item-form">
                         <app-input
@@ -98,38 +98,18 @@
                             <label class="font-bold">Documents Etape {{etapeIndex + 1}}</label>
                         </app-input-select>
                     </div>
-                    <div class="item-form">
-                        <app-input
-                                [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
-                                [clearable]="false"
-                                [errorMessage]="'Le lien est obligatoire'"
-                                [error]="hasError('lien', 'required')"
-                                [hideLabel]="false"
-                                [idInput]="'lien ' + etapeIndex"
-                                [id]="'lien ' + etapeIndex"
-                                [inputFormControl]="getControl(etape, 'lien')!"
-                                [linkText]="getControl(etape, 'lien')!.value"
-                                [minLength]="'5'"
-                                [nameInput]="'Lien Etape ' + (etapeIndex + 1)"
-                                [placeholder]="'Lien de l\'étape ' + (etapeIndex + 1)"
-                                [previewable]="true"
-                                [required]="true"
-                                [type]="'text'"
-                        >
-                            <app-input-label class="font-bold">Lien Etape {{etapeIndex + 1}}</app-input-label>
-                        </app-input>
-                    </div>
                     <div class="item-form flex space-between items-center justify-center">
                         <app-button
                                 (save)="deleteStep(etapeIndex)"
-                                [disabled]="etapes.controls.length <= 0"
+                                [disabled]="steps.controls.length <= 0"
                                 [icon]="''"
                                 [title]="'Supprimer l\'étape'"
                                 [tooltip]="'Supprimer l\'étape'"
+                                *ngIf="!procedure"
                         ></app-button>
                         <app-button #addResourceButton
                                     (save)="addResource(etapeIndex)"
-                                    *ngIf="etapeIndex === etapes.controls.length - 1"
+                                    *ngIf="etapeIndex === steps.controls.length - 1"
                                     [icon]="''"
                                     [title]="'Ajouter une ressource'"
                                     [tooltip]="'Ajouter une ressource'"
@@ -202,19 +182,15 @@
                                     <app-input
                                             [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
                                             [clearable]="false"
-                                            [error]="hasError('image', 'required')"
                                             [hideLabel]="false"
                                             [idInput]="'image ' + resourcesIndex"
                                             [id]="'image ' + resourcesIndex"
-                                            [inputFormControl]="getControl(resource, 'image')!"
-                                            [minLength]="'5'"
                                             [accept]="'image/*'"
                                             [nameInput]="'image de la ressource ' + (resourcesIndex+1)"
                                             [placeholder]="'image de la ressource ' + (resourcesIndex+1)"
                                             [type]="'file'"
-                                    >
-                                        <app-input-label class="font-bold">L'image de la
-                                            ressource {{resourcesIndex + 1}}</app-input-label>
+                                            (change)="handleFileChange($event, etapeIndex, resourcesIndex)">
+                                        <app-input-label class="font-bold">L'image de la ressource {{resourcesIndex + 1}}</app-input-label>
                                     </app-input>
                                 </div>
                                 <div class="item-form flex space-between items-center justify-center">

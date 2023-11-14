@@ -16,10 +16,10 @@ export class DashboardComponent implements OnInit {
     procedures: Procedure[] = [];
     totalItems: number = 100;
     itemsPerPage: number = 10;
-    currentPage: number = 1;
+    editProcedure: boolean = false;
+    procedure?: Procedure;
 
-    constructor(private dialog: MatDialog,
-                public router: Router,
+    constructor(public router: Router,
                 private dataService: DataService,) {
     }
 
@@ -31,8 +31,15 @@ export class DashboardComponent implements OnInit {
         console.log('Action Triggered:', event.action, 'With Row Data:', event.data);
     }
 
-    editAction(item: Procedure) {
+    onProcedureChange(event: {editProcedure: boolean, procedure: Procedure}) {
+        this.editProcedure = event.editProcedure;
+        this.procedure = event.procedure;
+    }
 
+    editAction(procedure: Procedure) {
+        console.log('Edit Action Triggered:', procedure);
+        this.procedure = procedure;
+        this.editProcedure = true;
     }
 
     deleteAction(item: Procedure) {

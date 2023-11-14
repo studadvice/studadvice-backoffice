@@ -17,21 +17,22 @@ export interface Document {
 
 export interface Step {
     id: string;
-    title: string;
-    description: string;
-    requiredDocuments: Document[];
-    resources: Resource[];
-}
-
-export interface SubCategory {
     name: string;
     description: string;
-    procedures: Procedure[];
+    documents: Document[];
+    resources: Resource[];
 }
 
 export interface Category {
     name: string;
     description: string;
     image: string;
-    subCategories: SubCategory[];
+    procedures: string[];
+}
+
+export interface FileInfo {
+    name: string;
+    type: string;
+    size: number;
+    data?: any;
 }

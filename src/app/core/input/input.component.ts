@@ -4,6 +4,7 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {faEye, faTimesCircle} from "@fortawesome/free-solid-svg-icons";
 import {MatDialog} from "@angular/material/dialog";
 import {ModalComponent} from "../modal/link-preview-modal/modal.component";
+import {FileInfo} from "../data/demarche";
 
 @Component({
     selector: 'app-input',
@@ -58,6 +59,7 @@ export class InputComponent extends AbstractInputComponent implements ControlVal
     modalOpen: boolean = false;
     protected readonly faTimesCircle = faTimesCircle;
     protected readonly faEye = faEye;
+    fileInfos?: { size: any; name: any; type: any } | null;
 
     constructor(public dialog: MatDialog) {
         super();
@@ -91,7 +93,11 @@ export class InputComponent extends AbstractInputComponent implements ControlVal
     }
 
     writeValue(obj: any): void {
-        this.value = obj;
+        if (this.type === 'file') {
+            this.fileInfos = obj ? { name: obj.name, size: obj.size, type: obj.type } : null;
+        } else {
+            this.value = obj;
+        }
         this.onChange(obj);
         this.onTouched();
     }
@@ -102,6 +108,14 @@ export class InputComponent extends AbstractInputComponent implements ControlVal
 
     registerOnTouched(fn: any): void {
         this.onTouched = fn;
+    }
+
+    handleFileChange(event: Event): void {
+        const element = event.target as HTMLInputElement;
+        if (element.files && element.files.length) {
+            const file = element.files[0];
+            this.writeValue(file);
+        }
     }
 
     openPreview() {

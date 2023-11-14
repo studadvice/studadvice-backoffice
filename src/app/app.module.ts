@@ -27,7 +27,6 @@ import {MatTooltipModule} from "@angular/material/tooltip";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {InputPasswordComponent} from './core/input/input-password/input-password.component';
 import {DashboardComponent} from './components/dashboard/dashboard.component';
-import {UsersComponent} from './components/users/users.component';
 import {MatTableModule} from "@angular/material/table";
 import {MatSortModule} from "@angular/material/sort";
 import {MatPaginatorModule} from "@angular/material/paginator";
@@ -44,6 +43,7 @@ import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {DocumentsComponent} from './components/documents/documents.component';
 import {AddCategoryComponent} from './components/add-category/add-category.component';
 import {PaginationComponent} from './core/pagination/pagination.component';
+import { DocumentModalComponent } from './components/documents/document-modal/document-modal.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -65,13 +65,13 @@ export function HttpLoaderFactory(http: HttpClient) {
         InputErrorComponent,
         InputPasswordComponent,
         DashboardComponent,
-        UsersComponent,
         LinkPreviewComponent,
         ModalComponent,
         CategoryFormsComponent,
         DocumentsComponent,
         AddCategoryComponent,
-        PaginationComponent
+        PaginationComponent,
+        DocumentModalComponent,
     ],
     imports: [
         BrowserModule,

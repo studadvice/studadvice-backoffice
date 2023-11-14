@@ -20,7 +20,7 @@
                (input)="applyTransformationAndSetCaretPosition(inputElement)"
                (keydown)="keydown.emit($event)"
                (keypress)="keypress.emit($event)"
-               *ngIf="!isTextarea()"
+               *ngIf="!isTextarea() && type !== 'file'"
                [attr.accept]="accept"
                [attr.aria-invalid]="error ? 'true' : false"
                [attr.aria-required]="required ? 'true' : false"
@@ -74,6 +74,21 @@
                   name="{{nameInput}}"
         >
         </textarea>
+        <input #fileInputElement
+               *ngIf="type === 'file'"
+               (change)="handleFileChange($event)"
+               [attr.accept]="accept"
+               [attr.aria-invalid]="error ? 'true' : false"
+               [attr.aria-required]="required ? 'true' : false"
+               id="{{idInput}}"
+               mat-raised-button
+               matTooltip="{{textTooltip}}"
+               matTooltipClass="tooltipMaterialDivText"
+               matTooltipDisabled="{{!textTooltip}}"
+               matTooltipHideDelay="1000"
+               name="{{nameInput}}"
+               type="file"
+        >
   </span>
     <span class="unite">
     <ng-content select="app-input-suffix-stick"></ng-content>

@@ -36,4 +36,14 @@ export class DataService {
         return of(this.proceduresData.procedures);
     }
 
+    updateProcedure(id: string, value: any) : Observable<Procedure> {
+        const procedure = this.proceduresData.procedures.find((procedure) => procedure.id === id);
+        if (procedure) {
+            Object.assign(procedure, value);
+        }
+        if (procedure) {
+            return of(procedure);
+        }
+        return of({} as Procedure);
+    }
 }

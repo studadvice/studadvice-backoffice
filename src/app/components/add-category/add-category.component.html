@@ -11,7 +11,6 @@
                     [idInput]="'name'"
                     [id]="'name'"
                     [inputFormControl]="getFormControl('name')!"
-                    [maxLength]="'50'"
                     [minLength]="'5'"
                     [nameInput]="'Titre'"
                     [placeholder]="'Titre de la démarche'"
@@ -31,7 +30,6 @@
                     [idInput]="'description'"
                     [id]="'description'"
                     [inputFormControl]="getFormControl('description')!"
-                    [maxLength]="'50'"
                     [minLength]="'5'"
                     [nameInput]="'description'"
                     [placeholder]="'Description de la catégorie'"
@@ -46,7 +44,6 @@
             <app-input
                     [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
                     [clearable]="true"
-                    [errorMessage]="'L\'image est obligatoire'"
                     [hideLabel]="false"
                     [idInput]="'image'"
                     [id]="'image'"
@@ -55,110 +52,38 @@
                     [placeholder]="'Image de la catégorie'"
                     [required]="false"
                     [type]="'file'"
+                    [accept]="'image/*'"
+                    (change)="handleFileChange($event)"
             >
                 <app-input-label class="font-bold">Image</app-input-label>
             </app-input>
         </div>
-        <!-- Ajout  de plusieurs sous catégories si on click sur le bouton -->
-        <div formArrayName="subcategories">
-            <div *ngFor="let subcategory of subcategories.controls; let i=index">
-                <div [formGroupName]="i">
-                    <div class="item-form">
-                        <app-input
-                                [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
-                                [clearable]="true"
-                                [errorMessage]="'Le titre est obligatoire'"
-                                [error]="hasError('name', 'required')"
-                                [hideLabel]="false"
-                                [idInput]="'name'"
-                                [id]="'name'"
-                                [inputFormControl]="getControl(subcategory, 'name')!"
-                                [maxLength]="'50'"
-                                [minLength]="'5'"
-                                [nameInput]="'Titre'"
-                                [placeholder]="'Titre de la sous catégorie'"
-                                [required]="true"
-                                [type]="'text'"
-                        >
-                            <app-input-label class="font-bold">Titre</app-input-label>
-                        </app-input>
-                    </div>
-                    <div class="item-form">
-                        <app-input
-                                [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
-                                [errorMessage]="'La description de la sous catégorie est obligatoire'"
-                                [error]="hasError('description', 'required')"
-                                [idInput]="'{{i}}'"
-                                [id]="'description'"
-                                [inputFormControl]="getControl(subcategory, 'description')!"
-                                [nameInput]="'Description de la sous catégorie'"
-                                [placeholder]="'Description de la sous catégorie'"
-                                [required]="true"
-                                [type]="'textarea'"
-                                formControlName="description">
-                            <app-input-label class="font-bold">Description de la sous
-                                catégorie {{i + 1}}</app-input-label>
-                        </app-input>
-                    </div>
-                    <div class="item-form">
-                        <app-input
-                                [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
-                                [clearable]="true"
-                                [hideLabel]="false"
-                                [idInput]="'image ' + i"
-                                [id]="'image ' + i"
-                                [inputFormControl]="getControl(subcategory, 'image')!"
-                                [minLength]="'5'"
-                                [nameInput]="'image de la sous catégorie'"
-                                [placeholder]="'image de la sous catégorie'"
-                                [required]="false"
-                                [type]="'file'"
-                        >
-                            <app-input-label class="font-bold">L'image de la sous catégorie {{i + 1}}</app-input-label>
-                        </app-input>
-                    </div>
-                    <div class="item-form">
-                        <app-input-select
-                                [bindLabel]="'value.name'"
-                                [bindValue]="'value'"
-                                [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
-                                [clearable]="true"
-                                [errorMessage]="'La démarche est obligatoire'"
-                                [hasLabel]="true"
-                                [id]="'demarche'"
-                                [inputFormControl]="getControl(subcategory, 'demarche')!"
-                                [options]="procedures"
-                                [required]="false"
-                        >
-                            <label class="font-bold">Démarche de la sous catégorie {{i + 1}}</label>
-                        </app-input-select>
-                    </div>
-                    <div class="item-form flex space-between items-center justify-center">
-                        <app-button #removeSubCategoryButton
-                                    (save)="removeSubcategory(i)"
-                                    [disabled]="subcategories.length < 1"
-                                    [icon]="''"
-                                    [title]="'Supprimer la sous catégorie'"
-                                    [tooltip]="'Supprimer la sous catégorie'"
-                        ></app-button>
-                    </div>
-                </div>
-            </div>
-            <div class="item-form flex space-between items-center justify-center">
-                <app-button #submitButton (save)="submit()"
-                            [customClass]="'btn'"
-                            [disabled]="!form.valid"
-                            [icon]="faSave"
-                            [title]="'Enregistrer'"
-                            [tooltip]="'Enregistrer'"
-                ></app-button>
-                <app-button #addSubCategoryButton (save)="addSubCategory()"
-                            [customClass]="'btn'"
-                            [icon]="''"
-                            [title]="'AJOUTER UNE SOUS CATEGORIE'"
-                            [tooltip]="'Ajouter une sous catégorie'"
-                ></app-button>
-            </div>
+        <!-- Ajout d'une procédure -->
+        <div class="item-form">
+            <app-input-select
+                    [bindLabel]="'value.name'"
+                    [bindValue]="'value'"
+                    [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
+                    [clearable]="true"
+                    [errorMessage]="'La démarche est obligatoire'"
+                    [hasLabel]="true"
+                    [id]="'demarche'"
+                    [inputFormControl]="getFormControl('procedures')!"
+                    [options]="procedures"
+                    [required]="false"
+                    [multiple]="true"
+            >
+                <label class="font-bold">Ajout d'une démarche</label>
+            </app-input-select>
+        </div>
+        <div class="item-form flex space-between items-center justify-center">
+            <app-button #submitButton (save)="submit()"
+                        [customClass]="'btn'"
+                        [disabled]="!form.valid"
+                        [icon]="faSave"
+                        [title]="'Enregistrer'"
+                        [tooltip]="'Enregistrer'"
+            ></app-button>
         </div>
     </form>
 </div>
