@@ -23,6 +23,8 @@ export class DataService {
     }
 
     addCategory(category: Category, procedures?: Procedure[]): Observable<Category> {
+        // generate random id
+        category.id = Math.random().toString(36).substr(2, 9);
         this.data.categories.push(category);
         return of(category);
     }

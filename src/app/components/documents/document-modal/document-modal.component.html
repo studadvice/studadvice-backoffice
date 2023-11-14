@@ -12,20 +12,78 @@
           </span>
                 </button>
             </div>
+            <!--  titre -->
+            <form (ngSubmit)="submit()" *ngIf="form" [formGroup]="form" class="container studadvice box-mainLook">
+                <div class="item-form">
+                    <app-input
+                            [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
+                            [clearable]="true"
+                            [errorMessage]="'Le titre est obligatoire'"
+                            [error]="hasError('title', 'required')"
+                            [hideLabel]="false"
+                            [idInput]="'title'"
+                            [id]="'title'"
+                            [inputFormControl]="getFormControl('name')!"
+                            [minLength]="'5'"
+                            [nameInput]="'Titre'"
+                            [placeholder]="'Titre du document'"
+                            [required]="true"
+                            [type]="'text'"
+                    >
+                        <app-input-label class="font-bold">Titre</app-input-label>
+                    </app-input>
+                </div>
+                <!--  Description -->
+                <div class="item-form">
+                    <app-input
+                            [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
+                            [clearable]="true"
+                            [errorMessage]="'La description est obligatoire'"
+                            [error]="hasError('description', 'required')"
+                            [hideLabel]="false"
+                            [idInput]="'title'"
+                            [id]="'title'"
+                            [inputFormControl]="getFormControl('description')!"
+                            [minLength]="'5'"
+                            [nameInput]="'Description'"
+                            [placeholder]="'Description du document'"
+                            [required]="true"
+                            [type]="'text'"
+                    >
+                        <app-input-label class="font-bold">Description</app-input-label>
+                    </app-input>
+                </div>
+                <!--  Lien -->
+                <div class="item-form">
+                    <app-input
+                            [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
+                            [clearable]="true"
+                            [errorMessage]="'Le lien est obligatoire'"
+                            [error]="hasError('link', 'required')"
+                            [hideLabel]="false"
+                            [idInput]="'title'"
+                            [id]="'title'"
+                            [inputFormControl]="getFormControl('link')!"
+                            [minLength]="'5'"
+                            [nameInput]="'Lien'"
+                            [placeholder]="'Lien du document'"
+                            [required]="true"
+                            [type]="'text'"
+                    >
+                        <app-input-label class="font-bold">Lien</app-input-label>
+                    </app-input>
+                </div>
 
-<!--            <div class="link-preview">-->
-<!--                <div class="link-image">-->
-<!--                    <img alt="{{ preview.title }}" src="{{ preview.image }}">-->
-<!--                </div>-->
-<!--                <div class="link-content">-->
-<!--                    <h2 class="link-title">{{ header }}</h2>-->
-<!--                    <p class="link-description">{{ preview.description }}</p>-->
-<!--                    <a class="link-url" href="{{ preview.url }}">{{ preview.url }}</a>-->
-<!--                </div>-->
-<!--            </div>-->
-            <div>
-
-            </div>
+                <div class="item-form flex space-between items-center justify-center">
+                    <app-button #submitButton (save)="submit()"
+                                [customClass]="'btn'"
+                                [disabled]="!form.valid"
+                                [icon]="faSave"
+                                [title]="'Enregistrer'"
+                                [tooltip]="'Enregistrer'"
+                    ></app-button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

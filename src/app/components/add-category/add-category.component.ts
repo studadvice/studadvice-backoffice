@@ -45,7 +45,6 @@ export class AddCategoryComponent implements OnInit {
     submit() {
         if (this.form.valid) {
             this.dataService.addCategory(this.form.value).subscribe((response) => {
-                console.log(response);
                 this.router.navigate(['category']);
             });
         }

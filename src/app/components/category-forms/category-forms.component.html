@@ -25,8 +25,8 @@
                 <td class="py-2 px-4 border-b border-gray-200 text-sm center">{{category.image}}</td>
                 <td class="py-2 px-4 border-b border-gray-200 text-sm center">
                     <div class="btn btn-primary">
-                        <fa-icon [icon]="faEdit" class="cursor-pointer"></fa-icon>
-                        <fa-icon [icon]="faTrash" class="px-3 cursor-pointer"></fa-icon>
+                        <fa-icon [icon]="faEdit" class="cursor-pointer" (click)="editCategory(category)"></fa-icon>
+                        <fa-icon [icon]="faTrash" class="px-3 cursor-pointer" (click)="deleteCategory(category)"></fa-icon>
                     </div>
                 </td>
             </tr>

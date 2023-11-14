@@ -44,6 +44,7 @@ import {DocumentsComponent} from './components/documents/documents.component';
 import {AddCategoryComponent} from './components/add-category/add-category.component';
 import {PaginationComponent} from './core/pagination/pagination.component';
 import { DocumentModalComponent } from './components/documents/document-modal/document-modal.component';
+import { CategoryFormsModalComponent } from './components/category-forms/category-forms-modal/category-forms-modal.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -72,6 +73,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         AddCategoryComponent,
         PaginationComponent,
         DocumentModalComponent,
+        CategoryFormsModalComponent,
     ],
     imports: [
         BrowserModule,

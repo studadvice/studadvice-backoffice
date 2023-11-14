@@ -4,6 +4,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {Router} from "@angular/router";
 import {DataService} from "../../shared/dataservices/data.service";
 import {Category} from "../../core/data/demarche";
+import {CategoryFormsModalComponent} from "./category-forms-modal/category-forms-modal.component";
 
 @Component({
     selector: 'app-category-forms',
@@ -37,4 +38,20 @@ export class CategoryFormsComponent implements OnInit {
     }
 
 
+    deleteCategory(category: Category) {
+        this.categories = this.categories.filter((c) => c.id !== category.id);
+    }
+
+    editCategory(category: Category) {
+        this.dialog.open(CategoryFormsModalComponent, {
+            width: '500px',
+            data: {
+                category: category
+            }
+        });
+
+        this.dialog.afterAllClosed.subscribe(() => {
+            this.getCategory();
+        });
+    }
 }
