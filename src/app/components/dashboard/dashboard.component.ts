@@ -38,13 +38,11 @@ export class DashboardComponent implements OnInit {
     }
 
     editAction(procedure: Procedure) {
-        console.log('Edit Action Triggered:', procedure);
         this.procedure = procedure;
         this.editProcedure = true;
     }
 
     deleteAction(item: Procedure) {
-        console.log('Delete Action Triggered:', item);
         this.dataService.deleteProcedure(item.id).subscribe(
             {
                 next: (response) => {
@@ -69,9 +67,7 @@ export class DashboardComponent implements OnInit {
             });
     }
 
-
     pageChanged(event: any): void {
-        console.log('Page changed to:', event);
         this.currentPage = event;
         this.getProcedures(this.currentPage);
     }

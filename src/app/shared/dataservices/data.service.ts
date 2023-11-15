@@ -8,7 +8,64 @@ import {Observable, of} from "rxjs";
 })
 export class DataService {
     private data = {
-        categories: [] as Category[],
+        categories: [
+            {
+                id: '1',
+                name: 'Category 1',
+                description: 'Category 1 description',
+                image: 'assets/images/category-1.jpg',
+                procedures: []
+            },
+            {
+                id: '2',
+                name: 'Category 2',
+                description: 'Category 2 description',
+                image: 'assets/images/category-2.jpg',
+                procedures: []
+            },
+            {
+                id: '3',
+                name: 'Category 3',
+                description: 'Category 3 description',
+                image: 'assets/images/category-3.jpg',
+                procedures: []
+            },
+            {
+                id: '4',
+                name: 'Category 4',
+                description: 'Category 4 description',
+                image: 'assets/images/category-4.jpg',
+                procedures: []
+            },
+            {
+                id: '5',
+                name: 'Category 5',
+                description: 'Category 5 description',
+                image: 'assets/images/category-5.jpg',
+                procedures: []
+            },
+            {
+                id: '6',
+                name: 'Category 6',
+                description: 'Category 6 description',
+                image: 'assets/images/category-6.jpg',
+                procedures: []
+            },
+            {
+                id: '7',
+                name: 'Category 7',
+                description: 'Category 7 description',
+                image: 'assets/images/category-7.jpg',
+                procedures: []
+            },
+            {
+                id: '8',
+                name: 'Category 8',
+                description: 'Category 8 description',
+                image: 'assets/images/category-8.jpg',
+                procedures: []
+            }
+        ] as Category[],
     }
 
     private proceduresData = {
@@ -71,8 +128,17 @@ export class DataService {
     constructor() {
     }
 
-    getCategories(): Observable<Category[]> {
-        return of(this.data.categories);
+    getCategories(page: number, itemsPerPage: number): Observable<{ categories: Category[], total: number }> {
+        // Calculate starting index of the items on the current page
+        const startIndex = (page - 1) * itemsPerPage;
+        // Slice the categories array to get only the items for the current page
+        const end = startIndex + itemsPerPage;
+        const categoriesPage = this.data.categories.slice(startIndex, end);
+        // Return an observable containing the categories for the current page and the total count
+        return of({
+            categories: categoriesPage,
+            total: this.data.categories.length
+        });
     }
 
     addCategory(category: Category, procedures?: Procedure[]): Observable<Category> {
@@ -136,5 +202,16 @@ export class DataService {
             return of(procedure);
         }
         return of({} as Procedure);
+    }
+
+    deleteCategory(id: string) {
+        const category = this.data.categories.find((category) => category.id === id);
+        if (category) {
+            this.data.categories.splice(this.data.categories.indexOf(category), 1);
+        }
+        if (category) {
+            return of(category);
+        }
+        return of({} as Category);
     }
 }

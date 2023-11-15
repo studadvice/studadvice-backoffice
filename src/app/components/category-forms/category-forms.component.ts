@@ -3,7 +3,7 @@ import {faEdit, faTrash} from "@fortawesome/free-solid-svg-icons";
 import {MatDialog} from "@angular/material/dialog";
 import {Router} from "@angular/router";
 import {DataService} from "../../shared/dataservices/data.service";
-import {Category} from "../../core/data/demarche";
+import {Category, Procedure} from "../../core/data/demarche";
 import {CategoryFormsModalComponent} from "./category-forms-modal/category-forms-modal.component";
 
 @Component({
@@ -16,6 +16,9 @@ export class CategoryFormsComponent implements OnInit {
     categories: Category[] = [];
     protected readonly faTrash = faTrash;
     protected readonly faEdit = faEdit;
+    totalItems: number = 100;
+    itemsPerPage: number = 2;
+    currentPage: number = 1;
 
     constructor(private dialog: MatDialog,
                 public router: Router,
@@ -31,14 +34,29 @@ export class CategoryFormsComponent implements OnInit {
         this.router.navigate(['category/add']);
     }
 
-    getCategory() {
-        return this.dataService.getCategories().subscribe((response) => {
-            this.categories = response;
-        });
+    getCategory(page: number = 1) {
+        this.dataService.getCategories(page, this.itemsPerPage).subscribe(
+            {
+                next: (response) => {
+                    this.categories = response.categories;
+                    this.totalItems = response.total;
+                },
+                error: (error) => {
+                    console.log(error);
+                }
+            });
     }
 
     deleteCategory(category: Category) {
-        this.categories = this.categories.filter((c) => c.id !== category.id);
+        this.dataService.deleteCategory(category.id).subscribe(
+            {
+                next: (response) => {
+                    this.getCategory(this.currentPage);
+                },
+                error: (error) => {
+                    console.log(error);
+                }
+            });
     }
 
     editCategory(category: Category) {
@@ -52,5 +70,10 @@ export class CategoryFormsComponent implements OnInit {
         this.dialog.afterAllClosed.subscribe(() => {
             this.getCategory();
         });
+    }
+
+    pageChanged(event: any): void {
+        this.currentPage = event;
+        this.getCategory(event);
     }
 }

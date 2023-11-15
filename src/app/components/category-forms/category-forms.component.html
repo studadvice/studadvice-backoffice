@@ -33,6 +33,14 @@
             <!-- Repeat for other rows -->
             </tbody>
         </table>
+        <div class="pagination-container">
+            <app-pagination
+                    [totalItems]="totalItems"
+                    [itemsPerPage]="itemsPerPage"
+                    [currentPage]="currentPage"
+                    (pageChanged)="pageChanged($event)">
+            </app-pagination>
+        </div>
         <app-button #addCategoryButton (save)="addCategory()"
                     [customClass]="'btn'"
                     [icon]="''"
