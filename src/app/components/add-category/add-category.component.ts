@@ -63,11 +63,11 @@ export class AddCategoryComponent implements OnInit {
     }
 
     getProcedure(): void {
-        this.dataService.getProcedures()
+        this.dataService.getProcedures(1, 100)
             .subscribe(
                 {
                     next: (response) => {
-                        this.procedures = response;
+                        this.procedures = response.procedures;
                         this.procedures = this.procedures.map((procedure) => {
                             return {
                                 ...procedure,

@@ -4,7 +4,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {NavbarComponent} from './core/nav/navbar.component';
-import {FormulaireComponent} from './components/formulaire/formulaire.component';
+import {ProcessFormsComponent} from './components/process-forms/process-forms.component';
 import {AngularFireDatabaseModule} from "@angular/fire/compat/database";
 import {AngularFireModule} from "@angular/fire/compat";
 import {AngularFirestoreModule} from "@angular/fire/compat/firestore";
@@ -54,7 +54,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     declarations: [
         AppComponent,
         NavbarComponent,
-        FormulaireComponent,
+        ProcessFormsComponent,
         SignInComponent,
         SignUpComponent,
         InputComponent,

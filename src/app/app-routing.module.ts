@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {FormulaireComponent} from "./components/formulaire/formulaire.component";
+import {ProcessFormsComponent} from "./components/process-forms/process-forms.component";
 import {SignUpComponent} from "./components/sign-up/sign-up.component";
 import {SignInComponent} from "./components/sign-in/sign-in.component";
 import {AuthGuard} from "./shared/guard/auth.guard";
@@ -10,7 +10,7 @@ import {AddCategoryComponent} from "./components/add-category/add-category.compo
 import {DocumentsComponent} from "./components/documents/documents.component";
 
 const routes: Routes = [
-    {path: 'formulaire', component: FormulaireComponent, canActivate: [AuthGuard], data: {roles: ['ROLE_ADMIN']}},
+    {path: 'formulaire', component: ProcessFormsComponent, canActivate: [AuthGuard], data: {roles: ['ROLE_ADMIN']}},
     {path: '', redirectTo: '/formulaire', pathMatch: 'full'},
     {path: 'sign-in', component: SignInComponent},
     {path: 'register-user', component: SignUpComponent},

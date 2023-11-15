@@ -209,6 +209,12 @@ span.required {
     min-height: 100vh;
 }
 
+@media (max-width: 600px) {
+    .main-content {
+        padding-left: 0;
+    }
+}
+
 .studadvice {
     width: 100%;
     /*max-width: */

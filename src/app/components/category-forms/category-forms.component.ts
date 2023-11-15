@@ -37,7 +37,6 @@ export class CategoryFormsComponent implements OnInit {
         });
     }
 
-
     deleteCategory(category: Category) {
         this.categories = this.categories.filter((c) => c.id !== category.id);
     }

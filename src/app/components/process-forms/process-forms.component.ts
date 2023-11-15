@@ -6,15 +6,15 @@ import {ButtonComponent} from "../../core/input/button/button.component";
 import {FormControlService} from "../../shared/services/form-control.service";
 import {DataService} from "../../shared/dataservices/data.service";
 import {Router} from "@angular/router";
-import {Procedure, Step} from "../../core/data/demarche";
+import {Procedure, Step, Document} from "../../core/data/demarche";
 import {Resource} from "../../core/data/resources";
 
 @Component({
     selector: 'app-formulaire',
-    templateUrl: './formulaire.component.html',
-    styleUrls: ['./formulaire.component.css']
+    templateUrl: './process-forms.component.html',
+    styleUrls: ['./process-forms.component.css']
 })
-export class FormulaireComponent implements OnInit {
+export class ProcessFormsComponent implements OnInit {
 
     form!: FormGroup;
     faTrash = faTrash;
@@ -27,12 +27,12 @@ export class FormulaireComponent implements OnInit {
     @Input() title: string = '_ADD_PROCEDURE_';
     @Input() procedure?: Procedure;
     @Output() procedureChange = new EventEmitter<{editProcedure: boolean, procedure: Procedure}>();
+    documents: Document[] = [];
 
     constructor(private formBuilder: FormBuilder, public dialog: MatDialog,
                 private formControlService: FormControlService,
                 private dataService: DataService,
                 private router: Router,
-                private changeDetectorRef: ChangeDetectorRef
                 ) {
     }
 
@@ -56,6 +56,28 @@ export class FormulaireComponent implements OnInit {
             this.updateProcedure();
         }
         this.formControlService.setForm(this.form);
+        this.getAllDocuments();
+    }
+
+    getAllDocuments() {
+        this.dataService.getDocuments().subscribe(
+            {
+                next: (response) => {
+                    this.documents = response.map(
+                        (document) => {
+                            return {
+                                ...document,
+                                value: document.id,
+                                label: document.name,
+                            }
+                        }
+                    );
+                },
+                error: (error) => {
+                    console.log(error);
+                }
+            }
+        );
     }
 
     addStep(newStep?: Step) {
@@ -65,7 +87,6 @@ export class FormulaireComponent implements OnInit {
             documents: new FormControl([] as any[], Validators.required),
             resources: this.formBuilder.array([] as Resource[]),
         });
-        console.log('New Step:', newStep);
         if (newStep) {
             stepGroup.patchValue(newStep);
         }
@@ -178,7 +199,7 @@ export class FormulaireComponent implements OnInit {
             if (element.files && element.files.length) {
             const file = element.files[0];
             const resourceGroup = this.getResources(etapeIndex).at(resourcesIndex) as FormGroup;
-            resourceGroup.patchValue({ image: file }); // Ou toute autre logique nécessaire
+            resourceGroup.patchValue({ image: file });
     }
     }
 }

@@ -13,13 +13,13 @@
                 </button>
             </div>
             <!--  titre -->
-            <form (ngSubmit)="submit()" *ngIf="form" [formGroup]="form" class="container studadvice box-mainLook">
+            <form *ngIf="form" [formGroup]="form" class="container studadvice">
                 <div class="item-form">
                     <app-input
                             [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
                             [clearable]="true"
                             [errorMessage]="'Le titre est obligatoire'"
-                            [error]="hasError('title', 'required')"
+                            [error]="hasError('name', 'required')"
                             [hideLabel]="false"
                             [idInput]="'title'"
                             [id]="'title'"
@@ -67,7 +67,7 @@
                             [minLength]="'5'"
                             [nameInput]="'Lien'"
                             [placeholder]="'Lien du document'"
-                            [required]="true"
+                            [required]="false"
                             [type]="'text'"
                     >
                         <app-input-label class="font-bold">Lien</app-input-label>

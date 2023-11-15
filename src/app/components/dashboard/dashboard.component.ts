@@ -18,13 +18,14 @@ export class DashboardComponent implements OnInit {
     itemsPerPage: number = 10;
     editProcedure: boolean = false;
     procedure?: Procedure;
+    currentPage: number = 1;
 
     constructor(public router: Router,
                 private dataService: DataService,) {
     }
 
     ngOnInit() {
-        this.getProcedures();
+        this.getProcedures(this.currentPage);
     }
 
     handleAction(event: { action: string, data: any }) {
@@ -46,11 +47,12 @@ export class DashboardComponent implements OnInit {
 
     }
 
-    getProcedures() {
-        return this.dataService.getProcedures().subscribe(
+    getProcedures(page: number) {
+        this.dataService.getProcedures(page, this.itemsPerPage).subscribe(
             {
                 next: (response) => {
-                    this.procedures = response;
+                    this.procedures = response.procedures;
+                    this.totalItems = response.total;
                 },
                 error: (error) => {
                     console.log(error);
@@ -59,7 +61,9 @@ export class DashboardComponent implements OnInit {
     }
 
 
-    pageChanged($event: any) {
-        console.log($event);
+    pageChanged(event: any): void {
+        console.log('Page changed to:', event.page);
+        this.currentPage = event.page;
+        this.getProcedures(this.currentPage); // Fetch the procedures for the new page
     }
 }

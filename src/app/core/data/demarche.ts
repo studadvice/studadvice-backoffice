@@ -9,10 +9,9 @@ export interface Procedure {
 
 export interface Document {
     id: string;
-    title: string;
+    name: string;
     description: string;
-    type: string;
-    url?: string;
+    link?: string;
 }
 
 export interface Step {

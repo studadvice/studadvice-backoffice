@@ -88,11 +88,7 @@
                                 [id]="'documents'"
                                 [inputFormControl]="getControl(etape, 'documents')!"
                                 [multiple]="true"
-                                [options]="[
-                                    { value: 'document1', label: 'Document 1' },
-                                    { value: 'document2', label: 'Document 2' },
-                                    { value: 'document3', label: 'Document 3' }
-                                ]"
+                                [options]="documents"
                                 [required]="false"
                         >
                             <label class="font-bold">Documents Etape {{etapeIndex + 1}}</label>
