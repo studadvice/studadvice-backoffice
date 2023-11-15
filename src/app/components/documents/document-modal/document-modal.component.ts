@@ -13,6 +13,7 @@ import {MatDialogRef} from "@angular/material/dialog";
 export class DocumentModalComponent {
   form: any;
   protected readonly faSave = faSave;
+  title: string = '_ADD_DOCUMENT_';
 
   constructor(private formControlService: FormControlService, private formBuilder: FormBuilder,
               private dataService: DataService, private dialogRef: MatDialogRef<DocumentModalComponent>) {
@@ -22,6 +23,15 @@ export class DocumentModalComponent {
       link: ['', [Validators.required]],
     });
     this.formControlService.setForm(this.form);
+
+    // get data from dialog
+    const data = this.dialogRef._containerInstance._config.data;
+    if (data) {
+      this.title = data.title;
+      if (data.document) {
+        this.form.patchValue(data.document);
+      }
+    }
   }
 
   closeDocumentPopup() {

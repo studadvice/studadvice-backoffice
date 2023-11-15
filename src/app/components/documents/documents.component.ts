@@ -37,7 +37,16 @@ export class DocumentsComponent implements OnInit {
     }
 
     editAction(document: any) {
+        this.dialog.open(DocumentModalComponent, {
+            data: {
+                document: document,
+                title: '_EDIT_DOCUMENT_'
+            }
+        });
 
+        this.dialog.afterAllClosed.subscribe(() => {
+            this.getDocuments();
+        });
     }
 
     addDocuments() {

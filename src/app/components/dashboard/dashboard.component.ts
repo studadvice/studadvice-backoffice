@@ -44,7 +44,16 @@ export class DashboardComponent implements OnInit {
     }
 
     deleteAction(item: Procedure) {
-
+        console.log('Delete Action Triggered:', item);
+        this.dataService.deleteProcedure(item.id).subscribe(
+            {
+                next: (response) => {
+                    this.getProcedures(this.currentPage);
+                },
+                error: (error) => {
+                    console.log(error);
+                }
+            });
     }
 
     getProcedures(page: number) {

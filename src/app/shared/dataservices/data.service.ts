@@ -126,4 +126,15 @@ export class DataService {
     getDocuments(): Observable<Document[]> {
         return of(this.documentsData.documents);
     }
+
+    deleteProcedure(id: string): Observable<Procedure> {
+        const procedure = this.proceduresData.procedures.find((procedure) => procedure.id === id);
+        if (procedure) {
+            this.proceduresData.procedures.splice(this.proceduresData.procedures.indexOf(procedure), 1);
+        }
+        if (procedure) {
+            return of(procedure);
+        }
+        return of({} as Procedure);
+    }
 }
