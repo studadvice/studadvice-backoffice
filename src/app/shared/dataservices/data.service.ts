@@ -12,7 +12,56 @@ export class DataService {
     }
 
     private proceduresData = {
-        procedures: [] as Procedure[],
+        procedures: [
+            {
+                id: '1',
+                name: 'Procedure 1',
+                description: 'Procedure 1 description',
+                steps: []
+            },
+            {
+                id: '2',
+                name: 'Procedure 2',
+                description: 'Procedure 1 description',
+                steps: []
+            },
+            {
+                id: '3',
+                name: 'Procedure 3',
+                description: 'Procedure 1 description',
+                steps: []
+            },
+            {
+                id: '4',
+                name: 'Procedure 4',
+                description: 'Procedure 1 description',
+                steps: []
+            },
+            {
+                id: '5',
+                name: 'Procedure 5',
+                description: 'Procedure 1 description',
+                steps: []
+            },
+            {
+                id: '6',
+                name: 'Procedure 6',
+                description: 'Procedure 1 description',
+                steps: []
+            },
+            {
+                id: '7',
+                name: 'Procedure 7',
+                description: 'Procedure 1 description',
+                steps: []
+            },
+            {
+                id: '8',
+                name: 'Procedure 8',
+                description: 'Procedure 1 description',
+                steps: []
+            }
+        ] as Procedure[],
     }
 
     private documentsData = {

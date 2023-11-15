@@ -15,7 +15,7 @@ export class DashboardComponent implements OnInit {
     protected readonly faEdit = faEdit;
     procedures: Procedure[] = [];
     totalItems: number = 100;
-    itemsPerPage: number = 10;
+    itemsPerPage: number = 2;
     editProcedure: boolean = false;
     procedure?: Procedure;
     currentPage: number = 1;
@@ -62,8 +62,8 @@ export class DashboardComponent implements OnInit {
 
 
     pageChanged(event: any): void {
-        console.log('Page changed to:', event.page);
-        this.currentPage = event.page;
-        this.getProcedures(this.currentPage); // Fetch the procedures for the new page
+        console.log('Page changed to:', event);
+        this.currentPage = event;
+        this.getProcedures(this.currentPage);
     }
 }
