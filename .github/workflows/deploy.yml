@@ -1,4 +1,4 @@
-name: Build and Deploy to Azure VPS
+name: Deploy to Azure VPS
 
 on:
   push:
@@ -7,31 +7,6 @@ on:
       - main
   workflow_dispatch:
 jobs:
-  build:
-    if: github.event_name == 'push'
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16.14'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build Angular app
-        run: npm run build -- --configuration production
-
-      - name: Archive production artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: dist
-          path: dist/
-
   deploy:
     if: github.event_name == 'workflow_dispatch'
     needs: build
