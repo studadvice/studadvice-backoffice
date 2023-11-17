@@ -1,1 +1,84 @@
-<p>category-forms-modal works!</p>
+<div class="modalComponent small">
+    <div class="modal-body">
+        <div class="modal">
+            <div class="modal-header">
+                <h1 class="modal-title">{{title | translate}}</h1>
+                <button (click)="closeDocumentPopup()" aria-label="Close" class="close right" data-dismiss="modal"
+                        type="button">
+          <span aria-hidden="true" class="close-icon">
+            <svg height="17" viewBox="794.994 121.536 11.377 11.377" width="17" xmlns="http://www.w3.org/2000/svg">
+    <path d="M795.933 122.224l9.5 10M805.683 122.474l-10 9.5" fill="none" stroke="#012E47" stroke-miterlimit="10"
+          stroke-width="2"/></svg>
+          </span>
+                </button>
+            </div>
+            <form (ngSubmit)="saveDocument()" *ngIf="form" [formGroup]="form" class="container studadvice">
+                <div class="item-form">
+                    <app-input
+                            [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
+                            [clearable]="true"
+                            [errorMessage]="'Le titre est obligatoire'"
+                            [error]="hasError('name', 'required')"
+                            [hideLabel]="false"
+                            [idInput]="'name'"
+                            [id]="'name'"
+                            [inputFormControl]="getFormControl('name')!"
+                            [minLength]="'5'"
+                            [nameInput]="'Titre'"
+                            [placeholder]="'Titre de la démarche'"
+                            [required]="true"
+                            [type]="'text'"
+                    >
+                        <app-input-label class="font-bold">Titre</app-input-label>
+                    </app-input>
+                </div>
+                <div class="item-form">
+                    <app-input
+                            [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
+                            [clearable]="true"
+                            [errorMessage]="'La description est obligatoire'"
+                            [error]="hasError('description', 'required')"
+                            [hideLabel]="false"
+                            [idInput]="'description'"
+                            [id]="'description'"
+                            [inputFormControl]="getFormControl('description')!"
+                            [minLength]="'5'"
+                            [nameInput]="'description'"
+                            [placeholder]="'Description de la catégorie'"
+                            [required]="true"
+                            [type]="'text'"
+                    >
+                        <app-input-label class="font-bold">Description</app-input-label>
+                    </app-input>
+                </div>
+                <!-- Ajout d'une procédure -->
+                <div class="item-form">
+                    <app-input-select
+                            [bindLabel]="'value.name'"
+                            [bindValue]="'value'"
+                            [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
+                            [clearable]="true"
+                            [errorMessage]="'La démarche est obligatoire'"
+                            [hasLabel]="true"
+                            [id]="'demarche'"
+                            [inputFormControl]="getFormControl('process')!"
+                            [options]="procedures"
+                            [required]="false"
+                            [multiple]="true"
+                    >
+                        <label class="font-bold">Ajout d'une démarche</label>
+                    </app-input-select>
+                </div>
+                <div class="item-form flex space-between items-center justify-center">
+                    <app-button #submitButton (save)="saveDocument()"
+                                [customClass]="'btn'"
+                                [disabled]="!form.valid"
+                                [icon]="faSave"
+                                [title]="'Enregistrer'"
+                                [tooltip]="'Enregistrer'"
+                    ></app-button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

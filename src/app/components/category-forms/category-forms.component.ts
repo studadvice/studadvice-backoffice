@@ -61,7 +61,6 @@ export class CategoryFormsComponent implements OnInit {
 
     editCategory(category: Category) {
         this.dialog.open(CategoryFormsModalComponent, {
-            width: '500px',
             data: {
                 category: category
             }
