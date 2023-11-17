@@ -45,6 +45,7 @@ import {AddCategoryComponent} from './components/add-category/add-category.compo
 import {PaginationComponent} from './core/pagination/pagination.component';
 import { DocumentModalComponent } from './components/documents/document-modal/document-modal.component';
 import { CategoryFormsModalComponent } from './components/category-forms/category-forms-modal/category-forms-modal.component';
+import { DealsComponent } from './components/deals/deals.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -74,6 +75,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         PaginationComponent,
         DocumentModalComponent,
         CategoryFormsModalComponent,
+        DealsComponent,
     ],
     imports: [
         BrowserModule,
