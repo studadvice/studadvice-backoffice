@@ -6,7 +6,8 @@ on:
       - feat/views
       - main
 jobs:
-  build-and-deploy:
+  build:
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
 
     steps:
@@ -30,6 +31,11 @@ jobs:
           name: dist
           path: dist/
 
+  deploy:
+    if: github.event_name == 'workflow_dispatch'
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
       - name: Create deployment directory on server
         uses: appleboy/ssh-action@master
         with:
