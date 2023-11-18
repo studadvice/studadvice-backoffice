@@ -58,7 +58,7 @@ jobs:
         with:
           tag_name: ${{ github.ref_name }}-${{ github.sha }}
           release_name: Release ${{ github.ref_name }}-${{ github.sha }}
-          draft: true
+          draft: false
           prerelease: true
           body: "Description of the release"
 
