@@ -13,7 +13,7 @@ import {MatDialogRef} from "@angular/material/dialog";
 export class CategoryFormsModalComponent implements OnInit  {
     title: string = '_EDIT_CATEGORY_'
     protected readonly faSave = faSave;
-    procedures: any;
+    process: any;
     form: any;
 
     constructor(private formControlService: FormControlService, private formBuilder: FormBuilder,
@@ -24,6 +24,22 @@ export class CategoryFormsModalComponent implements OnInit  {
             process: ['' , [Validators.required]],
         });
         this.formControlService.setForm(this.form);
+        this.getProcess();
+
+        // get data from dialog
+        const data = this.dialogRef._containerInstance._config.data;
+        if (data) {
+            if (data.category) {
+                this.form.patchValue(data.category);
+                this.process = data.process;
+            }
+        }
+    }
+
+    private getProcess() {
+        this.form.get('process').valueChanges.subscribe((value: any) => {
+            this.process = value;
+        });
     }
 
     saveDocument() {

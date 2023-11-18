@@ -6,7 +6,7 @@ import {ButtonComponent} from "../../core/input/button/button.component";
 import {FormControlService} from "../../shared/services/form-control.service";
 import {DataService} from "../../shared/dataservices/data.service";
 import {Router} from "@angular/router";
-import {Procedure, Step, Document} from "../../core/data/demarche";
+import {Process, Step, Document} from "../../core/data/demarche";
 import {Resource} from "../../core/data/resources";
 
 @Component({
@@ -25,8 +25,8 @@ export class ProcessFormsComponent implements OnInit {
     @ViewChild('submitButton', {static: false}) submitButton!: ButtonComponent;
 
     @Input() title: string = '_ADD_PROCEDURE_';
-    @Input() procedure?: Procedure;
-    @Output() procedureChange = new EventEmitter<{editProcedure: boolean, procedure: Procedure}>();
+    @Input() procedure?: Process;
+    @Output() procedureChange = new EventEmitter<{editProcedure: boolean, procedure: Process}>();
     documents: Document[] = [];
 
     constructor(private formBuilder: FormBuilder, public dialog: MatDialog,

@@ -1,6 +1,6 @@
 import {Resource} from "./resources";
 
-export interface Procedure {
+export interface Process {
     id: string;
     name: string;
     description: string;
@@ -27,7 +27,7 @@ export interface Category {
     name: string;
     description: string;
     image: string;
-    procedures: string[];
+    process: string[];
 }
 
 export interface FileInfo {
