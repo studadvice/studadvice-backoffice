@@ -34,7 +34,7 @@ jobs:
   release:
     needs: build
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/feat/views'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -43,6 +43,9 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: dist
+          path: dist
+
+      - run: ls -l dist
 
       - name: Zip the build directory
         run: zip -r dist.zip dist/
