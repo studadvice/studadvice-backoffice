@@ -27,7 +27,7 @@ jobs:
 
       - name: Download artifact from latest release
         run: |
-          wget --header='Authorization: Bearer ${{ secrets.PERSONAL_ACCESS_TOKEN }}' https://github.com/${{ github.repository }}/releases/download/${{ steps.get_release.outputs.tag_name }}/dist.zip -O build.zip
+          curl -L -O -H 'Authorization: token ${{ secrets.PERSONAL_ACCESS_TOKEN }}' https://github.com/${{ github.repository }}/releases/download/${{ steps.get_release.outputs.tag_name }}/dist.zip -O build.zip
 
       - name: Extract build archive
         run: unzip build.zip -d dist/
