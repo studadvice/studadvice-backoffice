@@ -1,1 +1,65 @@
-<p>deals works!</p>
+<main *ngIf="deals.length > 0" class="main-content">
+    <h2 class="text-2xl m-0 mb-5 font-bold">{{'_DEALS_' | translate}}</h2>
+    <div class="bg-white shadow-md rounded my-6 box-mainLook">
+        <table class="min-w-full border-collapse table">
+            <thead class="thead-light">
+            <tr>
+                <th class="py-2 px-4 border-b text-xs uppercase tracking-wider">
+                    {{'_NAME_' | translate}}
+                </th>
+                <th class="py-2 px-4 border-b text-xs uppercase tracking-wider">
+                    {{'_DESCRIPTION_' | translate}}
+                </th>
+                <th class="py-2 px-4 border-b text-xs uppercase tracking-wider">
+                    {{'_IMAGE_' | translate}}
+                </th>
+                <th class="py-2 px-4 border-b text-xs uppercase tracking-wider">
+                    {{'_ACTION_' | translate}}
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let deal of deals">
+                <td class="py-2 px-4 border-b border-gray-200 text-sm center">{{deal.name}}</td>
+                <td class="py-2 px-4 border-b border-gray-200 text-sm center">{{deal.description}}</td>
+                <td class="py-2 px-4 border-b border-gray-200 text-sm center">{{deal.image}}</td>
+                <td class="py-2 px-4 border-b border-gray-200 text-sm center">
+                    <div class="btn btn-primary">
+                        <fa-icon [icon]="faEdit" class="cursor-pointer" (click)="editDeal(deal)"></fa-icon>
+                        <fa-icon [icon]="faTrash" class="px-3 cursor-pointer" (click)="deleteDeal(deal)"></fa-icon>
+                    </div>
+                </td>
+            </tr>
+            <!-- Repeat for other rows -->
+            </tbody>
+        </table>
+        <div class="pagination-container">
+            <app-pagination
+                    [totalItems]="totalItems"
+                    [itemsPerPage]="itemsPerPage"
+                    [currentPage]="currentPage"
+                    (pageChanged)="pageChanged($event)">
+            </app-pagination>
+        </div>
+        <app-button #addCategoryButton (save)="addDeal()"
+                    [customClass]="'btn'"
+                    [icon]="''"
+                    [title]="'AJOUTER'"
+                    [tooltip]="'Ajouter une sous catégorie'"
+        ></app-button>
+    </div>
+</main>
+
+<main *ngIf="deals.length === 0" class="main-content" role="main">
+    <h2 class="text-2xl m-0 mb-5 font-bold">{{'_CATEGORIES_' | translate}}</h2>
+    <div class="bg-white shadow-md rounded my-6 box-mainLook">
+        <p class="table-empty">{{'_NO_CATEGORIES_' | translate}}</p>
+        <app-button #addCategoryButton (save)="addDeal()"
+                    [customClass]="'btn'"
+                    [icon]="''"
+                    [title]="'AJOUTER'"
+                    [tooltip]="'Ajouter une sous catégorie'"
+        ></app-button>
+    </div>
+
+</main>

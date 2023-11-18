@@ -46,6 +46,8 @@ import {PaginationComponent} from './core/pagination/pagination.component';
 import { DocumentModalComponent } from './components/documents/document-modal/document-modal.component';
 import { CategoryFormsModalComponent } from './components/category-forms/category-forms-modal/category-forms-modal.component';
 import { DealsComponent } from './components/deals/deals.component';
+import { DealsAddModalComponent } from './components/deals/deals-add-modal/deals-add-modal.component';
+import { InputDateComponent } from './core/input/input-date/input-date.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -76,6 +78,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         DocumentModalComponent,
         CategoryFormsModalComponent,
         DealsComponent,
+        DealsAddModalComponent,
+        InputDateComponent,
     ],
     imports: [
         BrowserModule,
