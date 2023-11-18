@@ -1,6 +1,6 @@
 import {Resource} from "./resources";
 
-export interface Procedure {
+export interface Process {
     id: string;
     name: string;
     description: string;
@@ -27,7 +27,7 @@ export interface Category {
     name: string;
     description: string;
     image: string;
-    procedures: string[];
+    process: string[];
 }
 
 export interface FileInfo {
@@ -35,4 +35,14 @@ export interface FileInfo {
     type: string;
     size: number;
     data?: any;
+}
+
+export interface Deal {
+    id: string;
+    name: string;
+    description: string;
+    image: string;
+    start_date: string;
+    end_date: string;
+    status: string;
 }

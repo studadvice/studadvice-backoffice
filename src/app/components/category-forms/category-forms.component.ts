@@ -3,7 +3,7 @@ import {faEdit, faTrash} from "@fortawesome/free-solid-svg-icons";
 import {MatDialog} from "@angular/material/dialog";
 import {Router} from "@angular/router";
 import {DataService} from "../../shared/dataservices/data.service";
-import {Category, Procedure} from "../../core/data/demarche";
+import {Category, Process} from "../../core/data/demarche";
 import {CategoryFormsModalComponent} from "./category-forms-modal/category-forms-modal.component";
 
 @Component({

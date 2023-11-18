@@ -12,20 +12,22 @@ jobs:
 
       - name: Get latest release
         id: get_release
-        uses: actions/github-script@0.9.0
+        uses: actions/github-script@v5
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         with:
           script: |
+            console.log(context.repo);
+            const repo = context.repo;
             const release = await github.rest.repos.getLatestRelease({
-              owner: context.repo.owner,
-              repo: context.repo.repo
+              owner: repo.owner,
+              repo: repo.repo
             });
-            return release.data.tag_name;
+            core.setOutput('tag_name', release.data.tag_name);
 
       - name: Download artifact from latest release
         run: |
-          wget https://github.com/${{ github.repository }}/releases/download/${{ steps.get_release.outputs.tag_name }}/build.zip -O build.zip
+          wget --header='Authorization: token ${{ secrets.PERSONAL_ACCESS_TOKEN }}' https://github.com/${{ github.repository }}/releases/download/${{ steps.get_release.outputs.tag_name }}/dist.zip -O build.zip
 
       - name: Extract build archive
         run: unzip build.zip -d dist/
