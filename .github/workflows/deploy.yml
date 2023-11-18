@@ -13,8 +13,11 @@ jobs:
       - name: Get latest release
         id: get_release
         uses: actions/github-script@0.9.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         with:
           script: |
+            const github = require('@actions/github');
             const release = await github.rest.repos.getLatestRelease({
               owner: context.repo.owner,
               repo: context.repo.repo
