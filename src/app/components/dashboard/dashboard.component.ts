@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {faEdit, faTrash} from "@fortawesome/free-solid-svg-icons";
-import {Procedure} from "../../core/data/demarche";
+import {Process} from "../../core/data/demarche";
 import {DataService} from "../../shared/dataservices/data.service";
 import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
@@ -13,11 +13,11 @@ import {MatDialog} from "@angular/material/dialog";
 export class DashboardComponent implements OnInit {
     protected readonly faTrash = faTrash;
     protected readonly faEdit = faEdit;
-    procedures: Procedure[] = [];
+    procedures: Process[] = [];
     totalItems: number = 100;
     itemsPerPage: number = 2;
     editProcedure: boolean = false;
-    procedure?: Procedure;
+    procedure?: Process;
     currentPage: number = 1;
 
     constructor(public router: Router,
@@ -32,17 +32,17 @@ export class DashboardComponent implements OnInit {
         console.log('Action Triggered:', event.action, 'With Row Data:', event.data);
     }
 
-    onProcedureChange(event: {editProcedure: boolean, procedure: Procedure}) {
+    onProcedureChange(event: {editProcedure: boolean, procedure: Process}) {
         this.editProcedure = event.editProcedure;
         this.procedure = event.procedure;
     }
 
-    editAction(procedure: Procedure) {
+    editAction(procedure: Process) {
         this.procedure = procedure;
         this.editProcedure = true;
     }
 
-    deleteAction(item: Procedure) {
+    deleteAction(item: Process) {
         this.dataService.deleteProcedure(item.id).subscribe(
             {
                 next: (response) => {
@@ -58,7 +58,7 @@ export class DashboardComponent implements OnInit {
         this.dataService.getProcedures(page, this.itemsPerPage).subscribe(
             {
                 next: (response) => {
-                    this.procedures = response.procedures;
+                    this.procedures = response.process;
                     this.totalItems = response.total;
                 },
                 error: (error) => {

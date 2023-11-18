@@ -6,7 +6,7 @@ import {FormControlService} from "../../shared/services/form-control.service";
 import {faPlus, faSave, faTrash} from "@fortawesome/free-solid-svg-icons";
 import {DataService} from "../../shared/dataservices/data.service";
 import {Router} from "@angular/router";
-import {Procedure} from "../../core/data/demarche";
+import {Process} from "../../core/data/demarche";
 
 @Component({
     selector: 'app-add-category',
@@ -22,7 +22,7 @@ export class AddCategoryComponent implements OnInit {
     protected readonly faTrash = faTrash;
     protected readonly faPlus = faPlus;
     protected readonly faSave = faSave;
-    procedures: Procedure[] = [];
+    process: Process[] = [];
 
     constructor(private formBuilder: FormBuilder, public dialog: MatDialog,
                 private formControlService: FormControlService,
@@ -37,7 +37,7 @@ export class AddCategoryComponent implements OnInit {
             name: ['', [Validators.required, Validators.minLength(5)]],
             description: ['', [Validators.required, Validators.minLength(5)]],
             image: ['', [Validators.required]],
-            procedures: ['', [Validators.required]],
+            process: ['', [Validators.required]],
         });
         this.formControlService.setForm(this.form);
     }
@@ -67,8 +67,8 @@ export class AddCategoryComponent implements OnInit {
             .subscribe(
                 {
                     next: (response) => {
-                        this.procedures = response.procedures;
-                        this.procedures = this.procedures.map((procedure) => {
+                        this.process = response.process;
+                        this.process = this.process.map((procedure) => {
                             return {
                                 ...procedure,
                                 value: procedure.id,
