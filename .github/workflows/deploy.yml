@@ -66,5 +66,5 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            sudo rsync -av --delete /home/azureuser/deploy/dist/backoffice /var/www/html/
+            sudo rsync -av --delete /home/azureuser/deploy/dist/backoffice/* /var/www/html/
             sudo systemctl restart nginx
