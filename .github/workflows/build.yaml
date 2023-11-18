@@ -58,8 +58,8 @@ jobs:
         with:
           tag_name: ${{ github.ref_name }}-${{ github.sha }}
           release_name: Release ${{ github.ref_name }}-${{ github.sha }}
-          draft: false
-          prerelease: false
+          draft: true
+          prerelease: true
           body: "Description of the release"
 
       - name: Upload Release Asset
