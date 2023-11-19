@@ -1,4 +1,6 @@
-<app-nav *ngIf="authService.isLoggedIn"></app-nav>
+<ng-container *ngIf="!isSignInRoute">
+    <app-nav></app-nav>
+</ng-container>
 
 <div class="container mx-auto">
     <router-outlet></router-outlet>

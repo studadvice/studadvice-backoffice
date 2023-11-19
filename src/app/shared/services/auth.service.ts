@@ -4,7 +4,7 @@ import {AngularFireAuth} from "@angular/fire/compat/auth";
 import {Router} from "@angular/router";
 import {User} from "../../core/data/user";
 import firebase from 'firebase/compat/app';
-import {map, Observable} from "rxjs";
+import {map, Observable, tap} from "rxjs";
 import {AngularFireDatabase} from "@angular/fire/compat/database";
 
 @Injectable({
@@ -12,7 +12,7 @@ import {AngularFireDatabase} from "@angular/fire/compat/database";
 })
 export class AuthService {
 
-    userData: any;
+    userData$?: Observable<firebase.User | null>;
 
     private userCollection = this.afs.collection('users');
 
@@ -23,21 +23,13 @@ export class AuthService {
         public router: Router,
         public ngZone: NgZone
     ) {
-        this.afAuth.authState.subscribe((user) => {
-            if (user) {
-                this.userData = user;
-                localStorage.setItem('user', JSON.stringify(this.userData));
-                JSON.parse(localStorage.getItem('user')!);
-            } else {
-                localStorage.setItem('user', 'null');
-                JSON.parse(localStorage.getItem('user')!);
-            }
-        });
+        this.userData$ = afAuth.authState;
     }
 
-    get isLoggedIn(): boolean {
-        const user = JSON.parse(localStorage.getItem('user')!);
-        return user !== null && user.emailVerified !== false;
+    get isLoggedIn(): Observable<boolean> {
+        return this.userData$!.pipe(
+            map(user => !!user)
+        );
     }
 
     signIn(email: string, password: string) {
@@ -100,7 +92,6 @@ export class AuthService {
         userRef.set(userData).then(r => console.log(r));
     }
 
-
     setUserAsAdmin(uid: string) {
         const userRef = this.userCollection.doc(uid);
         return userRef.update({role: 'admin'});
@@ -108,7 +99,6 @@ export class AuthService {
 
     signOut() {
         return this.afAuth.signOut().then(() => {
-            localStorage.removeItem('user');
             this.router.navigate(['sign-in']);
         });
     }
@@ -118,27 +108,32 @@ export class AuthService {
             map((user: any) => user.role)
         );
     }
-
-
     signInWithGoogle() {
         const provider = new firebase.auth.GoogleAuthProvider();
         return this.afAuth.signInWithPopup(provider).then((result) => {
             console.log(result);
-            if (result.additionalUserInfo?.isNewUser) {
-                this.setUserData(result.user);
-            } else {
-                if (result.user) {
+            if (result.user) {
+                if (result.additionalUserInfo?.isNewUser) {
+                    this.setUserData(result.user);
+                    // Redirection pour les nouveaux utilisateurs
+                    this.router.navigate(['dashboard']);
+                } else {
+                    // Si l'utilisateur existe déjà, vérifiez son rôle
                     this.getUserRole(result.user.uid).subscribe(role => {
                         if (role === 'admin') {
                             this.router.navigate(['formulaire']);
                         } else {
                             this.router.navigate(['dashboard']);
                         }
+                    }, error => {
+                        console.error("Erreur lors de l'obtention du rôle de l'utilisateur", error);
+                        window.alert("Erreur lors de la navigation.");
                     });
                 }
             }
         }).catch((error) => {
-            window.alert(error);
+            window.alert(error.message);
         });
     }
+
 }
