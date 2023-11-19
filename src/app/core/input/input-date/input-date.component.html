@@ -29,7 +29,7 @@
       <button type="button" class="trigger" [ngClass]="{'icon-calendar':timeType=='calendar'||'both', 'icon-time':timeType=='timer'}"
               [owlDateTimeTrigger]="dt" [disabled]="disabled || inputFormControl.disabled"
               id="buttonCalendar{{idInput}}"
-      >Ouvrir le calendrier</button>
+      ></button>
       <owl-date-time [firstDayOfWeek]="1" [pickerType]="timeType" [scrollStrategy]="scrollStrategy" (afterPickerClosed)="whenPickerClosed()"
                      [showSecondsTimer]="showSeconds" #dt></owl-date-time>
   </span>

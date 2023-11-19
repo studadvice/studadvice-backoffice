@@ -352,4 +352,12 @@ button.table-button {
     border: 1px solid #fff;
 }
 
-/* -------- INPUT FILE -------- */
+/* -------- DATE PICKER -------- */
+.inputDateComponent p > span > button {
+    display: inline-block;
+    position: absolute;
+    top: .5em;
+    right: .1em;
+    background-color: #fff;
+    background-size: 90%;
+}

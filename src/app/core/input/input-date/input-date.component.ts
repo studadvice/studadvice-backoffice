@@ -6,7 +6,10 @@ import {PickerType} from "ng-pick-datetime-ex/lib/date-time/date-time.class";
 @Component({
   selector: 'app-input-date',
   templateUrl: './input-date.component.html',
-  styleUrls: ['./input-date.component.css']
+  styleUrls: ['./input-date.component.css'],
+  host: {
+    'class' : 'inputComponent inputDateComponent'
+  }
 })
 export class InputDateComponent extends AbstractInputComponent implements OnInit {
 

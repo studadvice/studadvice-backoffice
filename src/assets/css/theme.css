@@ -80,7 +80,7 @@
     align-items: center;
 }
 
-.inputComponent input[type="text"], .inputComponent input[type="number"], .inputComponent input[type="file"], .inputComponent input[type="password"] {
+.inputComponent input[type="text"],.inputComponent input[type="date"] .inputComponent input[type="number"], .inputComponent input[type="file"], .inputComponent input[type="password"] {
     width: 100%;
     background-color: #f3f3f3;
     border: 1px solid #e3e3e3;
@@ -91,7 +91,7 @@
     padding-left: 10px;
 }
 
-.inputComponent input[type="text"]:focus, .inputComponent input[type="number"]:focus, .inputComponent input[type="file"]:focus {
+.inputComponent input[type="text"]:focus, .inputComponent input[type="date"]:focus, .inputComponent input[type="number"]:focus, .inputComponent input[type="file"]:focus {
     border: 1px solid var(--c-secondary);
     outline: none;
 }
@@ -797,4 +797,12 @@ table.fixed tr:last-child th {
 .table-empty {
     margin: 1rem;
     font-style: italic;
+}
+
+.inputComponent .inputDateComponent p {
+    max-width: 15rem;
+}
+
+.icon-calendar {
+    background: url(../assets/img/icon-calendar.svg) no-repeat center 2px / 100%;
 }

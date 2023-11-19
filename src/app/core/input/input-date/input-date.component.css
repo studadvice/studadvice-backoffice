@@ -1,0 +1,8 @@
+span button.trigger:focus {
+    outline: none;
+    border: 1.5px solid black;
+}
+
+app-input-date input {
+    color: var(--c-text);
+}
