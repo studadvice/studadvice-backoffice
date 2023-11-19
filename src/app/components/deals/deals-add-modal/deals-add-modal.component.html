@@ -68,33 +68,35 @@
                         <app-input-label class="font-bold">Image</app-input-label>
                     </app-input>
                 </div>
-                <!-- start date type (date) uses app-input-date -->
-                <div class="item-form">
-                    <app-input-date
-                            [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
-                            [idInput]="'startDate'"
-                            [id]="'startDate'"
-                            [inputFormControl]="getFormControl('start_date')!"
-                            [nameInput]="'startDate'"
-                            [placeholder]="'Date de début'"
-                            [required]="true"
-                    >
-                        <app-input-label class="font-bold">Date de début</app-input-label>
-                    </app-input-date>
-                </div>
-                <!-- end date type (date) uses app-input-date -->
-                <div class="item-form">
-                    <app-input-date
-                            [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
-                            [idInput]="'endDate'"
-                            [id]="'endDate'"
-                            [inputFormControl]="getFormControl('end_date')!"
-                            [nameInput]="'endDate'"
-                            [placeholder]="'Date de fin'"
-                            [required]="true"
-                    >
-                        <app-input-label class="font-bold">Date de fin</app-input-label>
-                    </app-input-date>
+                <!-- date type (date) uses app-input-date -->
+                <div class="flex space-between items-center justify-center">
+                    <div class="item-form">
+                        <app-input-date
+                                [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
+                                [idInput]="'startDate'"
+                                [id]="'startDate'"
+                                [inputFormControl]="getFormControl('start_date')!"
+                                [nameInput]="'startDate'"
+                                [placeholder]="'Date de début'"
+                                [required]="true"
+                        >
+                            <app-input-label class="font-bold">Début</app-input-label>
+                        </app-input-date>
+                    </div>
+
+                    <div class="item-form">
+                        <app-input-date
+                                [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
+                                [idInput]="'endDate'"
+                                [id]="'endDate'"
+                                [inputFormControl]="getFormControl('end_date')!"
+                                [nameInput]="'endDate'"
+                                [placeholder]="'Date de fin'"
+                                [required]="true"
+                        >
+                            <app-input-label class="font-bold">Fin</app-input-label>
+                        </app-input-date>
+                    </div>
                 </div>
                 <div class="item-form flex space-between items-center justify-center">
                     <app-button #submitButton (save)="saveDeal()"

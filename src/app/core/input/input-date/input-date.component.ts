@@ -2,6 +2,8 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AbstractInputComponent} from "../abstract-input.component";
 import {Overlay, ScrollStrategy} from "@angular/cdk/overlay";
 import {PickerType} from "ng-pick-datetime-ex/lib/date-time/date-time.class";
+import * as moment from "moment";
+import {MY_MOMENT_FORMATS} from "../../../shared/constants/moment-formats";
 
 @Component({
   selector: 'app-input-date',
@@ -50,20 +52,20 @@ export class InputDateComponent extends AbstractInputComponent implements OnInit
   }
 
   ngOnInit() {
-    // if (this.timeType === 'both') {
-    //   this.datePattern = MY_MOMENT_FORMATS.fullPickerInput;
-    //   this.messageError = 'Saisir une valeur correcte au format JJ/MM/AAAA HH:mm';
-    // }
-    //
-    // if (this.timeType === 'calendar') {
-    //   this.datePattern = MY_MOMENT_FORMATS.datePickerInput;
-    //   this.messageError = 'Saisir une valeur correcte au format JJ/MM/AAAA';
-    // }
-    //
-    // if (this.timeType === 'timer') {
-    //   this.datePattern = MY_MOMENT_FORMATS.timePickerInput;
-    //   this.messageError = 'Saisir une valeur correcte au format HH:mm';
-    // }
+    if (this.timeType === 'both') {
+      this.datePattern = MY_MOMENT_FORMATS.fullPickerInput;
+      this.messageError = 'Saisir une valeur correcte au format JJ/MM/AAAA HH:mm';
+    }
+
+    if (this.timeType === 'calendar') {
+      this.datePattern = MY_MOMENT_FORMATS.datePickerInput;
+      this.messageError = 'Saisir une valeur correcte au format JJ/MM/AAAA';
+    }
+
+    if (this.timeType === 'timer') {
+      this.datePattern = MY_MOMENT_FORMATS.timePickerInput;
+      this.messageError = 'Saisir une valeur correcte au format HH:mm';
+    }
 
     /* TODO : Suppression du reset pour gérer le disable de champ déjà renseigné
     this.inputFormControl.registerOnDisabledChange(isDisabled => {
