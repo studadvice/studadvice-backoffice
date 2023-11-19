@@ -4058,6 +4058,11 @@ date-format@^4.0.14:
   resolved "https://registry.npmjs.org/date-format/-/date-format-4.0.14.tgz"
   integrity sha512-39BOQLs9ZjKh0/patS9nrT8wc3ioX3/eA/zgbKNopnF2wCqJEoxywwwElATYvRsXdnOxA/OQeQoFZ3rFjVajhg==
 
+dayjs@^1.11.10:
+  version "1.11.10"
+  resolved "https://registry.npmjs.org/dayjs/-/dayjs-1.11.10.tgz"
+  integrity sha512-vjAczensTgRcqDERK0SR2XMwsF/tSvnvlv6VcF2GIhg6Sx4yOIt/irsr1RDJsKiIyBzJDpCoXiWWq28MqH2cnQ==
+
 debug@^3.2.6:
   version "3.2.7"
   resolved "https://registry.npmjs.org/debug/-/debug-3.2.7.tgz"
@@ -6198,6 +6203,13 @@ neo-async@^2.6.2:
   version "2.6.2"
   resolved "https://registry.npmjs.org/neo-async/-/neo-async-2.6.2.tgz"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
+
+ng-pick-datetime-ex@^15.0.0:
+  version "15.0.0"
+  resolved "https://registry.npmjs.org/ng-pick-datetime-ex/-/ng-pick-datetime-ex-15.0.0.tgz"
+  integrity sha512-NV5rgD8iDQzCJARPPwhOfMqZQ37bdLFOAbsG7SXC7KmHzjTOTshbLlHnF3p1eiHTXkytIKJ2D33ByT9YJOUJxA==
+  dependencies:
+    tslib "^2.3.0"
 
 ngx-bootstrap@^11.0.2:
   version "11.0.2"

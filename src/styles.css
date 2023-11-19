@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 @import "~@ng-select/ng-select/themes/default.theme.css";
+/*@import "~ng-pick-datetime/assets/style/picker.min.css";*/
 
 html, body {
     height: 100%;

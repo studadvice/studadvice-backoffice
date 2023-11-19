@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {faEdit, faTrash} from "@fortawesome/free-solid-svg-icons";
 import {Deal} from "../../core/data/demarche";
+import {MatDialog} from "@angular/material/dialog";
+import {DealsAddModalComponent} from "./deals-add-modal/deals-add-modal.component";
 
 @Component({
   selector: 'app-deals',
@@ -16,7 +18,7 @@ export class DealsComponent implements OnInit {
     currentPage: any;
     deals: Deal[] = [];
 
-    constructor() {
+    constructor(private dialog: MatDialog) {
     }
 
     ngOnInit(): void {
@@ -35,6 +37,12 @@ export class DealsComponent implements OnInit {
     }
 
     addDeal() {
+        this.dialog.open(DealsAddModalComponent, {
+            data: {}
+        });
 
+        this.dialog.afterAllClosed.subscribe(() => {
+            console.log('The dialog was closed');
+        });
     }
 }
