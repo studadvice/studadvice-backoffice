@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AbstractInputComponent} from "../abstract-input.component";
 import {Overlay, ScrollStrategy} from "@angular/cdk/overlay";
-import {PickerType} from "ng-pick-datetime-ex/lib/date-time/date-time.class";
 
 @Component({
   selector: 'app-input-date',
@@ -19,7 +18,7 @@ export class InputDateComponent extends AbstractInputComponent implements OnInit
   @Input() showAideSaisieObligatoire = false;
   @Input() aideSaisieObligatoire!: string;
 
-  @Input() timeType!: PickerType;
+  @Input() timeType!: any;
   @Input() showSeconds = false;
   public scrollStrategy: ScrollStrategy;
 

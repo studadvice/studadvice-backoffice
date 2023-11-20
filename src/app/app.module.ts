@@ -43,12 +43,13 @@ import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {DocumentsComponent} from './components/documents/documents.component';
 import {AddCategoryComponent} from './components/add-category/add-category.component';
 import {PaginationComponent} from './core/pagination/pagination.component';
-import { DocumentModalComponent } from './components/documents/document-modal/document-modal.component';
-import { CategoryFormsModalComponent } from './components/category-forms/category-forms-modal/category-forms-modal.component';
-import { DealsComponent } from './components/deals/deals.component';
-import { DealsAddModalComponent } from './components/deals/deals-add-modal/deals-add-modal.component';
+import {DocumentModalComponent} from './components/documents/document-modal/document-modal.component';
+import {
+    CategoryFormsModalComponent
+} from './components/category-forms/category-forms-modal/category-forms-modal.component';
+import {DealsComponent} from './components/deals/deals.component';
+import {DealsAddModalComponent} from './components/deals/deals-add-modal/deals-add-modal.component';
 import {InputDateComponent, InputDateErrorComponent} from './core/input/input-date/input-date.component';
-import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime-ex';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -105,8 +106,6 @@ export function HttpLoaderFactory(http: HttpClient) {
         MatButtonModule,
         HttpClientModule,
         MatDialogModule,
-        OwlDateTimeModule,
-        OwlNativeDateTimeModule,
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,

@@ -31,7 +31,6 @@
     "dayjs": "^1.11.10",
     "firebase": "10.5.2",
     "font-awesome": "^4.7.0",
-    "ng-pick-datetime-ex": "^15.0.0",
     "ngx-bootstrap": "^11.0.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

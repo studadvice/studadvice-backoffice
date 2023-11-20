@@ -1,36 +1,36 @@
-<p aria-live="polite" [ngClass]="{'input-disabled':isDisabled(), 'input-invalid':error && (displayError || displayCustom),'input-warning':displayWarning, 'no-txt-info': !aideSaisie && !showAideSaisieObligatoire}">
-    <label for="{{idInput}}">
-        <ng-content></ng-content>
-        <span class="required" *ngIf="required">*</span>
-        <span class="help requiredHelp" *ngIf="showAideSaisieObligatoire">{{aideSaisieObligatoire}}</span>
-        <span class="help" *ngIf="aideSaisie">{{aideSaisie}}</span>
-    </label>
-    <span>
-      <span class="error" *ngIf="error && (displayError || displayCustom)"><ng-content select="app-input-date-error"></ng-content></span>
-      <ng-content *ngIf="displayWarning && !error" select="app-input-warning"></ng-content>
-      <input type="text"
-             id="{{idInput}}"
-             name="{{nameInput}}"
-             (dateTimeInput)="inputChanged($event)"
-             (focusout)="whenFocusOut($event);"
-             [formControl]="inputFormControl"
-             [owlDateTime]="dt"
-             [attr.aria-required]="required ? 'true' : false"
-             [attr.aria-invalid]="error ? 'true' : false"
-             [attr.placeholder]="placeholder"
-             matTooltipClass="tooltipMaterialDiv"
-             mat-raised-button
-             matTooltipHideDelay="1000"
-             matTooltip="{{textTooltip}}"
-             matTooltipDisabled="{{!textTooltip}}"
-             [attr.aria-label]="textTooltip"
-             [autocomplete]="autocomplete"
-      >
-      <button type="button" class="trigger" [ngClass]="{'icon-calendar':timeType=='calendar'||'both', 'icon-time':timeType=='timer'}"
-              [owlDateTimeTrigger]="dt" [disabled]="disabled || inputFormControl.disabled"
-              id="buttonCalendar{{idInput}}"
-      >Ouvrir le calendrier</button>
-      <owl-date-time [firstDayOfWeek]="1" [pickerType]="timeType" [scrollStrategy]="scrollStrategy" (afterPickerClosed)="whenPickerClosed()"
-                     [showSecondsTimer]="showSeconds" #dt></owl-date-time>
-  </span>
-</p>
+<!--<p aria-live="polite" [ngClass]="{'input-disabled':isDisabled(), 'input-invalid':error && (displayError || displayCustom),'input-warning':displayWarning, 'no-txt-info': !aideSaisie && !showAideSaisieObligatoire}">-->
+<!--    <label for="{{idInput}}">-->
+<!--        <ng-content></ng-content>-->
+<!--        <span class="required" *ngIf="required">*</span>-->
+<!--        <span class="help requiredHelp" *ngIf="showAideSaisieObligatoire">{{aideSaisieObligatoire}}</span>-->
+<!--        <span class="help" *ngIf="aideSaisie">{{aideSaisie}}</span>-->
+<!--    </label>-->
+<!--    <span>-->
+<!--      <span class="error" *ngIf="error && (displayError || displayCustom)"><ng-content select="app-input-date-error"></ng-content></span>-->
+<!--      <ng-content *ngIf="displayWarning && !error" select="app-input-warning"></ng-content>-->
+<!--      <input type="text"-->
+<!--             id="{{idInput}}"-->
+<!--             name="{{nameInput}}"-->
+<!--             (dateTimeInput)="inputChanged($event)"-->
+<!--             (focusout)="whenFocusOut($event);"-->
+<!--             [formControl]="inputFormControl"-->
+<!--             [owlDateTime]="dt"-->
+<!--             [attr.aria-required]="required ? 'true' : false"-->
+<!--             [attr.aria-invalid]="error ? 'true' : false"-->
+<!--             [attr.placeholder]="placeholder"-->
+<!--             matTooltipClass="tooltipMaterialDiv"-->
+<!--             mat-raised-button-->
+<!--             matTooltipHideDelay="1000"-->
+<!--             matTooltip="{{textTooltip}}"-->
+<!--             matTooltipDisabled="{{!textTooltip}}"-->
+<!--             [attr.aria-label]="textTooltip"-->
+<!--             [autocomplete]="autocomplete"-->
+<!--      >-->
+<!--      <button type="button" class="trigger" [ngClass]="{'icon-calendar':timeType=='calendar'||'both', 'icon-time':timeType=='timer'}"-->
+<!--              [owlDateTimeTrigger]="dt" [disabled]="disabled || inputFormControl.disabled"-->
+<!--              id="buttonCalendar{{idInput}}"-->
+<!--      >Ouvrir le calendrier</button>-->
+<!--      <owl-date-time [firstDayOfWeek]="1" [pickerType]="timeType" [scrollStrategy]="scrollStrategy" (afterPickerClosed)="whenPickerClosed()"-->
+<!--                     [showSecondsTimer]="showSeconds" #dt></owl-date-time>-->
+<!--  </span>-->
+<!--</p>-->
