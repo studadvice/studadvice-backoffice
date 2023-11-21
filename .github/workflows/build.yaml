@@ -3,7 +3,7 @@ name: Build to Azure VPS
 on:
   push:
     branches:
-      - feat/views
+      - feat/connection_back
       - main
 jobs:
   build:
