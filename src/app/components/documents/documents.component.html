@@ -27,19 +27,20 @@
                 </tr>
             </tbody>
         </table>
+        <div *ngIf="totalItems > itemsPerPage" class="pagination-container">
+            <app-pagination
+                    (pageChanged)="pageChanged($event)"
+                    [currentPage]="currentPage"
+                    [itemsPerPage]="itemsPerPage"
+                    [totalItems]="totalItems">
+            </app-pagination>
+        </div>
         <app-button #addDocumentButton (save)="addDocuments()"
                     [customClass]="'btn'"
                     [icon]="''"
                     [title]="'AJOUTER'"
                     [tooltip]="'Ajouter un document'"
         ></app-button>
-<!--        <div class="pagination-container">-->
-<!--            <app-pagination-->
-<!--                    [totalItems]="totalItems"-->
-<!--                    [itemsPerPage]="itemsPerPage"-->
-<!--                    (pageChanged)="pageChanged($event)">-->
-<!--            </app-pagination>-->
-<!--        </div>-->
     </div>
 </main>
 

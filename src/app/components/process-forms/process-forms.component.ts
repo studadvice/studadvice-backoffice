@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {faSave, faTrash} from "@fortawesome/free-solid-svg-icons";
 import {MatDialog} from "@angular/material/dialog";
@@ -6,7 +6,7 @@ import {ButtonComponent} from "../../core/input/button/button.component";
 import {FormControlService} from "../../shared/services/form-control.service";
 import {DataService} from "../../shared/dataservices/data.service";
 import {Router} from "@angular/router";
-import {Process, Step, Document} from "../../core/data/demarche";
+import {Document, Process, Step} from "../../core/data/demarche";
 import {Resource} from "../../core/data/resources";
 
 @Component({
@@ -60,7 +60,7 @@ export class ProcessFormsComponent implements OnInit {
     }
 
     getAllDocuments() {
-        this.dataService.getDocuments().subscribe(
+        this.dataService.getAllDocuments().subscribe(
             {
                 next: (response) => {
                     this.documents = response.map(
@@ -122,14 +122,14 @@ export class ProcessFormsComponent implements OnInit {
                 this.updateProcedureBeforeSubmit();
             }
             else {
-                this.addProcedure();
+                this.addProcess();
             }
         } else {
             this.submitButton.enable();
         }
     }
 
-    private addProcedure() {
+    private addProcess() {
         this.dataService.addProcedure(this.form.value).subscribe(
             {
                 next: (response) => {

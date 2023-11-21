@@ -1,7 +1,8 @@
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import "~@ng-select/ng-select/themes/default.theme.css";
 /*@import "~ng-pick-datetime/assets/style/picker.min.css";*/
 
 html, body {
@@ -352,4 +353,9 @@ button.table-button {
     border: 1px solid #fff;
 }
 
-/* -------- INPUT FILE -------- */
+/* -------- PAGINATION -------- */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -179,18 +179,26 @@ export class DataService {
         return of({} as Process);
     }
 
-    addDocument(value: any) : Observable<Document> {
+    addDocument(value: any): Observable<Document> {
         const document = {
             name: value.name,
             description: value.description,
             link: value.link
         };
-        //this.documentsData.documents.push(document);
         return this.httpClient.post<Document>(environment.apiUrl + '/required-document', document);
-
     }
 
-    getDocuments(): Observable<Document[]> {
+    getDocuments(page: number, itemsPerPage: number): Observable<any> {
+        return this.httpClient.get<Document[]>(environment.apiUrl + '/required-document',
+            {
+                params: {
+                    page: page.toString(),
+                    itemsPerPage: itemsPerPage.toString()
+                }
+            });
+    }
+
+    getAllDocuments(): Observable<Document[]> {
         return of(this.documentsData.documents);
     }
 
@@ -214,5 +222,9 @@ export class DataService {
             return of(category);
         }
         return of({} as Category);
+    }
+
+    updateDocument(id: string, value: any): Observable<Document> {
+        return this.httpClient.put<Document>(environment.apiUrl + '/required-document/' + id, value);
     }
 }

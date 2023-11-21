@@ -16,6 +16,9 @@ export class DocumentsComponent implements OnInit {
     protected readonly faEdit = faEdit;
     documents: any[] = [];
     @ViewChild('addDocumentButton', {static: false}) addDocumentButton!: ButtonComponent;
+    totalItems: number = 100;
+    itemsPerPage: number = 2;
+    currentPage: number = 1;
 
     constructor(public dialog: MatDialog, private dataService: DataService) {
     }
@@ -50,8 +53,7 @@ export class DocumentsComponent implements OnInit {
     }
 
     addDocuments() {
-        this.dialog.open(DocumentModalComponent, {
-        });
+        this.dialog.open(DocumentModalComponent, {});
 
         this.dialog.afterAllClosed.subscribe(() => {
             this.getDocuments();
@@ -60,16 +62,22 @@ export class DocumentsComponent implements OnInit {
         });
     }
 
-    private getDocuments() {
-        this.dataService.getDocuments().subscribe(
+    pageChanged(event: any): void {
+        this.currentPage = event;
+        this.getDocuments(event);
+    }
+
+    private getDocuments(page: number = 0) {
+        this.dataService.getDocuments(page, this.itemsPerPage).subscribe(
             {
                 next: (response) => {
-                    this.documents = response;
+                    console.log("response", response);
+                    this.documents = response.content;
+                    this.totalItems = response.total;
                 },
                 error: (error) => {
                     console.log(error);
                 }
-            }
-        );
+            });
     }
 }

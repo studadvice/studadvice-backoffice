@@ -1,0 +1,9 @@
+version: '3.7'
+services:
+  angular-front:
+    image: ghcr.io/studadvice/studadvice:latest
+    container_name: angular-front
+    ports:
+      - 80:80
+      - 443:443
+    restart: always

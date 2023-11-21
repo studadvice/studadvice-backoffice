@@ -14,6 +14,7 @@ export class DocumentModalComponent {
   form: any;
   protected readonly faSave = faSave;
   title: string = '_ADD_DOCUMENT_';
+  documentData: any;
 
   constructor(private formControlService: FormControlService, private formBuilder: FormBuilder,
               private dataService: DataService, private dialogRef: MatDialogRef<DocumentModalComponent>) {
@@ -25,11 +26,11 @@ export class DocumentModalComponent {
     this.formControlService.setForm(this.form);
 
     // get data from dialog
-    const data = this.dialogRef._containerInstance._config.data;
-    if (data) {
-      this.title = data.title;
-      if (data.document) {
-        this.form.patchValue(data.document);
+    this.documentData = this.dialogRef._containerInstance._config.data;
+    if (this.documentData) {
+      this.title = this.documentData.title;
+      if (this.documentData.document) {
+        this.form.patchValue(this.documentData.document);
       }
     }
   }
@@ -40,16 +41,17 @@ export class DocumentModalComponent {
 
   submit() {
     if (this.form.valid) {
-      this.dataService.addDocument(this.form.value).subscribe(
-        {
-          next: (response) => {
-            console.log("response", response);
-            this.dialogRef.close();
-          },
-          error: (error) => {
-            console.log(error);
+      console.log("form", this.documentData.document);
+      this.dataService.updateDocument(this.documentData.document.id, this.form.value).subscribe(
+          {
+            next: (response) => {
+              console.log("response", response);
+              this.dialogRef.close();
+            },
+            error: (error) => {
+              console.log(error);
+            }
           }
-        }
       );
     }
   }
