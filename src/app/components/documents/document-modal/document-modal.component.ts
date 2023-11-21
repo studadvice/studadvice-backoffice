@@ -43,6 +43,7 @@ export class DocumentModalComponent {
       this.dataService.addDocument(this.form.value).subscribe(
         {
           next: (response) => {
+            console.log("response", response);
             this.dialogRef.close();
           },
           error: (error) => {

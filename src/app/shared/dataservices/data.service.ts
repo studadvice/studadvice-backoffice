@@ -1,6 +1,8 @@
 import {Injectable} from '@angular/core';
-import {Category, Process, Document} from "../../core/data/demarche";
+import {Category, Document, Process} from "../../core/data/demarche";
 import {Observable, of} from "rxjs";
+import {HttpClient} from "@angular/common/http";
+import {environment} from "../../../environments/environments";
 
 
 @Injectable({
@@ -125,7 +127,7 @@ export class DataService {
         documents: [] as Document[],
     }
 
-    constructor() {
+    constructor(public httpClient: HttpClient) {
     }
 
     getCategories(page: number, itemsPerPage: number): Observable<{ categories: Category[], total: number }> {
@@ -179,13 +181,12 @@ export class DataService {
 
     addDocument(value: any) : Observable<Document> {
         const document = {
-            id: Math.random().toString(36).substr(2, 9),
             name: value.name,
             description: value.description,
             link: value.link
         };
-        this.documentsData.documents.push(document);
-        return of(document);
+        //this.documentsData.documents.push(document);
+        return this.httpClient.post<Document>(environment.apiUrl + '/required-document', document);
 
     }
 

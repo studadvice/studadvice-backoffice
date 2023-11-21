@@ -1,18 +1,27 @@
-import {Injectable, NgZone} from '@angular/core';
-import {AngularFirestore,} from '@angular/fire/compat/firestore';
-import {AngularFireAuth} from "@angular/fire/compat/auth";
-import {Router} from "@angular/router";
-import {User} from "../../core/data/user";
+import {Injectable} from '@angular/core';
+import {AngularFireAuth} from '@angular/fire/compat/auth';
+import {AngularFirestore} from '@angular/fire/compat/firestore';
+import {AngularFireDatabase} from '@angular/fire/compat/database';
+import {Router} from '@angular/router';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 import firebase from 'firebase/compat/app';
-import {map, Observable, tap} from "rxjs";
-import {AngularFireDatabase} from "@angular/fire/compat/database";
+
+interface User {
+    uid: string;
+    email: string;
+    displayName: string;
+    photoURL: string;
+    emailVerified: boolean;
+    role: string;
+}
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
-
-    userData$?: Observable<firebase.User | null>;
+    private currentUserSubject = new BehaviorSubject<User | null>(null);
+    public currentUser$ = this.currentUserSubject.asObservable();
 
     private userCollection = this.afs.collection('users');
 
@@ -20,87 +29,89 @@ export class AuthService {
         public afs: AngularFirestore,
         public afAuth: AngularFireAuth,
         public db: AngularFireDatabase,
-        public router: Router,
-        public ngZone: NgZone
+        public router: Router
     ) {
-        this.userData$ = afAuth.authState;
+        this.afAuth.authState.subscribe(user => {
+            if (user) {
+                const userData: User = {
+                    uid: user.uid,
+                    email: user.email!,
+                    displayName: user.displayName!,
+                    photoURL: user.photoURL!,
+                    emailVerified: user.emailVerified,
+                    role: 'user'
+                };
+                this.currentUserSubject.next(userData);
+            } else {
+                this.currentUserSubject.next(null);
+            }
+        });
     }
 
     get isLoggedIn(): Observable<boolean> {
-        return this.userData$!.pipe(
-            map(user => !!user)
+        return this.currentUser$.pipe(
+            map(user => !!user && user.emailVerified)
         );
     }
 
-    signIn(email: string, password: string) {
-        return this.afAuth
-            .signInWithEmailAndPassword(email, password)
-            .then((result) => {
-                this.setUserData(result.user);
-                this.afAuth.authState.subscribe((user) => {
-                    if (user) {
-                        this.router.navigate(['dashboard']);
-                    }
-                });
-            })
-            .catch((error) => {
-                window.alert(error.message);
-            });
+    async signIn(email: string, password: string): Promise<void> {
+        try {
+            const result = await this.afAuth.signInWithEmailAndPassword(email, password);
+            this.setUserData(result.user!);
+            this.router.navigate(['dashboard']);
+        } catch (error) {
+            console.error(error);
+        }
     }
 
-    signUp(email: string, password: string) {
-        return this.afAuth
-            .createUserWithEmailAndPassword(email, password)
-            .then((result) => {
-                this.sendVerificationMail().then(r => console.log(r));
-                this.setUserData(result.user);
-            })
-            .catch((error) => {
-                window.alert(error.message);
-            });
+    async signUp(email: string, password: string): Promise<void> {
+        try {
+            const result = await this.afAuth.createUserWithEmailAndPassword(email, password);
+            await this.sendVerificationMail();
+            this.setUserData(result.user!);
+        } catch (error) {
+            console.error(error);
+        }
     }
 
-    sendVerificationMail() {
-        return this.afAuth.currentUser
-            .then((u: any) => u.sendEmailVerification())
-            .then(() => {
-                this.router.navigate(['verify-email-address']);
-            });
+    async sendVerificationMail(): Promise<void> {
+        const user = await this.afAuth.currentUser;
+        if (user) {
+            await user.sendEmailVerification();
+            this.router.navigate(['verify-email-address']);
+        }
     }
 
-    forgotPassword(passwordResetEmail: string) {
-        return this.afAuth
-            .sendPasswordResetEmail(passwordResetEmail)
-            .then(() => {
-                window.alert('Password reset email sent, check your inbox.');
-            })
-            .catch((error) => {
-                window.alert(error);
-            });
+    async forgotPassword(passwordResetEmail: string): Promise<void> {
+        try {
+            await this.afAuth.sendPasswordResetEmail(passwordResetEmail);
+        } catch (error) {
+            console.error(error);
+        }
     }
 
-    setUserData(user: any) {
-        const userRef = this.db.object(`users/${user.uid}`);
+    async setUserData(user: firebase.User): Promise<void> {
         const userData: User = {
             uid: user.uid,
-            email: user.email,
-            displayName: user.displayName,
-            photoURL: user.photoURL,
+            email: user.email!,
+            displayName: user.displayName!,
+            photoURL: user.photoURL!,
             emailVerified: user.emailVerified,
             role: 'user'
         };
-        userRef.set(userData).then(r => console.log(r));
+        const userRef = this.db.object(`users/${user.uid}`);
+        await userRef.set(userData);
     }
 
-    setUserAsAdmin(uid: string) {
+    async setUserAsAdmin(uid: string): Promise<void> {
         const userRef = this.userCollection.doc(uid);
-        return userRef.update({role: 'admin'});
+        await userRef.update({role: 'admin'});
     }
 
-    signOut() {
-        return this.afAuth.signOut().then(() => {
-            this.router.navigate(['sign-in']);
-        });
+    async signOut(): Promise<void> {
+        await this.afAuth.signOut();
+        this.currentUserSubject.next(null);
+        this.router.navigate(['sign-in']);
     }
 
     getUserRole(uid: string): Observable<string | null> {
@@ -108,32 +119,28 @@ export class AuthService {
             map((user: any) => user.role)
         );
     }
-    signInWithGoogle() {
-        const provider = new firebase.auth.GoogleAuthProvider();
-        return this.afAuth.signInWithPopup(provider).then((result) => {
-            console.log(result);
-            if (result.user) {
-                if (result.additionalUserInfo?.isNewUser) {
-                    this.setUserData(result.user);
-                    // Redirection pour les nouveaux utilisateurs
-                    this.router.navigate(['dashboard']);
-                } else {
-                    // Si l'utilisateur existe déjà, vérifiez son rôle
-                    this.getUserRole(result.user.uid).subscribe(role => {
-                        if (role === 'admin') {
-                            this.router.navigate(['formulaire']);
-                        } else {
-                            this.router.navigate(['dashboard']);
-                        }
-                    }, error => {
-                        console.error("Erreur lors de l'obtention du rôle de l'utilisateur", error);
-                        window.alert("Erreur lors de la navigation.");
-                    });
-                }
-            }
-        }).catch((error) => {
-            window.alert(error.message);
-        });
-    }
 
+    async signInWithGoogle(): Promise<void> {
+        try {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            const result = await this.afAuth.signInWithPopup(provider);
+            if (result.additionalUserInfo?.isNewUser) {
+                await this.setUserData(result.user!);
+            } else if (result.user) {
+                this.getUserRole(result.user.uid).subscribe(
+                    {
+                        next: (role) => {
+                            if (role === 'admin') {
+                                this.router.navigate(['formulaire']);
+                            } else {
+                                this.router.navigate(['dashboard']);
+                            }
+                        }
+                    }
+                )
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
 }

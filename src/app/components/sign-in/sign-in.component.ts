@@ -16,8 +16,12 @@ export class SignInComponent {
     constructor(public authService: AuthService) {
     }
 
-    login() {
-        this.authService.signInWithGoogle();
+    async login() {
+        try {
+            await this.authService.signInWithGoogle();
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     loginWithUsernameAndPassword(email: string, password: string) {
