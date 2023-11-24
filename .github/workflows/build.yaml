@@ -37,7 +37,7 @@ jobs:
 
       - name: Build Image Docker
         run: |
-          docker build -t studadvice:${{ github.sha }} .
+          docker build -t studadvice_front:${{ github.sha }} .
           docker tag studadvice:${{ github.sha }} ghcr.io/${{ github.repository_owner }}/studadvice:latest
 
       - name: Log in to GitHub Container Registry
