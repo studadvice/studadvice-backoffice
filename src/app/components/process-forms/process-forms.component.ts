@@ -84,7 +84,7 @@ export class ProcessFormsComponent implements OnInit {
         const stepGroup = this.formBuilder.group({
             name: new FormControl('', [Validators.required, Validators.minLength(5)]),
             description: new FormControl('', [Validators.required, Validators.minLength(5)]),
-            documents: new FormControl([] as any[], Validators.required),
+            documents: new FormControl([] as any[]),
             resources: this.formBuilder.array([] as Resource[]),
         });
         if (newStep) {
@@ -101,7 +101,7 @@ export class ProcessFormsComponent implements OnInit {
             name: new FormControl('', [Validators.required, Validators.minLength(5)]),
             description: new FormControl('', [Validators.required, Validators.minLength(5)]),
             url: new FormControl('', [Validators.required, Validators.minLength(5)]),
-            image: new FormControl('', Validators.required),
+            image: new FormControl(''),
         });
         if (newResource) {
             resourceGroup.patchValue(newResource);
@@ -130,7 +130,7 @@ export class ProcessFormsComponent implements OnInit {
     }
 
     private addProcess() {
-        this.dataService.addProcedure(this.form.value).subscribe(
+        this.dataService.addProcess(this.form.value).subscribe(
             {
                 next: (response) => {
                     if (this.submitButton) {
@@ -146,7 +146,7 @@ export class ProcessFormsComponent implements OnInit {
     }
 
     private updateProcedureBeforeSubmit() {
-        this.dataService.updateProcedure(this.procedure!.id, this.form.value).subscribe({
+        this.dataService.updateProcess(this.procedure!.id, this.form.value).subscribe({
             next: (response) => {
                 this.procedureChange.emit({editProcedure: false, procedure: this.procedure!});
                 this.router.navigate(['/dashboard']);

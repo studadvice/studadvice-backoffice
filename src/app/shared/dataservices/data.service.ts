@@ -145,17 +145,14 @@ export class DataService {
 
     addCategory(category: Category, procedures?: Process[]): Observable<Category> {
         // generate random id
-        category.id = Math.random().toString(36).substr(2, 9);
-        this.data.categories.push(category);
-        return of(category);
+        return this.httpClient.post<Category>(environment.apiUrl + '/categories', category);
     }
 
-    addProcedure(procedure: Process): Observable<Process> {
-        this.proceduresData.process.push(procedure);
-        return of(procedure);
+    addProcess(procedure: Process): Observable<Process> {
+        return this.httpClient.post<Process>(environment.apiUrl + '/administrative-process', procedure);
     }
 
-    getProcedures(page: number, itemsPerPage: number): Observable<{ process: Process[], total: number }> {
+    getProcess(page: number, itemsPerPage: number): Observable<{ process: Process[], total: number }> {
         // Calculate starting index of the items on the current page
         const startIndex = (page - 1) * itemsPerPage;
         // Slice the process array to get only the items for the current page
@@ -168,7 +165,7 @@ export class DataService {
         });
     }
 
-    updateProcedure(id: string, value: any) : Observable<Process> {
+    updateProcess(id: string, value: any): Observable<Process> {
         const process = this.proceduresData.process.find((procedure) => procedure.id === id);
         if (process) {
             Object.assign(process, value);
@@ -202,7 +199,7 @@ export class DataService {
         return of(this.documentsData.documents);
     }
 
-    deleteProcedure(id: string): Observable<Process> {
+    deleteProcess(id: string): Observable<Process> {
         const procedure = this.proceduresData.process.find((procedure) => procedure.id === id);
         if (procedure) {
             this.proceduresData.process.splice(this.proceduresData.process.indexOf(procedure), 1);

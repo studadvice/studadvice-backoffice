@@ -40,19 +40,30 @@ export class DocumentModalComponent {
   }
 
   submit() {
-    if (this.form.valid) {
-      console.log("form", this.documentData.document);
-      this.dataService.updateDocument(this.documentData.document.id, this.form.value).subscribe(
-          {
-            next: (response) => {
-              console.log("response", response);
-              this.dialogRef.close();
-            },
-            error: (error) => {
-              console.log(error);
+    if (this.form.valid && this.documentData) {
+        console.log("form", this.documentData.document);
+        this.dataService.updateDocument(this.documentData.document.id, this.form.value).subscribe(
+            {
+                next: (response) => {
+                    console.log("response", response);
+                    this.dialogRef.close();
+                },
+                error: (error) => {
+                    console.log(error);
+                }
             }
-          }
-      );
+        );
+    } else if (this.form.valid) {
+        this.dataService.addDocument(this.form.value).subscribe(
+            {
+                next: (response) => {
+                    this.dialogRef.close();
+                },
+                error: (error) => {
+                    console.log(error);
+                }
+            }
+        );
     }
   }
 

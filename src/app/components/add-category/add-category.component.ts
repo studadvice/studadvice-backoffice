@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ButtonComponent} from "../../core/input/button/button.component";
 import {MatDialog} from "@angular/material/dialog";
 import {FormControlService} from "../../shared/services/form-control.service";
@@ -36,7 +36,7 @@ export class AddCategoryComponent implements OnInit {
         this.form = this.formBuilder.group({
             name: ['', [Validators.required, Validators.minLength(5)]],
             description: ['', [Validators.required, Validators.minLength(5)]],
-            image: ['', [Validators.required]],
+            image: [''],
             process: ['', [Validators.required]],
         });
         this.formControlService.setForm(this.form);
@@ -63,7 +63,7 @@ export class AddCategoryComponent implements OnInit {
     }
 
     getProcedure(): void {
-        this.dataService.getProcedures(1, 100)
+        this.dataService.getProcess(1, 100)
             .subscribe(
                 {
                     next: (response) => {

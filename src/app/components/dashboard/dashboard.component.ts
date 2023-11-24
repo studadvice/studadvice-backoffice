@@ -3,7 +3,6 @@ import {faEdit, faTrash} from "@fortawesome/free-solid-svg-icons";
 import {Process} from "../../core/data/demarche";
 import {DataService} from "../../shared/dataservices/data.service";
 import {Router} from "@angular/router";
-import {MatDialog} from "@angular/material/dialog";
 
 @Component({
     selector: 'app-dashboard',
@@ -43,7 +42,7 @@ export class DashboardComponent implements OnInit {
     }
 
     deleteAction(item: Process) {
-        this.dataService.deleteProcedure(item.id).subscribe(
+        this.dataService.deleteProcess(item.id).subscribe(
             {
                 next: (response) => {
                     this.getProcedures(this.currentPage);
@@ -55,7 +54,7 @@ export class DashboardComponent implements OnInit {
     }
 
     getProcedures(page: number) {
-        this.dataService.getProcedures(page, this.itemsPerPage).subscribe(
+        this.dataService.getProcess(page, this.itemsPerPage).subscribe(
             {
                 next: (response) => {
                     this.procedures = response.process;
