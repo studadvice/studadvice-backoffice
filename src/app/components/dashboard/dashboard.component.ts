@@ -12,40 +12,40 @@ import {Router} from "@angular/router";
 export class DashboardComponent implements OnInit {
     protected readonly faTrash = faTrash;
     protected readonly faEdit = faEdit;
-    procedures: Process[] = [];
+    processes: Process[] = [];
     totalItems: number = 100;
     itemsPerPage: number = 2;
-    editProcedure: boolean = false;
-    procedure?: Process;
-    currentPage: number = 1;
+    editProcess: boolean = false;
+    process?: Process;
+    currentPage: number = 0;
 
     constructor(public router: Router,
                 private dataService: DataService,) {
     }
 
     ngOnInit() {
-        this.getProcedures(this.currentPage);
+        this.getProcess(this.currentPage);
     }
 
     handleAction(event: { action: string, data: any }) {
         console.log('Action Triggered:', event.action, 'With Row Data:', event.data);
     }
 
-    onProcedureChange(event: {editProcedure: boolean, procedure: Process}) {
-        this.editProcedure = event.editProcedure;
-        this.procedure = event.procedure;
+    onProcessChange(event: { editProcedure: boolean, procedure: Process }) {
+        this.editProcess = event.editProcedure;
+        this.process = event.procedure;
     }
 
-    editAction(procedure: Process) {
-        this.procedure = procedure;
-        this.editProcedure = true;
+    editAction(process: Process) {
+        this.process = process;
+        this.editProcess = true;
     }
 
     deleteAction(item: Process) {
         this.dataService.deleteProcess(item.id).subscribe(
             {
                 next: (response) => {
-                    this.getProcedures(this.currentPage);
+                    this.getProcess(this.currentPage);
                 },
                 error: (error) => {
                     console.log(error);
@@ -53,12 +53,12 @@ export class DashboardComponent implements OnInit {
             });
     }
 
-    getProcedures(page: number) {
+    getProcess(page: number) {
         this.dataService.getProcess(page, this.itemsPerPage).subscribe(
             {
                 next: (response) => {
-                    this.procedures = response.process;
-                    this.totalItems = response.total;
+                    this.processes = response.content;
+                    this.totalItems = response.totalElements;
                 },
                 error: (error) => {
                     console.log(error);
@@ -68,6 +68,6 @@ export class DashboardComponent implements OnInit {
 
     pageChanged(event: any): void {
         this.currentPage = event;
-        this.getProcedures(this.currentPage);
+        this.getProcess(this.currentPage);
     }
 }

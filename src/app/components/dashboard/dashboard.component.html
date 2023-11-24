@@ -1,4 +1,4 @@
-<main *ngIf="procedures.length > 0 && !editProcedure" class="main-content" role="main">
+<main *ngIf="processes.length > 0 && !editProcess" class="main-content" role="main">
     <h2 class="text-2xl m-0 mb-5 font-bold">{{'_TABLE_DEMARCHES_' | translate}}</h2>
     <div class="bg-white shadow-md rounded my-6 box-mainLook">
         <table class="min-w-full border-collapse table">
@@ -16,7 +16,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let procedure of procedures; let i = index" [attr.data-index]="i">
+            <tr *ngFor="let procedure of processes; let i = index" [attr.data-index]="i">
                 <td class="py-2 px-4 border-b border-gray-200 text-sm center">{{procedure.name}}</td>
                 <td class="py-2 px-4 border-b border-gray-200 text-sm center">{{procedure.description}}</td>
                 <td class="py-2 px-4 border-b border-gray-200 text-sm  center">
@@ -41,13 +41,13 @@
     </div>
 </main>
 
-<main *ngIf="procedures.length === 0" class="main-content" role="main">
+<main *ngIf="processes.length === 0" class="main-content" role="main">
     <h2 class="text-2xl m-0 mb-5 font-bold">{{'_TABLE_DEMARCHES_' | translate}}</h2>
     <div class="bg-white shadow-md rounded my-6 box-mainLook">
         <p class="table-empty">{{'_NO_PROCEDURES_' | translate}}</p>
     </div>
 </main>
 
-<app-formulaire *ngIf="editProcedure" [procedure]="procedure"
-                (procedureChange)="onProcedureChange($event)">
+<app-formulaire (procedureChange)="onProcessChange($event)" *ngIf="editProcess"
+                [procedure]="process">
 </app-formulaire>

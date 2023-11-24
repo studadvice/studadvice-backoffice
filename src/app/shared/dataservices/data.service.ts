@@ -152,17 +152,14 @@ export class DataService {
         return this.httpClient.post<Process>(environment.apiUrl + '/administrative-process', procedure);
     }
 
-    getProcess(page: number, itemsPerPage: number): Observable<{ process: Process[], total: number }> {
-        // Calculate starting index of the items on the current page
-        const startIndex = (page - 1) * itemsPerPage;
-        // Slice the process array to get only the items for the current page
-        const end = startIndex + itemsPerPage;
-        const proceduresPage = this.proceduresData.process.slice(startIndex, end);
-        // Return an observable containing the process for the current page and the total count
-        return of({
-            process: proceduresPage,
-            total: this.proceduresData.process.length
-        });
+    getProcess(page: number, itemsPerPage: number): Observable<any> {
+        return this.httpClient.get<Process>(environment.apiUrl + '/administrative-process',
+            {
+                params: {
+                    page: page.toString(),
+                    itemsPerPage: itemsPerPage.toString()
+                }
+            });
     }
 
     updateProcess(id: string, value: any): Observable<Process> {
