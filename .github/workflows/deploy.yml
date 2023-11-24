@@ -1,7 +1,12 @@
 name: Deploy to Azure VPS
 
 on:
+  workflow_run:
+    workflows: [ "Build to Azure VPS" ]
+    types:
+      - completed
   workflow_dispatch:
+
 jobs:
   deploy:
     if: github.event_name == 'workflow_dispatch'
@@ -10,61 +15,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Get latest release
-        id: get_release
-        uses: actions/github-script@v5
-        env:
-          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-        with:
-          script: |
-            console.log(context.repo);
-            const repo = context.repo;
-            const release = await github.rest.repos.getLatestRelease({
-              owner: repo.owner,
-              repo: repo.repo
-            });
-            core.setOutput('tag_name', release.data.tag_name);
-
-      - name: Download artifact from latest release
-        env:
-          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          REPO: ${{ github.repository }}
-          FILE: "dist.zip"
-          VERSION: "latest"
-        run: |
-          chmod +x ./script_deploy/download_release_asset.sh
-          ./script_deploy/download_release_asset.sh $GITHUB_TOKEN $REPO $FILE $VERSION
-
-      - name: Extract build archive
-        run: unzip dist.zip
-
-      - name: Create deployment directory on server
-        uses: appleboy/ssh-action@master
+      - name: SSH and Deploy on VPS
+        uses: appleboy/ssh-action@v0.1.2
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
-          port: ${{ secrets.PORT }}
+          password: ${{ secrets.PASSWORD }}
           script: |
-            mkdir -p /home/azureuser/deploy
-
-      - name: Deploy to Azure VPS
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
-          port: ${{ secrets.PORT }}
-          source: "dist/*"
-          target: "/home/azureuser/deploy"
-
-      - name: Move files to web directory and restart Nginx
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
-          port: ${{ secrets.PORT }}
-          script: |
-            sudo rsync -av --delete /home/azureuser/deploy/dist/backoffice/* /var/www/html/
-            sudo systemctl restart nginx
+            docker pull ghcr.io/${{ github.repository_owner }}/studadvice:${{ github.sha }}
+            cd deploy
+            docker-compose -f docker-compose.yml pull
+            docker stack deploy --compose-file docker-compose.yml front-end
