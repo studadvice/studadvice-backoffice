@@ -25,22 +25,6 @@ jobs:
       - name: Build Angular app
         run: npm run build -- --configuration production
 
-      - name: Build Docker image
-        run: |
-          docker build -t studadvice:${{ github.sha }} .
-          docker tag studadvice:${{ github.sha }} studadvice:latest
-
-      - name: Log in to GitHub Container Registry
-        uses: docker/login-action@v1
-        with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-
-      - name: Push Docker Image to GitHub Container Registry
-        run: |
-          docker push ghcr.io/${{ github.repository_owner }}/studadvice:${{ github.sha }}
-
 
 
   build_image:
