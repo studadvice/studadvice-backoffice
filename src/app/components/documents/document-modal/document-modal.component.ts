@@ -22,6 +22,7 @@ export class DocumentModalComponent {
       name: ['', [Validators.required, Validators.minLength(5)]],
       description: ['', [Validators.required, Validators.minLength(5)]],
       link: ['', [Validators.required]],
+    image: [''],
     });
     this.formControlService.setForm(this.form);
 
@@ -41,11 +42,9 @@ export class DocumentModalComponent {
 
   submit() {
     if (this.form.valid && this.documentData) {
-        console.log("form", this.documentData.document);
         this.dataService.updateDocument(this.documentData.document.id, this.form.value).subscribe(
             {
                 next: (response) => {
-                    console.log("response", response);
                     this.dialogRef.close();
                 },
                 error: (error) => {

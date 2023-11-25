@@ -57,7 +57,6 @@ export class DocumentsComponent implements OnInit {
 
         this.dialog.afterAllClosed.subscribe(() => {
             this.getDocuments();
-            // enable add button
             this.addDocumentButton.enable();
         });
     }
@@ -71,7 +70,6 @@ export class DocumentsComponent implements OnInit {
         this.dataService.getDocuments(page, this.itemsPerPage).subscribe(
             {
                 next: (response) => {
-                    console.log("response", response);
                     this.documents = response.content;
                     this.totalItems = response.total;
                 },

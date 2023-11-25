@@ -20,6 +20,40 @@
                 <app-input-label class="font-bold">Titre</app-input-label>
             </app-input>
         </div>
+        <!-- nationalite -->
+        <div class="item-form">
+            <app-input-select
+                    [bindLabel]="'label'"
+                    [bindValue]="'value'"
+                    [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
+                    [clearable]="true"
+                    [errorMessage]="'La nationalité est obligatoire'"
+                    [hasLabel]="true"
+                    [id]="'nationalite'"
+                    [inputFormControl]="getFormControl('nationalities')!"
+                    [multiple]="true"
+                    [options]="countries"
+            >
+                <label class="font-bold">Nationalité</label>
+            </app-input-select>
+        </div>
+        <!-- universite -->
+        <div class="item-form">
+            <app-input-select
+                    [bindLabel]="'label'"
+                    [bindValue]="'value'"
+                    [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
+                    [clearable]="true"
+                    [errorMessage]="'L\'université est obligatoire'"
+                    [hasLabel]="true"
+                    [id]="'universite'"
+                    [inputFormControl]="getFormControl('universities')!"
+                    [multiple]="true"
+                    [options]="universities"
+            >
+                <label class="font-bold">Université</label>
+            </app-input-select>
+        </div>
         <div class="item-form">
             <app-input
                     [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
@@ -36,6 +70,46 @@
                     [type]="'textarea'"
             >
                 <app-input-label class="font-bold">Description</app-input-label>
+            </app-input>
+        </div>
+        <!-- min age align with max age -->
+        <div class="item-form">
+            <app-input
+                    [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
+                    [clearable]="true"
+                    [errorMessage]="'L\'âge minimum est obligatoire'"
+                    [error]="hasError('minAge', 'required')"
+                    [hideLabel]="false"
+                    [idInput]="'minAge'"
+                    [id]="'minAge'"
+                    [inputFormControl]="getFormControl('ageMin')!"
+                    [minLength]="'5'"
+                    [nameInput]="'Âge minimum'"
+                    [placeholder]="'Âge minimum'"
+                    [required]="true"
+                    [type]="'number'"
+            >
+                <app-input-label class="font-bold">Âge minimum</app-input-label>
+            </app-input>
+        </div>
+        <!-- max age align with min age -->
+        <div class="item-form">
+            <app-input
+                    [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
+                    [clearable]="true"
+                    [errorMessage]="'L\'âge maximum est obligatoire'"
+                    [error]="hasError('maxAge', 'required')"
+                    [hideLabel]="false"
+                    [idInput]="'maxAge'"
+                    [id]="'maxAge'"
+                    [inputFormControl]="getFormControl('ageMax')!"
+                    [minLength]="'5'"
+                    [nameInput]="'Âge maximum'"
+                    [placeholder]="'Âge maximum'"
+                    [required]="true"
+                    [type]="'number'"
+            >
+                <app-input-label class="font-bold">Âge maximum</app-input-label>
             </app-input>
         </div>
         <div formArrayName="steps">
@@ -101,7 +175,7 @@
                                 [icon]="''"
                                 [title]="'Supprimer l\'étape'"
                                 [tooltip]="'Supprimer l\'étape'"
-                                *ngIf="!procedure"
+                                *ngIf="!process"
                         ></app-button>
                         <app-button #addResourceButton
                                     (save)="addResource(etapeIndex)"

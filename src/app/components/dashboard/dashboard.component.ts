@@ -31,9 +31,9 @@ export class DashboardComponent implements OnInit {
         console.log('Action Triggered:', event.action, 'With Row Data:', event.data);
     }
 
-    onProcessChange(event: { editProcedure: boolean, procedure: Process }) {
-        this.editProcess = event.editProcedure;
-        this.process = event.procedure;
+    onProcessChange(event: any) {
+        this.editProcess = event.editProcess;
+        this.process = event.process;
     }
 
     editAction(process: Process) {

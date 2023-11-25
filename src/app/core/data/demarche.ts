@@ -4,6 +4,10 @@ export interface Process {
     id: string;
     name: string;
     description: string;
+    ageMin: number;
+    ageMax: number;
+    nationalities: string[];
+    universities: string[];
     steps: Step[];
 }
 

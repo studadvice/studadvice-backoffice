@@ -8,6 +8,7 @@
         <span *ngIf="required" class="required">*</span>
         <span *ngIf="showAideSaisie" class="help requiredHelp">{{aideSaisie}}</span>
     </label>
+
     <ng-select (change)="onChange($event)"
                (focusout)="showTooltipError()" *ngIf="compareWith"
                [bindLabel]="bindLabel"

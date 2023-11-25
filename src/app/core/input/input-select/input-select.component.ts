@@ -18,6 +18,7 @@ export class InputSelectComponent extends AbstractInputComponent {
     @Output() change: EventEmitter<any> = new EventEmitter<any>();
     @Input() options: any[] = [];
     @Input() placeholder: string = '';
+    @Input() hideLabel: any;
     @Input() displayError: boolean = true;
     @Input() bindLabel: string = '';
     @Input() bindValue: string = '';

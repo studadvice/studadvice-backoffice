@@ -8,9 +8,10 @@ import {DataService} from "../../shared/dataservices/data.service";
 import {Router} from "@angular/router";
 import {Document, Process, Step} from "../../core/data/demarche";
 import {Resource} from "../../core/data/resources";
+import { environment } from 'src/environments/environments';
 
 @Component({
-    selector: 'app-formulaire',
+    selector: 'app-forms',
     templateUrl: './process-forms.component.html',
     styleUrls: ['./process-forms.component.css']
 })
@@ -25,9 +26,11 @@ export class ProcessFormsComponent implements OnInit {
     @ViewChild('submitButton', {static: false}) submitButton!: ButtonComponent;
 
     @Input() title: string = '_ADD_PROCEDURE_';
-    @Input() procedure?: Process;
-    @Output() procedureChange = new EventEmitter<{editProcedure: boolean, procedure: Process}>();
+    @Input() process?: Process;
+    @Output() processChange = new EventEmitter<{editProcess: boolean, process: Process}>();
     documents: Document[] = [];
+    countries: any[] = [];
+    universities: any[] = [];
 
     constructor(private formBuilder: FormBuilder, public dialog: MatDialog,
                 private formControlService: FormControlService,
@@ -49,22 +52,49 @@ export class ProcessFormsComponent implements OnInit {
         this.form = this.formBuilder.group({
             name: ['', [Validators.required, Validators.minLength(5)]],
             description: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
+            ageMin: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
+            ageMax: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
+            nationalities: [[], [Validators.required]],
+            universities: [[], [Validators.required]],
             steps: this.formBuilder.array([]),
         });
-        if (this.procedure) {
+        if (this.process) {
             this.title = '_EDIT_PROCEDURE_';
-            this.updateProcedure();
+            this.updateProcess();
         }
         this.formControlService.setForm(this.form);
         this.getAllDocuments();
+        this.getUniversity();
+        this.getCountries();
+    }
+
+    getCountries() {
+        this.dataService.loadCountries().subscribe(
+            {
+                next: (response: any) => {
+                    this.countries = response.map(
+                        (country: any) => {
+                            return {
+                                ...country,
+                                value: country.name.common,
+                                label: country.flag + ' ' + country.name.common,
+                            }
+                        }
+                    );
+                },
+                error: (error) => {
+                    console.log(error);
+                }
+            }
+        );
     }
 
     getAllDocuments() {
         this.dataService.getAllDocuments().subscribe(
             {
-                next: (response) => {
-                    this.documents = response.map(
-                        (document) => {
+                next: (response: any) => {
+                    this.documents = response.content.map(
+                        (document: any) => {
                             return {
                                 ...document,
                                 value: document.id,
@@ -118,7 +148,7 @@ export class ProcessFormsComponent implements OnInit {
 
     submit() {
         if (this.form.valid) {
-            if (this.procedure) {
+            if (this.process) {
                 this.updateProcedureBeforeSubmit();
             }
             else {
@@ -146,9 +176,9 @@ export class ProcessFormsComponent implements OnInit {
     }
 
     private updateProcedureBeforeSubmit() {
-        this.dataService.updateProcess(this.procedure!.id, this.form.value).subscribe({
+        this.dataService.updateProcess(this.process!.id, this.form.value).subscribe({
             next: (response) => {
-                this.procedureChange.emit({editProcedure: false, procedure: this.procedure!});
+                this.processChange.emit({editProcess: false, process: this.process!});
                 this.router.navigate(['/dashboard']);
             },
             error: (error) => {
@@ -173,8 +203,8 @@ export class ProcessFormsComponent implements OnInit {
         this.getResources(etapeIndex).removeAt(index);
     }
 
-    private updateProcedure() {
-        const steps = this.procedure!.steps.map(step => this.formBuilder.group({
+    private updateProcess() {
+        const steps = this.process!.steps.map(step => this.formBuilder.group({
             name: new FormControl(step.name, [Validators.required, Validators.minLength(5)]),
             description: new FormControl(step.description, [Validators.required, Validators.minLength(5)]),
             documents: new FormControl(step.documents, Validators.required),
@@ -182,15 +212,21 @@ export class ProcessFormsComponent implements OnInit {
         }));
 
         this.form = this.formBuilder.group({
-            name: new FormControl(this.procedure!.name, [Validators.required, Validators.minLength(5)]),
-            description: new FormControl(this.procedure!.description, [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
+            name: new FormControl(this.process!.name, [Validators.required, Validators.minLength(5)]),
+            description: new FormControl(this.process!.description, [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
+            ageMin: [this.process!.ageMin, [Validators.required, Validators.min(0), Validators.max(100)]],
+            ageMax: [this.process!.ageMax, [Validators.required, Validators.min(0), Validators.max(100)]],
+            nationalities: [this.process!.nationalities, [Validators.required]],
+            universities: [this.process!.universities, [Validators.required]],
             steps: this.formBuilder.array(steps),
         });
 
-        this.procedure!.steps.forEach((step, index) => {
-            step.resources.forEach(resource => {
-                this.addResource(index, resource);
-            });
+        this.process!.steps.forEach((step, index) => {
+            if (step.resources){
+                step.resources.forEach(resource => {
+                    this.addResource(index, resource);
+                });
+            }
         });
     }
 
@@ -202,4 +238,26 @@ export class ProcessFormsComponent implements OnInit {
             resourceGroup.patchValue({ image: file });
     }
     }
+
+    getUniversity() {
+        this.dataService.getUniversities(environment.universityCountry).subscribe(
+            {
+                next: (response: any) => {
+                    this.universities = response.map(
+                        (university: any) => {
+                            return {
+                                ...university,
+                                value: university.name,
+                                label: university.name,
+                            }
+                        }
+                    );
+                },
+                error: (error) => {
+                    console.log(error);
+                }
+            }
+        );
+    }
+
 }

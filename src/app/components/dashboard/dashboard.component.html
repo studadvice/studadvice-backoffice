@@ -48,6 +48,6 @@
     </div>
 </main>
 
-<app-formulaire (procedureChange)="onProcessChange($event)" *ngIf="editProcess"
-                [procedure]="process">
-</app-formulaire>
+<app-forms (procedureChange)="onProcessChange($event)" *ngIf="editProcess"
+                [process]="process">
+</app-forms>

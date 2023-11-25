@@ -74,6 +74,27 @@
                     </app-input>
                 </div>
 
+                <!-- Image -->
+                <div class="item-form">
+                    <app-input
+                            [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
+                            [clearable]="true"
+                            [errorMessage]="'L\'image est obligatoire'"
+                            [error]="hasError('image', 'required')"
+                            [hideLabel]="false"
+                            [idInput]="'title'"
+                            [id]="'title'"
+                            [inputFormControl]="getFormControl('image')!"
+                            [minLength]="'5'"
+                            [nameInput]="'Image'"
+                            [placeholder]="'Image du document'"
+                            [required]="false"
+                            [type]="'file'"
+                    >
+                        <app-input-label class="font-bold">Image</app-input-label>
+                    </app-input>
+                </div>
+
                 <div class="item-form flex space-between items-center justify-center">
                     <app-button #submitButton (save)="submit()"
                                 [customClass]="'btn'"
