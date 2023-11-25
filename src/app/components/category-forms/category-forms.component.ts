@@ -18,7 +18,7 @@ export class CategoryFormsComponent implements OnInit {
     protected readonly faEdit = faEdit;
     totalItems: number = 100;
     itemsPerPage: number = 2;
-    currentPage: number = 1;
+    currentPage: number = 0;
 
     constructor(private dialog: MatDialog,
                 public router: Router,
@@ -34,12 +34,12 @@ export class CategoryFormsComponent implements OnInit {
         this.router.navigate(['category/add']);
     }
 
-    getCategory(page: number = 1) {
+    getCategory(page: number = 0) {
         this.dataService.getCategories(page, this.itemsPerPage).subscribe(
             {
                 next: (response) => {
-                    this.categories = response.categories;
-                    this.totalItems = response.total;
+                    this.categories = response.content;
+                    this.totalItems = response.totalElements;
                 },
                 error: (error) => {
                     console.log(error);

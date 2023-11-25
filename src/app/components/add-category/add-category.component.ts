@@ -63,11 +63,11 @@ export class AddCategoryComponent implements OnInit {
     }
 
     getProcedure(): void {
-        this.dataService.getProcess(1, 100)
+        this.dataService.getAllAdministrativeProcess()
             .subscribe(
                 {
-                    next: (response) => {
-                        this.process = response.process;
+                    next: (response: any) => {
+                        this.process = response.content;
                         this.process = this.process.map((procedure) => {
                             return {
                                 ...procedure,
@@ -88,7 +88,7 @@ export class AddCategoryComponent implements OnInit {
         if (element.files && element.files.length) {
             const file = element.files[0];
             this.form.patchValue({
-                image: file
+                image: file.name
             });
         }
     }

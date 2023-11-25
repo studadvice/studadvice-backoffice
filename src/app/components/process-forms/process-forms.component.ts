@@ -57,6 +57,7 @@ export class ProcessFormsComponent implements OnInit {
             nationalities: [[], [Validators.required]],
             universities: [[], [Validators.required]],
             steps: this.formBuilder.array([]),
+            image: ['', [Validators.required]],
         });
         if (this.process) {
             this.title = '_EDIT_PROCEDURE_';
@@ -217,6 +218,7 @@ export class ProcessFormsComponent implements OnInit {
             ageMin: [this.process!.ageMin, [Validators.required, Validators.min(0), Validators.max(100)]],
             ageMax: [this.process!.ageMax, [Validators.required, Validators.min(0), Validators.max(100)]],
             nationalities: [this.process!.nationalities, [Validators.required]],
+            image: [this.process!.image, [Validators.required]],
             universities: [this.process!.universities, [Validators.required]],
             steps: this.formBuilder.array(steps),
         });
@@ -235,7 +237,7 @@ export class ProcessFormsComponent implements OnInit {
             if (element.files && element.files.length) {
             const file = element.files[0];
             const resourceGroup = this.getResources(etapeIndex).at(resourcesIndex) as FormGroup;
-            resourceGroup.patchValue({ image: file });
+            resourceGroup.patchValue({ image: file.name });
     }
     }
 
@@ -260,4 +262,11 @@ export class ProcessFormsComponent implements OnInit {
         );
     }
 
+    handleFileChangeForProcess($event: Event) {
+        const element = event!.target as HTMLInputElement;
+        if (element.files && element.files.length) {
+            const file = element.files[0];
+            this.form.patchValue({ image: file.name });
+        }
+    }
 }

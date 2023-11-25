@@ -13,10 +13,11 @@ export class DashboardComponent implements OnInit {
     protected readonly faTrash = faTrash;
     protected readonly faEdit = faEdit;
     processes: Process[] = [];
-    totalItems: number = 100;
+    totalItems: number = 0;
     itemsPerPage: number = 2;
     editProcess: boolean = false;
     process?: Process;
+    totalPages: number = 0;
     currentPage: number = 0;
 
     constructor(public router: Router,
@@ -57,8 +58,10 @@ export class DashboardComponent implements OnInit {
         this.dataService.getProcess(page, this.itemsPerPage).subscribe(
             {
                 next: (response) => {
+                    console.log(response);
                     this.processes = response.content;
                     this.totalItems = response.totalElements;
+                    this.totalPages = response.totalPages;
                 },
                 error: (error) => {
                     console.log(error);
@@ -68,6 +71,7 @@ export class DashboardComponent implements OnInit {
 
     pageChanged(event: any): void {
         this.currentPage = event;
+        console.log('Page changed to: ', event);
         this.getProcess(this.currentPage);
     }
 }

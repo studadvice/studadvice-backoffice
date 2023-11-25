@@ -72,6 +72,22 @@
                 <app-input-label class="font-bold">Description</app-input-label>
             </app-input>
         </div>
+        <div class="item-form">
+            <app-input
+                    [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
+                    [clearable]="false"
+                    [hideLabel]="false"
+                    [idInput]="'image'"
+                    [id]="'image'"
+                    [accept]="'image/*'"
+                    [nameInput]="'image'"
+                    [placeholder]="'L\'image de la démarche'"
+                    [type]="'file'"
+                    [required]="true"
+                    (change)="handleFileChangeForProcess($event)">
+                <app-input-label class="font-bold">Image</app-input-label>
+            </app-input>
+        </div>
         <!-- min age align with max age -->
         <div class="item-form">
             <app-input

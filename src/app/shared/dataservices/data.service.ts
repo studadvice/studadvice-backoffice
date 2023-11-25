@@ -24,7 +24,7 @@ export class DataService {
             {
                 params: {
                     page: page.toString(),
-                    itemsPerPage: itemsPerPage.toString()
+                    size: itemsPerPage.toString()
                 }
             });
     }
@@ -43,9 +43,13 @@ export class DataService {
             {
                 params: {
                     page: page.toString(),
-                    itemsPerPage: itemsPerPage.toString()
+                    size: itemsPerPage.toString()
                 }
             });
+    }
+
+    getAllAdministrativeProcess(): Observable<Process[]> {
+        return this.httpClient.get<Process[]>(environment.apiUrl + '/administrative-process');
     }
 
     updateProcess(id: string, value: any): Observable<Process> {
@@ -66,7 +70,7 @@ export class DataService {
             {
                 params: {
                     page: page.toString(),
-                    itemsPerPage: itemsPerPage.toString()
+                    size: itemsPerPage.toString()
                 }
             });
     }
