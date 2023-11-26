@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {faEdit} from "@fortawesome/free-solid-svg-icons";
+import {faEdit, faTrash} from "@fortawesome/free-solid-svg-icons";
 import {MatDialog} from "@angular/material/dialog";
 import {DocumentModalComponent} from "./document-modal/document-modal.component";
 import {ButtonComponent} from "../../core/input/button/button.component";
@@ -19,6 +19,7 @@ export class DocumentsComponent implements OnInit {
     totalItems: number = 100;
     itemsPerPage: number = 2;
     currentPage: number = 1;
+    protected readonly faTrash = faTrash;
 
     constructor(public dialog: MatDialog, private dataService: DataService) {
     }
@@ -77,5 +78,9 @@ export class DocumentsComponent implements OnInit {
                     console.log(error);
                 }
             });
+    }
+
+    deleteAction(document: any) {
+
     }
 }
