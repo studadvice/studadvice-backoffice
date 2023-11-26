@@ -1,19 +1,23 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 
 @Component({
     selector: 'app-pagination',
     templateUrl: './pagination.component.html',
     styleUrls: ['./pagination.component.css']
 })
-export class PaginationComponent {
+export class PaginationComponent implements OnInit, OnChanges {
     @Input() totalItems!: number;
     @Input() itemsPerPage!: number;
     @Output() pageChanged = new EventEmitter<number>();
-    @Input() currentPage: number = 1;
+    @Input() currentPage: number = 0;
     @Input() totalPages: number;
 
     constructor() {
         this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
+    }
+
+    ngOnInit(): void {
+        this.selectPage(this.currentPage);
     }
 
     ngOnChanges() {
@@ -21,15 +25,15 @@ export class PaginationComponent {
     }
 
     selectPage(page: number): void {
-        if (page < 1 || page > this.totalPages) return;
+        if (page < 0 || page > this.totalPages) return;
         this.currentPage = page;
         console.log("Current page: " + this.currentPage, page);
-        this.pageChanged.emit(this.currentPage - 1);
+        this.pageChanged.emit(this.currentPage);
     }
 
     getPages(): Array<number> {
         const pages: number[] = [];
-        for (let i = 1; i <= this.totalPages; i++) {
+        for (let i = 0; i < this.totalPages; i++) {
             pages.push(i);
         }
         console.log(pages);

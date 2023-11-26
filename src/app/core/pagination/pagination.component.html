@@ -11,34 +11,34 @@
     <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
         <div>
             <nav aria-label="Pagination" class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
-<!--                <button (click)="selectPage(currentPage - 1)" [class.hidden]="currentPage === 0"-->
-<!--                   class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"-->
-<!--                   >-->
-<!--                    &lt;!&ndash; Heroicon name: solid/chevron-left &ndash;&gt;-->
-<!--                    <svg aria-hidden="true" class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"-->
-<!--                         xmlns="http://www.w3.org/2000/svg">&ndash;&gt;-->
-<!--                        <path clip-rule="evenodd"-->
-<!--                              d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"-->
-<!--                              fill-rule="evenodd"/>-->
-<!--                    </svg>-->
-<!--                </button>-->
+                <button (click)="selectPage(currentPage - 1)" [class.hidden]="currentPage === 0"
+                   class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+                   >
+                    <!-- Heroicon name: solid/chevron-left -->
+                    <svg aria-hidden="true" class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"
+                         xmlns="http://www.w3.org/2000/svg">-->
+                        <path clip-rule="evenodd"
+                              d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                              fill-rule="evenodd"/>
+                    </svg>
+                </button>
                 <!-- Generate page numbers dynamically -->
                 <button (click)="selectPage(page)" *ngFor="let page of getPages()" [attr.aria-current]="page === currentPage ? 'page' : null"
                         [ngClass]="{'z-10 custom-bg': page === currentPage, 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50': page !== currentPage}"
                    class="relative inline-flex items-center px-4 py-2 border text-sm font-medium"
                    >
-                    {{ page }}
+                    {{ page + 1 }}
                 </button>
-<!--                <button (click)="selectPage(currentPage + 1)" [class.hidden]="currentPage === totalPages"-->
-<!--                   class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">-->
-<!--                    &lt;!&ndash; Heroicon name: solid/chevron-right &ndash;&gt;-->
-<!--                    <svg aria-hidden="true" class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"-->
-<!--                         xmlns="http://www.w3.org/2000/svg">-->
-<!--                        <path clip-rule="evenodd"-->
-<!--                              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"-->
-<!--                              fill-rule="evenodd"/>-->
-<!--                    </svg>-->
-<!--                </button>-->
+                <button (click)="selectPage(currentPage + 1)" [class.hidden]="currentPage === totalPages -1"
+                   class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                    <!-- Heroicon name: solid/chevron-right -->
+                    <svg aria-hidden="true" class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path clip-rule="evenodd"
+                              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                              fill-rule="evenodd"/>
+                    </svg>
+                </button>
             </nav>
         </div>
     </div>

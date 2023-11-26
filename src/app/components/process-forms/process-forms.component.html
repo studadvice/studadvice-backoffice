@@ -1,6 +1,6 @@
 <div class="main-content">
-    <h2 class="text-2xl m-0 mb-5 font-bold">{{ title | translate}}</h2>
-    <form (ngSubmit)="submit()" *ngIf="form" [formGroup]="form" class="container studadvice box-mainLook">
+    <h2 class="text-2xl m-0 mb-5 mt-8 font-bold">{{ title | translate}}</h2>
+    <form *ngIf="form" [formGroup]="form" class="container studadvice box-mainLook">
         <div class="item-form">
             <app-input
                     [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
@@ -98,7 +98,7 @@
                     [hideLabel]="false"
                     [idInput]="'minAge'"
                     [id]="'minAge'"
-                    [inputFormControl]="getFormControl('ageMin')!"
+                    [inputFormControl]="getFormControl('minAge')!"
                     [minLength]="'5'"
                     [nameInput]="'Âge minimum'"
                     [placeholder]="'Âge minimum'"
@@ -118,7 +118,7 @@
                     [hideLabel]="false"
                     [idInput]="'maxAge'"
                     [id]="'maxAge'"
-                    [inputFormControl]="getFormControl('ageMax')!"
+                    [inputFormControl]="getFormControl('maxAge')!"
                     [minLength]="'5'"
                     [nameInput]="'Âge maximum'"
                     [placeholder]="'Âge maximum'"

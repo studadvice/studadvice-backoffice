@@ -25,7 +25,7 @@ export class DashboardComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.getProcess(this.currentPage);
+        this.pageChanged(0)
     }
 
     handleAction(event: { action: string, data: any }) {
