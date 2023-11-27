@@ -98,4 +98,8 @@ export class DataService {
     getUniversities(country: string): Observable<any> {
         return this.httpClient.get(`${environment.universityUrl}${country}`);
     }
+
+    updateCategory(id: string, value: any): Observable<Category> {
+        return this.httpClient.put<Category>(environment.apiUrl + '/categories/' + id, value);
+    }
 }

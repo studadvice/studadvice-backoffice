@@ -32,12 +32,12 @@ export class AddCategoryComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.getProcedure();
+        this.getProcess();
         this.form = this.formBuilder.group({
             name: ['', [Validators.required, Validators.minLength(5)]],
             description: ['', [Validators.required, Validators.minLength(5)]],
             image: [''],
-            administrativeProcesses: ['', [Validators.required]],
+            administrativeProcesses: [[], [Validators.required]],
         });
         this.formControlService.setForm(this.form);
     }
@@ -62,7 +62,7 @@ export class AddCategoryComponent implements OnInit {
         return this.formControlService.hasError(controlName, errorName);
     }
 
-    getProcedure(): void {
+    getProcess(): void {
         this.dataService.getAllAdministrativeProcess()
             .subscribe(
                 {
@@ -71,7 +71,9 @@ export class AddCategoryComponent implements OnInit {
                         this.administrativeProcesses = this.administrativeProcesses.map((process) => {
                             return {
                                 ...process,
-                                value: process.id,
+                                value: {
+                                    id: process.id,
+                                },
                                 label: process.name
                             }
                         });

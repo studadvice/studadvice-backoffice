@@ -233,12 +233,12 @@ export class ProcessFormsComponent implements OnInit {
     }
 
     handleFileChange($event: Event, etapeIndex: number, resourcesIndex: number) {
-            const element = event!.target as HTMLInputElement;
-            if (element.files && element.files.length) {
+        const element = event!.target as HTMLInputElement;
+        if (element.files && element.files.length) {
             const file = element.files[0];
             const resourceGroup = this.getResources(etapeIndex).at(resourcesIndex) as FormGroup;
             resourceGroup.patchValue({ image: file.name });
-    }
+        }
     }
 
     getUniversity() {

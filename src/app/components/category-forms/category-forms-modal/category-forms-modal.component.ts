@@ -4,6 +4,7 @@ import {FormControlService} from "../../../shared/services/form-control.service"
 import {FormBuilder, Validators} from "@angular/forms";
 import {DataService} from "../../../shared/dataservices/data.service";
 import {MatDialogRef} from "@angular/material/dialog";
+import { Process } from 'src/app/core/data/demarche';
 
 @Component({
   selector: 'app-category-forms-modal',
@@ -15,6 +16,7 @@ export class CategoryFormsModalComponent implements OnInit  {
     protected readonly faSave = faSave;
     administrativeProcesses: any;
     form: any;
+    category: any;
 
     constructor(private formControlService: FormControlService, private formBuilder: FormBuilder,
                 private dataService: DataService, private dialogRef: MatDialogRef<CategoryFormsModalComponent>) {
@@ -22,48 +24,56 @@ export class CategoryFormsModalComponent implements OnInit  {
             name: ['', [Validators.required, Validators.minLength(5)]],
             description: ['' , [Validators.required, Validators.minLength(5)]],
             image: ['' , [Validators.required]],
-            administrativeProcesses: ['' , [Validators.required]],
+            administrativeProcesses: [[] , [Validators.required]],
         });
         this.formControlService.setForm(this.form);
-        this.getProcess();
+    }
 
+    ngOnInit(): void {
+        // this.getProcess();
+        this.getProcess();
         // get data from dialog
         const data = this.dialogRef._containerInstance._config.data;
         if (data) {
-            console.log("data", data);
-            if (data.category) {
-                this.form.patchValue(data.category);
-            }
-            console.log("data.category", this.form.value);
+            this.category = data.category;
+            this.updateCategory();
         }
     }
 
     private getProcess() {
-        // get all administrative processes
-        this.dataService.getAllAdministrativeProcess().subscribe(
-            {
-                next: (data: any) => {
-                    this.administrativeProcesses = data.content;
-                    this.administrativeProcesses = this.administrativeProcesses.map((process: any) => {
-                        return {
-                            ...process,
-                            value: process.id,
-                            label: process.name
-                        }
-                    });
-                },
-                error: (error: any) => {
-                    console.log(error);
-                }
+        this.dataService.getAllAdministrativeProcess().subscribe({
+            next: (data: any) => {
+                this.administrativeProcesses = this.transformProcesses(data.content);
+            },
+            error: (error: any) => {
+                console.log(error);
             }
-        );
+        });
     }
 
-    saveDocument() {
-
+    private transformProcesses(processes: Process[]): Process[] {
+        return processes.map(process => ({
+            ...process,
+            value: {
+                id: process.id,
+            },
+            label: process.name
+        }));
     }
 
-    ngOnInit(): void {
+    saveCategory() {
+        if (this.form.valid) {
+            this.dataService.updateCategory(this.category.id, this.form.value).subscribe(
+                {
+                    next: (response: any) => {
+                        this.dialogRef.close();
+                    },
+                    error: (error: any) => {
+                        console.log(error);
+                    }
+                }
+            );
+        }
     }
 
     getFormControl(name: string) {
@@ -76,5 +86,14 @@ export class CategoryFormsModalComponent implements OnInit  {
 
     closeDocumentPopup() {
         this.dialogRef.close();
+    }
+
+    updateCategory() {
+        this.form.patchValue({
+            name: this.category.name,
+            description: this.category.description,
+            image: this.category.image,
+            administrativeProcesses: this.category.administrativeProcesses
+        });
     }
 }
