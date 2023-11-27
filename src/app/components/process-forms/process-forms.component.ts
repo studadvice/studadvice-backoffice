@@ -215,8 +215,8 @@ export class ProcessFormsComponent implements OnInit {
         this.form = this.formBuilder.group({
             name: new FormControl(this.process!.name, [Validators.required, Validators.minLength(5)]),
             description: new FormControl(this.process!.description, [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
-            ageMin: [this.process!.ageMin, [Validators.required, Validators.min(0), Validators.max(100)]],
-            ageMax: [this.process!.ageMax, [Validators.required, Validators.min(0), Validators.max(100)]],
+            minAge: [this.process!.minAge, [Validators.required, Validators.min(0), Validators.max(100)]],
+            maxAge: [this.process!.maxAge, [Validators.required, Validators.min(0), Validators.max(100)]],
             nationalities: [this.process!.nationalities, [Validators.required]],
             image: [this.process!.image, [Validators.required]],
             universities: [this.process!.universities, [Validators.required]],

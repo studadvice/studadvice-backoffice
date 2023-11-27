@@ -13,7 +13,7 @@ import {MatDialogRef} from "@angular/material/dialog";
 export class CategoryFormsModalComponent implements OnInit  {
     title: string = '_EDIT_CATEGORY_'
     protected readonly faSave = faSave;
-    process: any;
+    administrativeProcesses: any;
     form: any;
 
     constructor(private formControlService: FormControlService, private formBuilder: FormBuilder,
@@ -21,7 +21,8 @@ export class CategoryFormsModalComponent implements OnInit  {
         this.form = this.formBuilder.group({
             name: ['', [Validators.required, Validators.minLength(5)]],
             description: ['' , [Validators.required, Validators.minLength(5)]],
-            process: ['' , [Validators.required]],
+            image: ['' , [Validators.required]],
+            administrativeProcesses: ['' , [Validators.required]],
         });
         this.formControlService.setForm(this.form);
         this.getProcess();
@@ -29,17 +30,33 @@ export class CategoryFormsModalComponent implements OnInit  {
         // get data from dialog
         const data = this.dialogRef._containerInstance._config.data;
         if (data) {
+            console.log("data", data);
             if (data.category) {
                 this.form.patchValue(data.category);
-                this.process = data.process;
             }
+            console.log("data.category", this.form.value);
         }
     }
 
     private getProcess() {
-        this.form.get('process').valueChanges.subscribe((value: any) => {
-            this.process = value;
-        });
+        // get all administrative processes
+        this.dataService.getAllAdministrativeProcess().subscribe(
+            {
+                next: (data: any) => {
+                    this.administrativeProcesses = data.content;
+                    this.administrativeProcesses = this.administrativeProcesses.map((process: any) => {
+                        return {
+                            ...process,
+                            value: process.id,
+                            label: process.name
+                        }
+                    });
+                },
+                error: (error: any) => {
+                    console.log(error);
+                }
+            }
+        );
     }
 
     saveDocument() {

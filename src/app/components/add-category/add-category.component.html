@@ -1,6 +1,6 @@
 <div class="main-content">
     <h2 class="text-2xl m-0 mb-5 mt-8 font-bold">{{'_ADD_CATEGORY_' | translate}}</h2>
-    <form (ngSubmit)="submit()" *ngIf="form" [formGroup]="form" class="container studadvice box-mainLook">
+    <form *ngIf="form" [formGroup]="form" class="container studadvice box-mainLook">
         <div class="item-form">
             <app-input
                     [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
@@ -68,8 +68,8 @@
                     [errorMessage]="'La démarche est obligatoire'"
                     [hasLabel]="true"
                     [id]="'demarche'"
-                    [inputFormControl]="getFormControl('process')!"
-                    [options]="process"
+                    [inputFormControl]="getFormControl('administrativeProcesses')!"
+                    [options]="administrativeProcesses"
                     [required]="false"
                     [multiple]="true"
             >

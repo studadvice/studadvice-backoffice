@@ -22,7 +22,7 @@ export class AddCategoryComponent implements OnInit {
     protected readonly faTrash = faTrash;
     protected readonly faPlus = faPlus;
     protected readonly faSave = faSave;
-    process: Process[] = [];
+    administrativeProcesses: Process[] = [];
 
     constructor(private formBuilder: FormBuilder, public dialog: MatDialog,
                 private formControlService: FormControlService,
@@ -37,7 +37,7 @@ export class AddCategoryComponent implements OnInit {
             name: ['', [Validators.required, Validators.minLength(5)]],
             description: ['', [Validators.required, Validators.minLength(5)]],
             image: [''],
-            process: ['', [Validators.required]],
+            administrativeProcesses: ['', [Validators.required]],
         });
         this.formControlService.setForm(this.form);
     }
@@ -67,12 +67,12 @@ export class AddCategoryComponent implements OnInit {
             .subscribe(
                 {
                     next: (response: any) => {
-                        this.process = response.content;
-                        this.process = this.process.map((procedure) => {
+                        this.administrativeProcesses = response.content;
+                        this.administrativeProcesses = this.administrativeProcesses.map((process) => {
                             return {
-                                ...procedure,
-                                value: procedure.id,
-                                label: procedure.name
+                                ...process,
+                                value: process.id,
+                                label: process.name
                             }
                         });
                     },

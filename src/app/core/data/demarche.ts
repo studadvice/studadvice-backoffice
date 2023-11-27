@@ -4,8 +4,8 @@ export interface Process {
     id: string;
     name: string;
     description: string;
-    ageMin: number;
-    ageMax: number;
+    minAge: number;
+    maxAge: number;
     image: string;
     nationalities: string[];
     universities: string[];

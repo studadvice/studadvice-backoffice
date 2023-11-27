@@ -39,6 +39,7 @@ export class CategoryFormsComponent implements OnInit {
             {
                 next: (response) => {
                     this.categories = response.content;
+                    console.log("this.categories", this.categories);
                     this.totalItems = response.totalElements;
                 },
                 error: (error) => {
