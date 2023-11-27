@@ -1,29 +1,23 @@
 # Étape 1: Construire l'application
-FROM node:latest as node
+FROM node:18-alpine as build
 
-# Définir le répertoire de travail
 WORKDIR /app
 
-# Copier les fichiers package.json et package-lock.json
-COPY package*.json /app/
+COPY package*.json ./
 
-# Installer les dépendances
 RUN npm install
 
-# Copier le reste des fichiers de l'application
-COPY . /app
+RUN npm install -g @angular/cli
 
-# Construire l'application pour la production
-RUN npm run build -- --configuration production
+COPY . .
+
+RUN ng build --configuration production
 
 # Étape 2: Préparer l'image de production avec Nginx
-FROM nginx:alpine
+FROM nginx:stable-alpine
 
-# Copier les fichiers de build depuis l'étape de construction
-COPY --from=node /app/dist/ /usr/share/nginx/html
+COPY --from=build /app/dist/* /usr/share/nginx/html/
 
-# Exposer le port (par défaut 80 pour Nginx)
 EXPOSE 80
 
-# Lancer Nginx en mode foreground
 CMD ["nginx", "-g", "daemon off;"]
