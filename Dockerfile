@@ -20,7 +20,7 @@ RUN npm run build -- --configuration production
 FROM nginx:alpine
 
 # Copier les fichiers de build depuis l'étape de construction
-COPY --from=node /app/dist/backoffice /usr/share/nginx/html
+COPY --from=node /app/dist/ /usr/share/nginx/html
 
 # Exposer le port (par défaut 80 pour Nginx)
 EXPOSE 80
