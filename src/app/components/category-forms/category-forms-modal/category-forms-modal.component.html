@@ -12,7 +12,7 @@
           </span>
                 </button>
             </div>
-            <form (ngSubmit)="saveCategory()" *ngIf="form" [formGroup]="form" class="container studadvice">
+            <form *ngIf="form" [formGroup]="form" class="container studadvice">
                 <div class="item-form">
                     <app-input
                             [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
@@ -77,9 +77,9 @@
                             [hasLabel]="true"
                             [id]="'process'"
                             [inputFormControl]="getFormControl('administrativeProcesses')!"
-                            [options]="administrativeProcesses"
                             [required]="false"
                             [multiple]="true"
+                            [options]="administrativeProcesses"
                     >
                         <label class="font-bold">Ajout d'une démarche</label>
                     </app-input-select>

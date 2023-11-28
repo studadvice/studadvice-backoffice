@@ -12,7 +12,7 @@ import {DealsComponent} from "./components/deals/deals.component";
 
 const routes: Routes = [
     {path: 'formulaire', component: ProcessFormsComponent, canActivate: [AuthGuard], data: {roles: ['ROLE_ADMIN']}},
-    {path: '', redirectTo: '/formulaire', pathMatch: 'full'},
+    {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
     {path: 'sign-in', component: SignInComponent},
     {path: 'register-user', component: SignUpComponent},
     {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard], data: {roles: ['ROLE_ADMIN']}},

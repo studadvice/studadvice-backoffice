@@ -16,7 +16,8 @@ export interface Document {
     id: string;
     name: string;
     description: string;
-    link?: string;
+    url?: string;
+    image?: string;
 }
 
 export interface Step {

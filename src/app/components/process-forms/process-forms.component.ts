@@ -35,9 +35,7 @@ export class ProcessFormsComponent implements OnInit {
     constructor(private formBuilder: FormBuilder, public dialog: MatDialog,
                 private formControlService: FormControlService,
                 private dataService: DataService,
-                private router: Router,
-                ) {
-    }
+                private router: Router,) {}
 
     get steps(): FormArray {
         return this.form.get('steps') as FormArray;
@@ -51,7 +49,7 @@ export class ProcessFormsComponent implements OnInit {
     ngOnInit() {
         this.form = this.formBuilder.group({
             name: ['', [Validators.required, Validators.minLength(5)]],
-            description: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
+            description: ['', [Validators.required, Validators.minLength(5)]],
             minAge: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
             maxAge: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
             nationalities: [[], [Validators.required]],
@@ -211,18 +209,16 @@ export class ProcessFormsComponent implements OnInit {
             documents: new FormControl(step.documents, Validators.required),
             resources: this.formBuilder.array([]),
         }));
-
         this.form = this.formBuilder.group({
             name: new FormControl(this.process!.name, [Validators.required, Validators.minLength(5)]),
-            description: new FormControl(this.process!.description, [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
+            description: new FormControl(this.process!.description, [Validators.required, Validators.minLength(5)]),
             minAge: [this.process!.minAge, [Validators.required, Validators.min(0), Validators.max(100)]],
             maxAge: [this.process!.maxAge, [Validators.required, Validators.min(0), Validators.max(100)]],
             nationalities: [this.process!.nationalities, [Validators.required]],
             image: [this.process!.image, [Validators.required]],
-            universities: [this.process!.universities, [Validators.required]],
+            universities: [["Université des Sciences et Technologies de Lille (Lille I)"], [Validators.required]],
             steps: this.formBuilder.array(steps),
         });
-
         this.process!.steps.forEach((step, index) => {
             if (step.resources){
                 step.resources.forEach(resource => {

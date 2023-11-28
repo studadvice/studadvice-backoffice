@@ -81,6 +81,14 @@ export class DocumentsComponent implements OnInit {
     }
 
     deleteAction(document: any) {
-
+        this.dataService.deleteDocument(document.id).subscribe(
+            {
+                next: (response) => {
+                    this.getDocuments();
+                },
+                error: (error) => {
+                    console.log(error);
+                }
+            });
     }
 }

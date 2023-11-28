@@ -14,36 +14,34 @@ import { Process } from 'src/app/core/data/demarche';
 export class CategoryFormsModalComponent implements OnInit  {
     title: string = '_EDIT_CATEGORY_'
     protected readonly faSave = faSave;
-    administrativeProcesses: any;
+    administrativeProcesses: any = [];
     form: any;
     category: any;
 
     constructor(private formControlService: FormControlService, private formBuilder: FormBuilder,
-                private dataService: DataService, private dialogRef: MatDialogRef<CategoryFormsModalComponent>) {
-        this.form = this.formBuilder.group({
-            name: ['', [Validators.required, Validators.minLength(5)]],
-            description: ['' , [Validators.required, Validators.minLength(5)]],
-            image: ['' , [Validators.required]],
-            administrativeProcesses: [[] , [Validators.required]],
-        });
-        this.formControlService.setForm(this.form);
-    }
+                private dataService: DataService, private dialogRef: MatDialogRef<CategoryFormsModalComponent>) {}
 
     ngOnInit(): void {
-        // this.getProcess();
-        this.getProcess();
         // get data from dialog
         const data = this.dialogRef._containerInstance._config.data;
         if (data) {
             this.category = data.category;
-            this.updateCategory();
+            this.form = this.formBuilder.group({
+                name: [this.category.name , [Validators.required, Validators.minLength(5)]],
+                description: [this.category.description , [Validators.required, Validators.minLength(5)]],
+                image: [this.category.image , [Validators.required, Validators.minLength(5)]],
+                administrativeProcesses: [this.getAdministrativeProcessId(this.category.administrativeProcesses), [Validators.required]],
+            });
+            this.formControlService.setForm(this.form);
         }
+        this.getProcess();
     }
 
     private getProcess() {
         this.dataService.getAllAdministrativeProcess().subscribe({
             next: (data: any) => {
                 this.administrativeProcesses = this.transformProcesses(data.content);
+                console.log("this.administrativeProcesses", this.administrativeProcesses);
             },
             error: (error: any) => {
                 console.log(error);
@@ -54,15 +52,21 @@ export class CategoryFormsModalComponent implements OnInit  {
     private transformProcesses(processes: Process[]): Process[] {
         return processes.map(process => ({
             ...process,
-            value: {
-                id: process.id,
-            },
+            value: process.id,
             label: process.name
         }));
     }
 
+    private getAdministrativeProcessId(administrativeProcesses: any) {
+        return administrativeProcesses.map((administrativeProcess: any) => administrativeProcess.id);
+    }
+
     saveCategory() {
         if (this.form.valid) {
+            // Modifier les données de l'objet avant de les envoyer au serveur
+            this.form.value.administrativeProcesses = this.form.value.administrativeProcesses.map((administrativeProcessId: any) => ({
+                id: administrativeProcessId
+            }));
             this.dataService.updateCategory(this.category.id, this.form.value).subscribe(
                 {
                     next: (response: any) => {
@@ -86,14 +90,5 @@ export class CategoryFormsModalComponent implements OnInit  {
 
     closeDocumentPopup() {
         this.dialogRef.close();
-    }
-
-    updateCategory() {
-        this.form.patchValue({
-            name: this.category.name,
-            description: this.category.description,
-            image: this.category.image,
-            administrativeProcesses: this.category.administrativeProcesses
-        });
     }
 }

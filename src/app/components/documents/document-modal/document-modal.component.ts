@@ -21,8 +21,8 @@ export class DocumentModalComponent {
     this.form = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(5)]],
       description: ['', [Validators.required, Validators.minLength(5)]],
-      link: ['', [Validators.required]],
-    image: [''],
+      url: ['', [Validators.required]],
+        image: [''],
     });
     this.formControlService.setForm(this.form);
 

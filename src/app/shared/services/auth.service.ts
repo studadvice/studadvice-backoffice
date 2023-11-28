@@ -6,15 +6,7 @@ import {Router} from '@angular/router';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import firebase from 'firebase/compat/app';
-
-interface User {
-    uid: string;
-    email: string;
-    displayName: string;
-    photoURL: string;
-    emailVerified: boolean;
-    role: string;
-}
+import { User } from 'src/app/core/data/user';
 
 @Injectable({
     providedIn: 'root'

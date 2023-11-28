@@ -56,12 +56,7 @@ export class DataService {
         return this.httpClient.put<Process>(environment.apiUrl + '/administrative-process/' + id, value);
     }
 
-    addDocument(value: any): Observable<Document> {
-        const document = {
-            name: value.name,
-            description: value.description,
-            link: value.link
-        };
+    addDocument(document: any): Observable<Document> {
         return this.httpClient.post<Document>(environment.apiUrl + '/required-document', document);
     }
 
@@ -89,6 +84,10 @@ export class DataService {
 
     updateDocument(id: string, value: any): Observable<Document> {
         return this.httpClient.put<Document>(environment.apiUrl + '/required-document/' + id, value);
+    }
+
+    deleteDocument(id: string): Observable<Document> {
+        return this.httpClient.delete<Document>(environment.apiUrl + '/required-document/' + id);
     }
 
     loadCountries(): Observable<any> {
