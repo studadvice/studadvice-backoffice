@@ -1,5 +1,5 @@
 export const environment = {
-    production: false,
+    production: true,
     firebase: {
         apiKey: "AIzaSyAUuATt_IAe9MfQpOCGmSMItVQnNBJmJqQ",
 
@@ -8,6 +8,7 @@ export const environment = {
         projectId: "eservices-clients",
 
         databaseURL: "https://eservices-clients-default-rtdb.firebaseio.com/",
+
         storageBucket: "eservices-clients.appspot.com",
 
         messagingSenderId: "965275289761",
@@ -17,7 +18,7 @@ export const environment = {
         measurementId: "G-3CZY864992",
 
     },
-    apiUrl: "http://localhost:8080",
+    apiUrl: "http://codingschool-togo.com/api",
     countryUrl: "https://restcountries.com/v3.1/all",
     universityUrl: "http://universities.hipolabs.com/search?country=",
     universityCountry: "France",
