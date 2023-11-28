@@ -11,7 +11,7 @@ RUN npm install -g @angular/cli
 
 COPY . .
 
-RUN ng build --configuration production
+RUN ng build --configuration=production
 
 # Étape 2: Préparer l'image de production avec Nginx
 FROM nginx:stable-alpine

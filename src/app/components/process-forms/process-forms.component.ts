@@ -8,7 +8,7 @@ import {DataService} from "../../shared/dataservices/data.service";
 import {Router} from "@angular/router";
 import {Document, Process, Step} from "../../core/data/demarche";
 import {Resource} from "../../core/data/resources";
-import { environment } from 'src/environments/environments';
+import { environment } from 'src/environments/environment';
 
 @Component({
     selector: 'app-forms',
