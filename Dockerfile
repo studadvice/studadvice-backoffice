@@ -16,7 +16,9 @@ RUN ng build --configuration production
 # Étape 2: Préparer l'image de production avec Nginx
 FROM nginx:stable-alpine
 
-COPY --from=build /app/dist/* /usr/share/nginx/html/
+COPY --from=build /app/dist/backoffice/ /usr/share/nginx/html/
+
+COPY deploy/nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80
 
