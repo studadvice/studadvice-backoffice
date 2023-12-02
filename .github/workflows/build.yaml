@@ -18,6 +18,9 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '16.14'
+      - name: Replace API Key
+        run: |
+          sed -i 's/your_api_key/${{ secrets.FIREBASE_API_KEY }}/g' src/environments/environment.ts
 
       - name: Install dependencies
         run: npm install
@@ -34,6 +37,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+
+      - name: Replace API Key
+        run: |
+          sed -i 's/your_api_key/${{ secrets.FIREBASE_API_KEY }}/g' src/environments/environment.ts
 
       - name: Build Image Docker
         run: |
