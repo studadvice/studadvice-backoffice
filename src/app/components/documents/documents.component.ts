@@ -72,7 +72,7 @@ export class DocumentsComponent implements OnInit {
             {
                 next: (response) => {
                     this.documents = response.content;
-                    this.totalItems = response.total;
+                    this.totalItems = response.totalElements;
                 },
                 error: (error) => {
                     console.log(error);
