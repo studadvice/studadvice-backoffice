@@ -135,4 +135,8 @@ export class AuthService {
             console.error(error);
         }
     }
+
+    getToken() {
+        return this.afAuth.idToken;
+    }
 }

@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {AuthService} from "../../shared/services/auth.service";
 import {faGoogle} from "@fortawesome/free-brands-svg-icons";
+import {FormControl, Validators} from "@angular/forms";
 
 @Component({
     selector: 'app-sign-in',
@@ -10,8 +11,8 @@ import {faGoogle} from "@fortawesome/free-brands-svg-icons";
 export class SignInComponent {
 
     faGoogle = faGoogle;
-    password: string = '';
-    email: string = '';
+    password = new FormControl('', [Validators.required]);
+    email = new FormControl('', [Validators.required, Validators.email]);
 
     constructor(public authService: AuthService) {
     }
@@ -24,7 +25,7 @@ export class SignInComponent {
         }
     }
 
-    loginWithUsernameAndPassword(email: string, password: string) {
-        this.authService.signIn(email, password);
+    loginWithUsernameAndPassword() {
+        this.authService.signIn(this.email.value!, this.password.value!);
     }
 }

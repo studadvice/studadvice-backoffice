@@ -34,7 +34,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {LinkPreviewComponent} from './core/link-preview/link-preview.component';
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
 import {ModalComponent} from './core/modal/link-preview-modal/modal.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {CategoryFormsComponent} from './components/category-forms/category-forms.component';
@@ -50,6 +50,7 @@ import {
 import {DealsComponent} from './components/deals/deals.component';
 import {DealsAddModalComponent} from './components/deals/deals-add-modal/deals-add-modal.component';
 import {InputDateComponent, InputDateErrorComponent} from './core/input/input-date/input-date.component';
+import {AuthInterceptor} from "./shared/intercetor/auth.interceptor";
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -114,7 +115,7 @@ export function HttpLoaderFactory(http: HttpClient) {
             }
         })
     ],
-    providers: [],
+    providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
     bootstrap: [AppComponent]
 })
 export class AppModule {
