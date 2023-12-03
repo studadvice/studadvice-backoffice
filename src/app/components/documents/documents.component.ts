@@ -18,7 +18,7 @@ export class DocumentsComponent implements OnInit {
     @ViewChild('addDocumentButton', {static: false}) addDocumentButton!: ButtonComponent;
     totalItems: number = 100;
     itemsPerPage: number = 2;
-    currentPage: number = 1;
+    currentPage: number = 0;
     protected readonly faTrash = faTrash;
 
     constructor(public dialog: MatDialog, private dataService: DataService) {
