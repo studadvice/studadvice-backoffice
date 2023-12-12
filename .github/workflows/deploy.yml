@@ -15,6 +15,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      # make sure to connect github registry to vps
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+
       - name: SSH and Deploy on VPS
         uses: appleboy/ssh-action@v0.1.2
         with:
@@ -22,6 +30,6 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           script: |
-            echo ${{ secrets.PASSWORD }} | sudo -S docker pull ghcr.io/${{ github.repository_owner }}/studadvice_backoffice:latest
-            echo ${{ secrets.PASSWORD }} | sudo -S docker stack deploy --compose-file docker-compose.yml studadvice --with-registry-auth
-            echo ${{ secrets.PASSWORD }} | sudo docker service update --image ghcr.io/studadvice/studadvice_backoffice --force studadvice_studadvice-backoffice
+            sudo -S docker pull ghcr.io/${{ github.repository_owner }}/studadvice_backoffice:latest
+            sudo -S docker stack deploy --compose-file docker-compose.yml studadvice --with-registry-auth
+            sudo docker service update --image ghcr.io/studadvice/studadvice_backoffice --force studadvice_studadvice-backoffice
