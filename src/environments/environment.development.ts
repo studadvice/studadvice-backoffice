@@ -1,7 +1,7 @@
 export const environment = {
     production: true,
     firebase: {
-        apiKey: 'your_api_key',
+        apiKey: 'AIzaSyAUuATt_IAe9MfQpOCGmSMItVQnNBJmJqQ',
 
         authDomain: "eservices-clients.firebaseapp.com",
 
@@ -18,7 +18,7 @@ export const environment = {
         measurementId: "G-3CZY864992",
 
     },
-    apiUrl: "http://localhost:8080",
+    apiUrl: "http://localhost:3000/api",
     countryUrl: "https://restcountries.com/v3.1/all",
     universityUrl: "http://universities.hipolabs.com/search?country=",
     universityCountry: "France",

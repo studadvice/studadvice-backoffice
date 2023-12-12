@@ -27,19 +27,6 @@ export class DocumentsComponent implements OnInit {
     ngOnInit(): void {
         this.getDocuments();
     }
-
-    submit() {
-
-    }
-
-    hasError(title: string, required: string) {
-
-    }
-
-    getFormControl(name: string) {
-
-    }
-
     editAction(document: any) {
         this.dialog.open(DocumentModalComponent, {
             data: {
@@ -68,16 +55,13 @@ export class DocumentsComponent implements OnInit {
     }
 
     private getDocuments(page: number = 0) {
-        this.dataService.getDocuments(page, this.itemsPerPage).subscribe(
-            {
-                next: (response) => {
-                    this.documents = response.content;
-                    this.totalItems = response.totalElements;
-                },
-                error: (error) => {
-                    console.log(error);
-                }
-            });
+        this.dataService.getDocuments(page, this.itemsPerPage).subscribe((response) => {
+            this.documents = response.content;
+            this.totalItems = response.totalElements;
+        },
+        error => {
+            console.log(error);
+        });
     }
 
     deleteAction(document: any) {
