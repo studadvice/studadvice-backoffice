@@ -18,7 +18,7 @@ export const environment = {
         measurementId: "G-3CZY864992",
 
     },
-    apiUrl: "http://localhost:3000/api",
+    apiUrl: "http://www.studadvice.com/api",
     countryUrl: "https://restcountries.com/v3.1/all",
     universityUrl: "http://universities.hipolabs.com/search?country=",
     universityCountry: "France",
