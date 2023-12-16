@@ -33,6 +33,7 @@ export class DashboardComponent implements OnInit {
     }
 
     onProcessChange(event: any) {
+        console.log("this.process", this.process);
         this.editProcess = event.editProcess;
         this.process = event.process;
     }
@@ -58,7 +59,6 @@ export class DashboardComponent implements OnInit {
         this.dataService.getProcess(page, this.itemsPerPage).subscribe(
             {
                 next: (response) => {
-                    console.log(response);
                     this.processes = response.content;
                     this.totalItems = response.totalElements;
                     this.totalPages = response.totalPages;
@@ -71,7 +71,6 @@ export class DashboardComponent implements OnInit {
 
     pageChanged(event: any): void {
         this.currentPage = event;
-        console.log('Page changed to: ', event);
         this.getProcess(this.currentPage);
     }
 }

@@ -178,6 +178,7 @@ export class ProcessFormsComponent implements OnInit {
         this.dataService.updateProcess(this.process!.id, this.form.value).subscribe({
             next: (response) => {
                 this.processChange.emit({editProcess: false, process: this.process!});
+                console.log("this.process", this.process)
                 this.router.navigate(['/dashboard']);
             },
             error: (error) => {
@@ -216,7 +217,7 @@ export class ProcessFormsComponent implements OnInit {
             maxAge: [this.process!.maxAge, [Validators.required, Validators.min(0), Validators.max(100)]],
             nationalities: [this.process!.nationalities, [Validators.required]],
             image: [this.process!.image, [Validators.required]],
-            universities: [["Université des Sciences et Technologies de Lille (Lille I)"], [Validators.required]],
+            universities: [this.process!.universities, [Validators.required]],
             steps: this.formBuilder.array(steps),
         });
         this.process!.steps.forEach((step, index) => {
@@ -233,7 +234,7 @@ export class ProcessFormsComponent implements OnInit {
         if (element.files && element.files.length) {
             const file = element.files[0];
             const resourceGroup = this.getResources(etapeIndex).at(resourcesIndex) as FormGroup;
-            resourceGroup.patchValue({ image: file.name });
+            resourceGroup.patchValue({ image: file });
         }
     }
 
@@ -259,10 +260,10 @@ export class ProcessFormsComponent implements OnInit {
     }
 
     handleFileChangeForProcess($event: Event) {
-        const element = event!.target as HTMLInputElement;
+        const element = $event!.target as HTMLInputElement;
         if (element.files && element.files.length) {
             const file = element.files[0];
-            this.form.patchValue({ image: file.name });
+            this.form.patchValue({ image: file });
         }
     }
 }

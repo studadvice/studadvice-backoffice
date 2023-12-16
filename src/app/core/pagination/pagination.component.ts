@@ -27,7 +27,6 @@ export class PaginationComponent implements OnInit, OnChanges {
     selectPage(page: number): void {
         if (page < 0 || page > this.totalPages) return;
         this.currentPage = page;
-        console.log("Current page: " + this.currentPage, page);
         this.pageChanged.emit(this.currentPage);
     }
 
@@ -36,7 +35,6 @@ export class PaginationComponent implements OnInit, OnChanges {
         for (let i = 0; i < this.totalPages; i++) {
             pages.push(i);
         }
-        console.log(pages);
         return pages;
     }
 }

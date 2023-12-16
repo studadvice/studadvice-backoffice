@@ -131,7 +131,6 @@ export class InputComponent extends AbstractInputComponent implements ControlVal
                 data: {link: this.inputFormControl.value}
             });
             dialogRef.afterClosed().subscribe(result => {
-                console.log(`Dialog result: ${result}`);
                 this.modalOpen = false;
             });
         }

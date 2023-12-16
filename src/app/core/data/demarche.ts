@@ -6,7 +6,7 @@ export interface Process {
     description: string;
     minAge: number;
     maxAge: number;
-    image: string;
+    image: File;
     nationalities: string[];
     universities: string[];
     steps: Step[];
@@ -17,7 +17,7 @@ export interface Document {
     name: string;
     description: string;
     url?: string;
-    image?: string;
+    image?: File;
 }
 
 export interface Step {
@@ -32,7 +32,7 @@ export interface Category {
     id: string;
     name: string;
     description: string;
-    image: string;
+    image: File;
     process: string[];
 }
 

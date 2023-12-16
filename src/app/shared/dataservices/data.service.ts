@@ -29,13 +29,52 @@ export class DataService {
             });
     }
 
-    addCategory(category: Category, procedures?: Process[]): Observable<Category> {
-        // generate random id
+    addCategory(category: Category): Observable<Category> {
+        this.buildCategoryFormData(category);
         return this.httpClient.post<Category>(environment.apiUrl + '/categories', category);
     }
 
-    addProcess(procedure: Process): Observable<Process> {
-        return this.httpClient.post<Process>(environment.apiUrl + '/administrative-process', procedure);
+    private buildCategoryFormData(category: Category) {
+        const formData: FormData = new FormData();
+        if (category.image)
+            formData.append('imageFile', category.image, category.image.name);
+
+        const documentJson = JSON.stringify({
+            name: category.name,
+            description: category.description,
+            image: category.image,
+            process: category.process
+        });
+        formData.append('category', new Blob([documentJson], {
+            type: 'application/json'
+        }));
+    }
+
+    addProcess(process: Process): Observable<Process> {
+        const formData = this.buildProcessFormData(process);
+        return this.httpClient.post<Process>(environment.apiUrl + '/administrative-process', formData);
+    }
+
+    private buildProcessFormData(process: Process) {
+        const formData: FormData = new FormData();
+        if (process.image != null){
+            formData.append('imageFile', process.image, process.image.name);
+        }
+
+        const processJson = JSON.stringify({
+            name: process.name,
+            description: process.description,
+            minAge: process.minAge,
+            maxAge: process.maxAge,
+            image: process.image,
+            nationalities: process.nationalities,
+            universities: process.universities,
+            steps: process.steps
+        });
+        formData.append('administrativeProcess', new Blob([processJson], {
+            type: 'application/json'
+        }));
+        return formData;
     }
 
     getProcess(page: number, itemsPerPage: number): Observable<any> {
@@ -53,11 +92,13 @@ export class DataService {
     }
 
     updateProcess(id: string, value: any): Observable<Process> {
-        return this.httpClient.put<Process>(environment.apiUrl + '/administrative-process/' + id, value);
+        const formData = this.buildProcessFormData(value);
+        return this.httpClient.put<Process>(environment.apiUrl + '/administrative-process/' + id, formData);
     }
 
     addDocument(document: any): Observable<Document> {
-        return this.httpClient.post<Document>(environment.apiUrl + '/required-document', document);
+        const formData: FormData = this.createFormDocument(document);
+        return this.httpClient.post<Document>(environment.apiUrl + '/required-document', formData);
     }
 
     getDocuments(page: number, itemsPerPage: number): Observable<any> {
@@ -83,7 +124,8 @@ export class DataService {
     }
 
     updateDocument(id: string, value: any): Observable<Document> {
-        return this.httpClient.put<Document>(environment.apiUrl + '/required-document/' + id, value);
+        const formData: FormData = this.createFormDocument(value);
+        return this.httpClient.put<Document>(environment.apiUrl + '/required-document/' + id, formData);
     }
 
     deleteDocument(id: string): Observable<Document> {
@@ -100,5 +142,23 @@ export class DataService {
 
     updateCategory(id: string, value: any): Observable<Category> {
         return this.httpClient.put<Category>(environment.apiUrl + '/categories/' + id, value);
+    }
+
+    private createFormDocument(document: Document) {
+        const formData: FormData = new FormData();
+        if (document.image)
+            formData.append('imageFile', document.image, document.image.name);
+
+        const documentJson = JSON.stringify({
+            name: document.name,
+            description: document.description,
+            image: document.image,
+            url: document.url
+        });
+        formData.append('requiredDocument', new Blob([documentJson], {
+            type: 'application/json'
+        }));
+        return formData;
+
     }
 }

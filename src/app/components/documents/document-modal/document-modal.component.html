@@ -82,14 +82,15 @@
                             [errorMessage]="'L\'image est obligatoire'"
                             [error]="hasError('image', 'required')"
                             [hideLabel]="false"
-                            [idInput]="'title'"
-                            [id]="'title'"
+                            [idInput]="'image'"
+                            [id]="'image'"
                             [inputFormControl]="getFormControl('image')!"
-                            [minLength]="'5'"
                             [nameInput]="'Image'"
                             [placeholder]="'Image du document'"
                             [required]="false"
                             [type]="'file'"
+                            (change)="handleFileChange($event)"
+                            [accept]="'image/*'"
                     >
                         <app-input-label class="font-bold">Image</app-input-label>
                     </app-input>

@@ -21,13 +21,13 @@ export class DocumentModalComponent {
     this.form = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(5)]],
       description: ['', [Validators.required, Validators.minLength(5)]],
-      url: ['', [Validators.required]],
-        image: [''],
+      url: ['', [Validators.required]], image: [null]
     });
     this.formControlService.setForm(this.form);
 
     // get data from dialog
     this.documentData = this.dialogRef._containerInstance._config.data;
+    console.log("this.documentData", this.documentData);
     if (this.documentData) {
       this.title = this.documentData.title;
       if (this.documentData.document) {
@@ -72,6 +72,15 @@ export class DocumentModalComponent {
 
   hasError(controlName: string, errorName: string): boolean {
     return this.formControlService.hasError(controlName, errorName);
+  }
+  handleFileChange($event: Event) {
+    const element = event!.target as HTMLInputElement;
+    if (element.files && element.files.length) {
+        const file = element.files[0];
+        this.form.patchValue({
+            image: file
+        });
+    }
   }
 
 }

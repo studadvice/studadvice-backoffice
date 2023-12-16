@@ -86,11 +86,11 @@ export class AddCategoryComponent implements OnInit {
     }
 
     handleFileChange($event: Event) {
-        const element = event!.target as HTMLInputElement;
+        const element = $event!.target as HTMLInputElement;
         if (element.files && element.files.length) {
             const file = element.files[0];
             this.form.patchValue({
-                image: file.name
+                image: file
             });
         }
     }
