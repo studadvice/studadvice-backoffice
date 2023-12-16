@@ -17,7 +17,7 @@ export class CategoryFormsComponent implements OnInit {
     protected readonly faTrash = faTrash;
     protected readonly faEdit = faEdit;
     totalItems: number = 100;
-    itemsPerPage: number = 2;
+    itemsPerPage: number = 10;
     currentPage: number = 0;
 
     constructor(private dialog: MatDialog,

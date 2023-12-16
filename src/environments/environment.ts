@@ -20,6 +20,5 @@ export const environment = {
     },
     apiUrl: "http://studadvice.com/api",
     countryUrl: "https://restcountries.com/v3.1/all",
-    universityUrl: "http://universities.hipolabs.com/search?country=",
-    universityCountry: "France",
+    universityUrl: "https://data.enseignementsup-recherche.gouv.fr/api/explore/v2.1/catalog/datasets/fr-esr-principaux-etablissements-enseignement-superieur/records",
 };

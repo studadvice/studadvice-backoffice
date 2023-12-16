@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {faSave, faTrash} from "@fortawesome/free-solid-svg-icons";
 import {MatDialog} from "@angular/material/dialog";
@@ -9,6 +9,7 @@ import {Router} from "@angular/router";
 import {Document, Process, Step} from "../../core/data/demarche";
 import {Resource} from "../../core/data/resources";
 import { environment } from 'src/environments/environment';
+import {forkJoin} from "rxjs";
 
 @Component({
     selector: 'app-forms',
@@ -59,11 +60,12 @@ export class ProcessFormsComponent implements OnInit {
         });
         if (this.process) {
             this.title = '_EDIT_PROCEDURE_';
+            console.log("this.process", this.process)
             this.updateProcess();
         }
         this.formControlService.setForm(this.form);
         this.getAllDocuments();
-        this.getUniversity();
+        this.getUniversity(250);
         this.getCountries();
     }
 
@@ -113,7 +115,7 @@ export class ProcessFormsComponent implements OnInit {
         const stepGroup = this.formBuilder.group({
             name: new FormControl('', [Validators.required, Validators.minLength(5)]),
             description: new FormControl('', [Validators.required, Validators.minLength(5)]),
-            documents: new FormControl([] as any[]),
+            requiredDocuments: new FormControl([] as any[]),
             resources: this.formBuilder.array([] as Resource[]),
         });
         if (newStep) {
@@ -148,7 +150,7 @@ export class ProcessFormsComponent implements OnInit {
     submit() {
         if (this.form.valid) {
             if (this.process) {
-                this.updateProcedureBeforeSubmit();
+                this.updateProcessBeforeSubmit();
             }
             else {
                 this.addProcess();
@@ -174,7 +176,7 @@ export class ProcessFormsComponent implements OnInit {
         );
     }
 
-    private updateProcedureBeforeSubmit() {
+    private updateProcessBeforeSubmit() {
         this.dataService.updateProcess(this.process!.id, this.form.value).subscribe({
             next: (response) => {
                 this.processChange.emit({editProcess: false, process: this.process!});
@@ -207,7 +209,7 @@ export class ProcessFormsComponent implements OnInit {
         const steps = this.process!.steps.map(step => this.formBuilder.group({
             name: new FormControl(step.name, [Validators.required, Validators.minLength(5)]),
             description: new FormControl(step.description, [Validators.required, Validators.minLength(5)]),
-            documents: new FormControl(step.documents, Validators.required),
+            requiredDocuments: new FormControl(step.requiredDocuments, Validators.required),
             resources: this.formBuilder.array([]),
         }));
         this.form = this.formBuilder.group({
@@ -238,25 +240,25 @@ export class ProcessFormsComponent implements OnInit {
         }
     }
 
-    getUniversity() {
-        this.dataService.getUniversities(environment.universityCountry).subscribe(
-            {
-                next: (response: any) => {
-                    this.universities = response.map(
-                        (university: any) => {
-                            return {
-                                ...university,
-                                value: university.name,
-                                label: university.name,
-                            }
-                        }
-                    );
-                },
-                error: (error) => {
-                    console.log(error);
-                }
-            }
-        );
+    getUniversity(totalCount: number) {
+        const limit: number = 100;
+        let requests = [];
+        this.universities = [];
+
+        for (let offset = 0; offset < totalCount; offset += limit) {
+            requests.push(this.dataService.getUniversities(limit, offset));
+        }
+
+        forkJoin(requests).subscribe(results => {
+            results.forEach(response => {
+                const universities = response.results.map((university: any) => ({
+                    ...university,
+                    value: university.uo_lib_officiel,
+                    label: university.uo_lib_officiel,
+                }));
+                this.universities = [...this.universities, ...universities];
+            });
+        });
     }
 
     handleFileChangeForProcess($event: Event) {

@@ -14,7 +14,7 @@ export class DashboardComponent implements OnInit {
     protected readonly faEdit = faEdit;
     processes: Process[] = [];
     totalItems: number = 0;
-    itemsPerPage: number = 2;
+    itemsPerPage: number = 10;
     editProcess: boolean = false;
     process?: Process;
     totalPages: number = 0;
@@ -33,7 +33,6 @@ export class DashboardComponent implements OnInit {
     }
 
     onProcessChange(event: any) {
-        console.log("this.process", this.process);
         this.editProcess = event.editProcess;
         this.process = event.process;
     }

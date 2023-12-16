@@ -17,7 +17,7 @@ export class DocumentsComponent implements OnInit {
     documents: any[] = [];
     @ViewChild('addDocumentButton', {static: false}) addDocumentButton!: ButtonComponent;
     totalItems: number = 100;
-    itemsPerPage: number = 2;
+    itemsPerPage: number = 10;
     currentPage: number = 0;
     protected readonly faTrash = faTrash;
 

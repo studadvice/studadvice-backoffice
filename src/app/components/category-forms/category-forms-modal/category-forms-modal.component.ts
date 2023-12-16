@@ -41,7 +41,6 @@ export class CategoryFormsModalComponent implements OnInit  {
         this.dataService.getAllAdministrativeProcess().subscribe({
             next: (data: any) => {
                 this.administrativeProcesses = this.transformProcesses(data.content);
-                console.log("this.administrativeProcesses", this.administrativeProcesses);
             },
             error: (error: any) => {
                 console.log(error);

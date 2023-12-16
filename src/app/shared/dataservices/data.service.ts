@@ -30,8 +30,8 @@ export class DataService {
     }
 
     addCategory(category: Category): Observable<Category> {
-        this.buildCategoryFormData(category);
-        return this.httpClient.post<Category>(environment.apiUrl + '/categories', category);
+        const formData = this.buildCategoryFormData(category);
+        return this.httpClient.post<Category>(environment.apiUrl + '/categories', formData);
     }
 
     private buildCategoryFormData(category: Category) {
@@ -48,9 +48,12 @@ export class DataService {
         formData.append('category', new Blob([documentJson], {
             type: 'application/json'
         }));
+
+        return formData;
     }
 
     addProcess(process: Process): Observable<Process> {
+        console.log("process", process);
         const formData = this.buildProcessFormData(process);
         return this.httpClient.post<Process>(environment.apiUrl + '/administrative-process', formData);
     }
@@ -136,12 +139,18 @@ export class DataService {
         return this.httpClient.get(this.countryUrl);
     }
 
-    getUniversities(country: string): Observable<any> {
-        return this.httpClient.get(`${environment.universityUrl}${country}`);
+    getUniversities(limit: number, offset: number): Observable<any> {
+        const requestOptions = {
+            headers: new HttpHeaders({
+                'Skip-Interceptor': 'true' // this is to skip the interceptor
+            })
+        };
+        return this.httpClient.get(`${environment.universityUrl}?limit=${limit}&offset=${offset}` , requestOptions);
     }
 
     updateCategory(id: string, value: any): Observable<Category> {
-        return this.httpClient.put<Category>(environment.apiUrl + '/categories/' + id, value);
+        const formData = this.buildCategoryFormData(value);
+        return this.httpClient.put<Category>(environment.apiUrl + '/categories/' + id, formData);
     }
 
     private createFormDocument(document: Document) {

@@ -11,9 +11,6 @@
                     {{'_DESCRIPTION_' | translate}}
                 </th>
                 <th class="py-2 px-4 border-b text-xs uppercase tracking-wider">
-                    {{'_IMAGE_' | translate}}
-                </th>
-                <th class="py-2 px-4 border-b text-xs uppercase tracking-wider">
                     {{'_ACTION_' | translate}}
                 </th>
             </tr>
@@ -22,7 +19,6 @@
             <tr *ngFor="let category of categories">
                 <td class="py-2 px-4 border-b border-gray-200 text-sm center">{{category.name}}</td>
                 <td class="py-2 px-4 border-b border-gray-200 text-sm center">{{category.description}}</td>
-                <td class="py-2 px-4 border-b border-gray-200 text-sm center">{{category.image}}</td>
                 <td class="py-2 px-4 border-b border-gray-200 text-sm center">
                     <div class="btn btn-primary">
                         <fa-icon [icon]="faEdit" class="cursor-pointer" (click)="editCategory(category)"></fa-icon>

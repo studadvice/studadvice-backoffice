@@ -24,7 +24,7 @@ export interface Step {
     id: string;
     name: string;
     description: string;
-    documents: Document[];
+    requiredDocuments: Document[];
     resources: Resource[];
 }
 
