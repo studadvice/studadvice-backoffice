@@ -3,19 +3,17 @@ export const environment = {
     firebase: {
         apiKey: 'your_api_key',
 
-        authDomain: "eservices-clients.firebaseapp.com",
+        authDomain: "fir-platine-front.firebaseapp.com",
 
-        projectId: "eservices-clients",
+        projectId: "fir-platine-front",
 
-        databaseURL: "https://eservices-clients-default-rtdb.firebaseio.com/",
+        storageBucket: "fir-platine-front.appspot.com",
 
-        storageBucket: "eservices-clients.appspot.com",
+        messagingSenderId: "398344471697",
 
-        messagingSenderId: "965275289761",
+        appId: "1:398344471697:web:ff3b14fc5b20ee095b2b30",
 
-        appId: "1:965275289761:web:69a66d3bff390db3ad48e0",
-
-        measurementId: "G-3CZY864992",
+        measurementId: "G-D4SJZF1039"
 
     },
     apiUrl: "http://studadvice.com/api",
