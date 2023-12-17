@@ -42,7 +42,6 @@ export class DealsComponent implements OnInit {
         });
 
         this.dialog.afterAllClosed.subscribe(() => {
-            console.log('The dialog was closed');
         });
     }
 }

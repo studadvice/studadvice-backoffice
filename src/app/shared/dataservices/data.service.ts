@@ -43,7 +43,7 @@ export class DataService {
             name: category.name,
             description: category.description,
             image: category.image,
-            process: category.process
+            administrativeProcesses: category.administrativeProcesses
         });
         formData.append('category', new Blob([documentJson], {
             type: 'application/json'
@@ -53,7 +53,6 @@ export class DataService {
     }
 
     addProcess(process: Process): Observable<Process> {
-        console.log("process", process);
         const formData = this.buildProcessFormData(process);
         return this.httpClient.post<Process>(environment.apiUrl + '/administrative-process', formData);
     }

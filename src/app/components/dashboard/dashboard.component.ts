@@ -28,10 +28,6 @@ export class DashboardComponent implements OnInit {
         this.pageChanged(0)
     }
 
-    handleAction(event: { action: string, data: any }) {
-        console.log('Action Triggered:', event.action, 'With Row Data:', event.data);
-    }
-
     onProcessChange(event: any) {
         this.editProcess = event.editProcess;
         this.process = event.process;

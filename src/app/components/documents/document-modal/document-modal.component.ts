@@ -27,7 +27,6 @@ export class DocumentModalComponent {
 
     // get data from dialog
     this.documentData = this.dialogRef._containerInstance._config.data;
-    console.log("this.documentData", this.documentData);
     if (this.documentData) {
       this.title = this.documentData.title;
       if (this.documentData.document) {

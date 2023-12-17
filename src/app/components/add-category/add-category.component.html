@@ -13,7 +13,7 @@
                     [inputFormControl]="getFormControl('name')!"
                     [minLength]="'5'"
                     [nameInput]="'Titre'"
-                    [placeholder]="'Titre de la démarche'"
+                    [placeholder]="'Titre de la catégorie'"
                     [required]="true"
                     [type]="'text'"
             >
@@ -61,7 +61,7 @@
         <!-- Ajout d'une procédure -->
         <div class="item-form">
             <app-input-select
-                    [bindLabel]="'value.name'"
+                    [bindLabel]="'label'"
                     [bindValue]="'value'"
                     [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
                     [clearable]="true"

@@ -56,12 +56,16 @@
                     <app-input
                             [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
                             [clearable]="true"
-                            [errorMessage]="'L\'image est obligatoire'"
+                            [hideLabel]="false"
+                            [idInput]="'image'"
                             [id]="'image'"
                             [inputFormControl]="getFormControl('image')!"
-                            [multiple]="false"
+                            [nameInput]="'Image'"
+                            [placeholder]="'Image de la catégorie'"
                             [required]="false"
                             [type]="'file'"
+                            [accept]="'image/*'"
+                            (change)="handleFileChange($event)"
                     >
                         <app-input-label class="font-bold">Ajout d'une image</app-input-label>
                     </app-input>

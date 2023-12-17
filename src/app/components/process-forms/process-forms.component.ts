@@ -60,7 +60,6 @@ export class ProcessFormsComponent implements OnInit {
         });
         if (this.process) {
             this.title = '_EDIT_PROCEDURE_';
-            console.log("this.process", this.process)
             this.updateProcess();
         }
         this.formControlService.setForm(this.form);
@@ -161,6 +160,8 @@ export class ProcessFormsComponent implements OnInit {
     }
 
     private addProcess() {
+        // Modifier les données de l'objet avant de les envoyer au serveur
+        this.updateFormValue();
         this.dataService.addProcess(this.form.value).subscribe(
             {
                 next: (response) => {
@@ -177,16 +178,30 @@ export class ProcessFormsComponent implements OnInit {
     }
 
     private updateProcessBeforeSubmit() {
+        // Modifier les données de l'objet avant de les envoyer au serveur
+        this.updateFormValue();
         this.dataService.updateProcess(this.process!.id, this.form.value).subscribe({
             next: (response) => {
                 this.processChange.emit({editProcess: false, process: this.process!});
-                console.log("this.process", this.process)
                 this.router.navigate(['/dashboard']);
             },
             error: (error) => {
                 console.log(error);
             }
         });
+    }
+
+    private updateFormValue() {
+        this.form.value.steps = this.form.value.steps.map((step: any) => ({
+            ...step,
+            requiredDocuments: step.requiredDocuments.map((document: any) => ({
+                id: document
+            })),
+            resources: step.resources.map((resource: any) => ({
+                ...resource,
+                image: resource.image ? resource.image.name : null
+            }))
+        }));
     }
 
     getControl(group: AbstractControl, controlName: string): FormControl {
@@ -206,12 +221,15 @@ export class ProcessFormsComponent implements OnInit {
     }
 
     private updateProcess() {
-        const steps = this.process!.steps.map(step => this.formBuilder.group({
-            name: new FormControl(step.name, [Validators.required, Validators.minLength(5)]),
-            description: new FormControl(step.description, [Validators.required, Validators.minLength(5)]),
-            requiredDocuments: new FormControl(step.requiredDocuments, Validators.required),
-            resources: this.formBuilder.array([]),
-        }));
+        // modifier les documents de l'étapes pour ajouter les champs value et label
+        const steps = this.process!.steps.map(step => {
+            return this.formBuilder.group({
+                name: new FormControl(step.name, [Validators.required, Validators.minLength(5)]),
+                description: new FormControl(step.description, [Validators.required, Validators.minLength(5)]),
+                requiredDocuments: new FormControl(step.requiredDocuments.map((document: any) => document.id)),
+                resources: this.formBuilder.array([]),
+            });
+        });
         this.form = this.formBuilder.group({
             name: new FormControl(this.process!.name, [Validators.required, Validators.minLength(5)]),
             description: new FormControl(this.process!.description, [Validators.required, Validators.minLength(5)]),

@@ -29,7 +29,7 @@ export class CategoryFormsModalComponent implements OnInit  {
             this.form = this.formBuilder.group({
                 name: [this.category.name , [Validators.required, Validators.minLength(5)]],
                 description: [this.category.description , [Validators.required, Validators.minLength(5)]],
-                image: [this.category.image , [Validators.required, Validators.minLength(5)]],
+                image: [this.category.image, [Validators.required]],
                 administrativeProcesses: [this.getAdministrativeProcessId(this.category.administrativeProcesses), [Validators.required]],
             });
             this.formControlService.setForm(this.form);
@@ -89,5 +89,13 @@ export class CategoryFormsModalComponent implements OnInit  {
 
     closeDocumentPopup() {
         this.dialogRef.close();
+    }
+
+    handleFileChange($event: Event) {
+        const file = ($event.target as HTMLInputElement).files![0];
+        this.form.patchValue({
+            image: file
+        });
+        this.form.get('image')!.updateValueAndValidity();
     }
 }

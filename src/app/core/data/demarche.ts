@@ -33,7 +33,7 @@ export interface Category {
     name: string;
     description: string;
     image: File;
-    process: string[];
+    administrativeProcesses: string[];
 }
 
 export interface FileInfo {
