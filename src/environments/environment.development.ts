@@ -1,7 +1,7 @@
 export const environment = {
     production: true,
     firebase: {
-        apiKey: "your_api_key",
+        apiKey: "your_api_key_test",
 
         authDomain: "fir-platine-front.firebaseapp.com",
 
