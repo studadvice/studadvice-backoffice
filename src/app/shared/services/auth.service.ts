@@ -3,8 +3,7 @@ import {AngularFireAuth} from '@angular/fire/compat/auth';
 import {AngularFirestore} from '@angular/fire/compat/firestore';
 import {AngularFireDatabase} from '@angular/fire/compat/database';
 import {Router} from '@angular/router';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import {BehaviorSubject} from 'rxjs';
 import firebase from 'firebase/compat/app';
 import { User } from 'src/app/core/data/user';
 
