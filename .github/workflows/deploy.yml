@@ -30,6 +30,6 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           script: |
-            sudo docker pull ghcr.io/${{ github.repository_owner }}/studadvice_backoffice:latest
-            sudo docker stack deploy --compose-file docker-compose.yml studadvice --with-registry-auth
-            sudo docker service update --image ghcr.io/studadvice/studadvice_backoffice --force studadvice_studadvice-backoffice
+            echo ${{ secrets.PASSWORD }} | sudo docker pull ghcr.io/${{ github.repository_owner }}/studadvice_backoffice:latest
+            echo ${{ secrets.PASSWORD }} | sudo docker stack deploy --compose-file docker-compose.yml studadvice
+            echo ${{ secrets.PASSWORD }} | sudo docker service update --image ghcr.io/studadvice/studadvice_backoffice --force studadvice_studadvice-backoffice
