@@ -62,7 +62,8 @@
                             [inputFormControl]="getFormControl('image')!"
                             [nameInput]="'Image'"
                             [placeholder]="'Image de la catégorie'"
-                            [required]="false"
+                            [required]="true"
+                            [errorMessage]="'L\'image est obligatoire'"
                             [type]="'file'"
                             [accept]="'image/*'"
                             (change)="handleFileChange($event)"
@@ -87,6 +88,23 @@
                     >
                         <label class="font-bold">Ajout d'une démarche</label>
                     </app-input-select>
+                </div>
+                <div class="item-form">
+                    <app-input
+                            [class]="'mat-tooltip-trigger ng-valid ng-touched ng-dirty ng-pristine'"
+                            [clearable]="true"
+                            [hideLabel]="false"
+                            [idInput]="'color'"
+                            [id]="'color'"
+                            [inputFormControl]="getFormControl('color')!"
+                            [nameInput]="'Couleur'"
+                            [placeholder]="'Couleur de la catégorie'"
+                            [required]="false"
+                            [type]="'text'"
+                            [errorMessage]="'La couleur est obligatoire'"
+                    >
+                        <app-input-label class="font-bold">Couleur</app-input-label>
+                    </app-input>
                 </div>
                 <div class="item-form flex space-between items-center justify-center">
                     <app-button #submitButton (save)="saveCategory()"

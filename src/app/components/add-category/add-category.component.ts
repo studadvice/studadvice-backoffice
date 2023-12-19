@@ -36,8 +36,9 @@ export class AddCategoryComponent implements OnInit {
         this.form = this.formBuilder.group({
             name: ['', [Validators.required, Validators.minLength(5)]],
             description: ['', [Validators.required, Validators.minLength(5)]],
-            image: [''],
+            image: ['', [Validators.required]],
             administrativeProcesses: [[], [Validators.required]],
+            color: ['', [Validators.required, Validators.minLength(7)]],
         });
         this.formControlService.setForm(this.form);
     }

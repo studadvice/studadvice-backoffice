@@ -38,7 +38,8 @@ export class DataService {
             name: category.name,
             description: category.description,
             image: category.image,
-            administrativeProcesses: category.administrativeProcesses
+            administrativeProcesses: category.administrativeProcesses,
+            color: category.color
         });
         formData.append('category', new Blob([documentJson], {
             type: 'application/json'

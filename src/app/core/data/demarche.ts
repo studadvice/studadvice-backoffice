@@ -34,6 +34,7 @@ export interface Category {
     description: string;
     image: File;
     administrativeProcesses: string[];
+    color: string;
 }
 
 export interface FileInfo {

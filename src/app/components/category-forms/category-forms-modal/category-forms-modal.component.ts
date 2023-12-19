@@ -31,6 +31,7 @@ export class CategoryFormsModalComponent implements OnInit  {
                 description: [this.category.description , [Validators.required, Validators.minLength(5)]],
                 image: [this.category.image, [Validators.required]],
                 administrativeProcesses: [this.getAdministrativeProcessId(this.category.administrativeProcesses), [Validators.required]],
+                color: [this.category.color, [Validators.required, Validators.minLength(7)]],
             });
             this.formControlService.setForm(this.form);
         }
