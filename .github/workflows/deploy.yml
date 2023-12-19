@@ -1,4 +1,4 @@
-name: Deploy to Azure VPS
+name: Deploy to OVH VPS
 
 on:
   workflow_run:

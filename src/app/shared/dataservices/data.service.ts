@@ -11,11 +11,6 @@ import {environment} from "../../../environments/environment";
 export class DataService {
 
     private countryUrl = environment.countryUrl;
-
-    private documentsData = {
-        documents: [] as Document[],
-    }
-
     constructor(public httpClient: HttpClient) {
     }
 

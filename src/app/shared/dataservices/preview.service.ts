@@ -12,7 +12,6 @@ export class PreviewService {
 
     constructor(private httpClient: HttpClient) {
     }
-
     getLinkPreview(url: string): Observable<any> {
         const api = 'https://api.linkpreview.net/?key=ee6d32b0cdadb5ff40321300ef7c391c&q=' + url;
         return this.httpClient.get(api);
