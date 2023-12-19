@@ -11,15 +11,15 @@ import {DocumentsComponent} from "./components/documents/documents.component";
 import {DealsComponent} from "./components/deals/deals.component";
 
 const routes: Routes = [
-    {path: 'formulaire', component: ProcessFormsComponent, canActivate: [AuthGuard], data: {roles: ['ROLE_ADMIN']}},
+    {path: 'formulaire', component: ProcessFormsComponent, canActivate: [AuthGuard], data: {roles: ['ADMIN']}},
     {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
     {path: 'sign-in', component: SignInComponent},
     {path: 'register-user', component: SignUpComponent},
-    {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard], data: {roles: ['ROLE_ADMIN']}},
-    {path: 'category', component: CategoryFormsComponent, canActivate: [AuthGuard], data: {roles: ['ROLE_ADMIN']}},
-    {path: 'category/add', component: AddCategoryComponent, canActivate: [AuthGuard], data: {roles: ['ROLE_ADMIN']}},
-    {path: 'documents', component: DocumentsComponent, canActivate: [AuthGuard], data: {roles: ['ROLE_ADMIN']}},
-    {path: 'deals', component: DealsComponent, canActivate: [AuthGuard], data: {roles: ['ROLE_ADMIN']}},
+    {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard], data: {roles: ['ADMIN']}},
+    {path: 'category', component: CategoryFormsComponent, canActivate: [AuthGuard], data: {roles: ['ADMIN']}},
+    {path: 'category/add', component: AddCategoryComponent, canActivate: [AuthGuard], data: {roles: ['ADMIN']}},
+    {path: 'documents', component: DocumentsComponent, canActivate: [AuthGuard], data: {roles: ['ADMIN']}},
+    {path: 'deals', component: DealsComponent, canActivate: [AuthGuard], data: {roles: ['ADMIN']}},
 ];
 
 @NgModule({
