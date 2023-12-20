@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot,} from '@angular/router';
 import {AuthService} from '../services/auth.service';
-import {map, Observable, switchMap, take} from 'rxjs';
+import {map, Observable, of, switchMap, take} from 'rxjs';
 import {customClaims} from "@angular/fire/auth-guard";
 
 @Injectable({
