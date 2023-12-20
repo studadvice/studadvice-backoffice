@@ -20,6 +20,7 @@ const routes: Routes = [
     {path: 'category/add', component: AddCategoryComponent, canActivate: [AuthGuard], data: {roles: ['ADMIN']}},
     {path: 'documents', component: DocumentsComponent, canActivate: [AuthGuard], data: {roles: ['ADMIN']}},
     {path: 'deals', component: DealsComponent, canActivate: [AuthGuard], data: {roles: ['ADMIN']}},
+    { path: '**', redirectTo: '/sign-in' }
 ];
 
 @NgModule({
