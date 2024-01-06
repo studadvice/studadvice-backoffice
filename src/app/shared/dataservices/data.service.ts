@@ -86,7 +86,13 @@ export class DataService {
     }
 
     getAllAdministrativeProcess(): Observable<Process[]> {
-        return this.httpClient.get<Process[]>(environment.apiUrl + '/administrative-process');
+        return this.httpClient.get<Process[]>(environment.apiUrl + '/administrative-process',
+            {
+                params: {
+                    page: 0,
+                    size: 10000 // TODO fix this temporary solution, as by default the pagination is set to page=0 and size=10, so this will not get all the administrative process
+                }
+            });
     }
 
     updateProcess(id: string, value: any): Observable<Process> {
